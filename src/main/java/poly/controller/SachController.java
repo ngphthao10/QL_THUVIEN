@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -128,10 +129,10 @@ public class SachController {
 	    try {
 	        int soLuongNhap = sachDTO.getCtpn().getSoLuongNhap();
 	        if (soLuongNhap < 1) {
-	        	errors.rejectValue("ctpn.soLuongNhap", "sachDTO", "Số lượng nhập phải lớn hơn 0!");
+	        	errors.rejectValue("ctpn.SoLuongNhap", "sachDTO", "Số lượng nhập phải lớn hơn 0!");
 	        }
 	    } catch (NumberFormatException e) {
-	    	errors.rejectValue("ctpn.soLuongNhap", "sachDTO", "Số lượng không hợp lệ! Vui lòng nhập một số.");
+	    	errors.rejectValue("ctpn.SoLuongNhap", "sachDTO", "Số lượng không hợp lệ! Vui lòng nhập một số.");
 	    }
 	    
 		try {
@@ -144,15 +145,20 @@ public class SachController {
 		}
 		
 	    if (errors.hasErrors()) {
+	    	List<FieldError> fieldErrors = errors.getFieldErrors();
+	    	for (FieldError error : fieldErrors) {
+	    		model.addAttribute(error.getField(), error.getDefaultMessage());
+	    	}
+	    	List<Sach> sachList = sachService.getAllSach();
+			PagedListHolder pagedListHolder = sachService.paging(sachList, request);
+			model.addAttribute("pagedListHolder", pagedListHolder);
 	    	model.addAttribute("message", -1);
-	    	System.out.println(errors.getAllErrors());
-	        return "admin/sach/errors/sach/insertSachMoiError";
+	        return "admin/sach/sach/sach";
 	    } else {
 
 	    	int result = sachService.themSachMoi(sachDTO);
-	    	
 	        model.addAttribute("message", result);
-	        
+	        fillData(model);
 	        List<Sach> sachList = sachService.getAllSach();
 			PagedListHolder pagedListHolder = sachService.paging(sachList, request);
 			model.addAttribute("pagedListHolder", pagedListHolder);
@@ -176,16 +182,22 @@ public class SachController {
 		try {
 	        int soLuongNhap = sachDTO.getCtpn().getSoLuongNhap();
 	        if (soLuongNhap < 1) {
-	        	errors.rejectValue("ctpn.soLuongNhap", "sachDTO", "Số lượng nhập phải lớn hơn 0!");
+	        	errors.rejectValue("ctpn.SoLuongNhap", "sachDTO", "Số lượng nhập phải lớn hơn 0!");
 	        }
 	    } catch (NumberFormatException e) {
-	    	errors.rejectValue("ctpn.soLuongNhap", "sachDTO", "Số lượng không hợp lệ! Vui lòng nhập một số.");
+	    	errors.rejectValue("ctpn.SoLuongNhap", "sachDTO", "Số lượng không hợp lệ! Vui lòng nhập một số.");
 	    }
 		
 		if (errors.hasErrors()) {
-			System.out.println(errors.getAllErrors());
-			model.addAttribute("message", -1);
-	        return "admin/sach/errors/sach/insertSachDaCoError";
+			List<FieldError> fieldErrors = errors.getFieldErrors();
+	    	for (FieldError error : fieldErrors) {
+	    		model.addAttribute(error.getField(), error.getDefaultMessage());
+	    	}
+	    	List<Sach> sachList = sachService.getAllSach();
+			PagedListHolder pagedListHolder = sachService.paging(sachList, request);
+			model.addAttribute("pagedListHolder", pagedListHolder);
+	    	model.addAttribute("message", -2);
+	        return "admin/sach/sach/sach";
 	    } else {
 	    	int result = sachService.themSachDaCo(sachDTO);
 	        model.addAttribute("message", result);
@@ -232,11 +244,10 @@ public class SachController {
 	public String saveEdit(ModelMap model, @Valid @ModelAttribute("sachDTO") SachDTO sachDTO, BindingResult errors,
 			HttpServletRequest request) {
 		
-		if(sachDTO.getSach().getNhaXB().length() > 200) {
-			errors.rejectValue("sach.NhaXB", "sachDTO", "Nhà xuất bản không được quá 200 ký tự!");
-		}
-	    if(errors.hasErrors())
-	        return "admin/sach/errors/sach/editSachError";
+	    if(errors.hasErrors()) {
+	    	model.addAttribute("message2", -1); 
+	        return "admin/sach/sach/sach";
+	    }
 	    else
 	    {
 	    	Sach sach = sachDTO.getSach();

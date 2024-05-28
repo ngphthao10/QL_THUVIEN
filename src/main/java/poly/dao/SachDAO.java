@@ -337,6 +337,14 @@ public class SachDAO {
 		return list;
 	}
 
+	public Long getSoLuongSach() {
+	    Session session = sessionFactory.getCurrentSession();
+	    String hql = "SELECT count(*) FROM Sach";
+	    Query query = session.createQuery(hql);
+        Long result = (Long) query.uniqueResult();
+	    return result;
+	}
+
 	
 
 

@@ -11,21 +11,21 @@ public class ThamSo {
 	@Id @GeneratedValue
 	private int id;
 	
-	private int TuoiToiThieu;
-	private int TuoiToiDa;
-	private int ThoiHanThe;
-	private int KhoangCachXuatBan;
-	private int SoSachMuonToiDa;
-	private int SoNgayMuonToiDa;
-	private int DonGiaPhat;
-	private int AD_QDKTTienThu;
+	private Integer TuoiToiThieu;
+	private Integer TuoiToiDa;
+	private Integer ThoiHanThe;
+	private Integer KhoangCachXuatBan;
+	private Integer SoSachMuonToiDa;
+	private Integer SoNgayMuonToiDa;
+	private Integer DonGiaPhat;
+	private Integer AD_QDKTTienThu;
 	
 	public ThamSo() {
 		super();
 	}
-	
-	public ThamSo(int id, int tuoiToiThieu, int tuoiToiDa, int thoiHanThe, int khoangCachXuatBan, int soSachMuonToiDa,
-			int soNgayMuonToiDa, int donGiaPhat, int aD_QDKTTienThu) {
+
+	public ThamSo(int id, Integer tuoiToiThieu, Integer tuoiToiDa, Integer thoiHanThe, Integer khoangCachXuatBan,
+			Integer soSachMuonToiDa, Integer soNgayMuonToiDa, Integer donGiaPhat, Integer aD_QDKTTienThu) {
 		super();
 		this.id = id;
 		TuoiToiThieu = tuoiToiThieu;
@@ -46,68 +46,67 @@ public class ThamSo {
 		this.id = id;
 	}
 
-	public int getTuoiToiThieu() {
+	public Integer getTuoiToiThieu() {
 		return TuoiToiThieu;
 	}
 
-	public void setTuoiToiThieu(int tuoiToiThieu) {
+	public void setTuoiToiThieu(Integer tuoiToiThieu) {
 		TuoiToiThieu = tuoiToiThieu;
 	}
 
-	public int getTuoiToiDa() {
+	public Integer getTuoiToiDa() {
 		return TuoiToiDa;
 	}
 
-	public void setTuoiToiDa(int tuoiToiDa) {
+	public void setTuoiToiDa(Integer tuoiToiDa) {
 		TuoiToiDa = tuoiToiDa;
 	}
 
-	public int getThoiHanThe() {
+	public Integer getThoiHanThe() {
 		return ThoiHanThe;
 	}
 
-	public void setThoiHanThe(int thoiHanThe) {
+	public void setThoiHanThe(Integer thoiHanThe) {
 		ThoiHanThe = thoiHanThe;
 	}
 
-	public int getKhoangCachXuatBan() {
+	public Integer getKhoangCachXuatBan() {
 		return KhoangCachXuatBan;
 	}
 
-	public void setKhoangCachXuatBan(int khoangCachXuatBan) {
+	public void setKhoangCachXuatBan(Integer khoangCachXuatBan) {
 		KhoangCachXuatBan = khoangCachXuatBan;
 	}
 
-	public int getSoSachMuonToiDa() {
+	public Integer getSoSachMuonToiDa() {
 		return SoSachMuonToiDa;
 	}
 
-	public void setSoSachMuonToiDa(int soSachMuonToiDa) {
+	public void setSoSachMuonToiDa(Integer soSachMuonToiDa) {
 		SoSachMuonToiDa = soSachMuonToiDa;
 	}
 
-	public int getSoNgayMuonToiDa() {
+	public Integer getSoNgayMuonToiDa() {
 		return SoNgayMuonToiDa;
 	}
 
-	public void setSoNgayMuonToiDa(int soNgayMuonToiDa) {
+	public void setSoNgayMuonToiDa(Integer soNgayMuonToiDa) {
 		SoNgayMuonToiDa = soNgayMuonToiDa;
 	}
 
-	public int getDonGiaPhat() {
+	public Integer getDonGiaPhat() {
 		return DonGiaPhat;
 	}
 
-	public void setDonGiaPhat(int donGiaPhat) {
+	public void setDonGiaPhat(Integer donGiaPhat) {
 		DonGiaPhat = donGiaPhat;
 	}
 
-	public int getAD_QDKTTienThu() {
+	public Integer getAD_QDKTTienThu() {
 		return AD_QDKTTienThu;
 	}
 
-	public void setAD_QDKTTienThu(int aD_QDKTTienThu) {
+	public void setAD_QDKTTienThu(Integer aD_QDKTTienThu) {
 		AD_QDKTTienThu = aD_QDKTTienThu;
 	}
-	
 }

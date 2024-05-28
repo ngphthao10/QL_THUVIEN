@@ -13,27 +13,6 @@
 <title>Quản lý cuốn sách</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
-<style>
-.button-container {
-	text-align: right;
-}
-
-.button-container .modal-body {
-	text-align: left;
-}
-
-.modal-content {
-	background-color: #ece0d1;
-}
-
-.modal-header {
-	background-color: #634832;
-	color: #fff;
-}
-.centered-column {
-	text-align: center;
-}
-</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/include/navbar.jsp"%>
@@ -43,7 +22,9 @@
 			<div class="main-content col-md-10">
 				<div class="container">
 					<div class="row">
-	                  <div class="col-6 mt-4 ps-4 mt-4"><h3>QUẢN LÝ CUỐN SÁCH</h3></div>
+	                  <div class="col-6 mt-4 ps-4 mt-4">
+	                  	<a style="text-decoration:none; color:black;" href="sach/cuonsach/index.htm"><h3>QUẢN LÝ CUỐN SÁCH</h3></a>
+	                  </div>
 	                  <div class="justify-content-end">
 		                  <c:if test="${not empty message}">
 							<c:choose>
@@ -108,7 +89,7 @@
 					<c:param name="p" value="~" />
 				</c:url>
 				<!-- Bảng dữ liệu -->
-				<table class="table align-middle table-hover table-bordered mt-2" >
+				<table class="table align-middle table-hover table-bordered mt-4" >
 					<!-- Tiêu đề -->
 					<thead>
 						<tr>

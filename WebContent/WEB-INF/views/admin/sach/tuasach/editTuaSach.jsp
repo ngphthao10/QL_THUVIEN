@@ -34,11 +34,11 @@
 						<div class="invalid-feedback">Vui lòng chọn thể loại.</div>
 					</div>
 
-					<div class="mb-3">
+					<div class="mb-4">
 						<label for="tacGiaDaChon" class="form-label">Danh sách tác giả</label>
 						<!-- <textarea name="tacgia.TenTacGia" style="min-height: 50px;" id="tacGiaDaChon" class="form-control"
 						 placeholder="Bấm Thêm tác giả để thêm tác giả vào Danh sách tác giả" required="true"></textarea>  -->
-						 <textarea name="listEditTacGia" style="min-height: 50px;" id="tacGiaDaChon" class="form-control"
+						 <textarea name="listEditTacGia" style="min-height: 100px;" id="tacGiaDaChon" class="form-control"
 						 placeholder="Bấm Thêm tác giả để thêm tác giả vào Danh sách tác giả" required="true"
 						  ><c:forEach var="tacGia" items="${dsTacGiaTheoId}">${tacGia}
 </c:forEach></textarea>
@@ -66,11 +66,17 @@
 					</div>
 					<input type="hidden" name="dsTacGiaDaChon" id="dsTacGiaDaChon" />
 					<div class="mb-3">
-						<label class="form-label">Tình trạng*</label>
-						<form:select path="tuasach.DaAn" class="form-select me-2">
-							<form:option value="0">Hiện tựa sách</form:option>
-							<form:option value="1">Ẩn tựa sách</form:option>
-						</form:select>
+						<div class="row">
+							<label class="col-sm-4">Tình trạng:</label>
+							<div class="form-check col-sm-4">
+						    	<form:radiobutton class="form-check-input" value="1" id="validationFormCheck2" path="tuasach.DaAn" required="true"/>
+						    	<label class="form-check-label" for="validationFormCheck2">Ẩn tựa sách</label>
+						  	</div>
+						  	<div class="form-check mb-3 col-sm-4">
+						    	<form:radiobutton class="form-check-input" value="0" id="validationFormCheck3" path="tuasach.DaAn" required="true"/>
+						    	<label class="form-check-label" for="validationFormCheck3">Hiện tựa sách</label>
+						  	</div>
+						</div>
 					</div>
 					<hr>
 					<div class="mb-3">

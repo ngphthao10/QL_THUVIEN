@@ -41,7 +41,9 @@
 			<div class="main-content col-md-10">
 				<div class="container">
 					<div class="row">
-	                  <div class="col-6 mt-4 ps-4 mt-2"><h3>QUẢN LÝ PHIẾU NHẬP SÁCH</h3></div>
+	                  <div class="col-6 mt-4 ps-4 mt-2">
+	                  	<a style="text-decoration:none; color:black;" href="sach/phieunhapsach/index.htm"><h3>QUẢN LÝ PHIẾU NHẬP SÁCH</h3></a>
+	                  </div>
 	                  <div class="d-flex justify-content-end mt-3">
 						<form:form class="d-flex col-6" role="search" method="POST"
 							action="sach/phieunhapsach/search.htm" modelAttribute="phieunhapsach">

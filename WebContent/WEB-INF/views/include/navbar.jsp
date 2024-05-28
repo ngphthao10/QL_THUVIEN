@@ -17,12 +17,44 @@
 	.bg{
 	   background-color: #634832;
 	}
+	.button-container {
+		text-align: right;
+	}
+	
+	.button-container .modal-body {
+		text-align: left;
+	}
+	
+	.modal-content {
+		background-color: #ece0d1;
+	}
+	
+	.modal-header {
+		background-color: #634832;
+		color: #fff;
+	}
+	
+	.center-table {
+		vertical-align: middle;
+	}
+	
+	.centered-column {
+		text-align: center;
+	}
+	.form-control.is-valid, .was-validated .form-control.is-invalid:valid {
+		background-image: none !important;
+		border-color: var(--bs-form-invalid-border-color) !important;
+	}
+	.form-control.is-invalid:focus, .was-validated .form-control.is-invalid:valid:focus {
+	    border-color: var(--bs-form-invalid-border-color) !important;
+	    box-shadow: 0 0 0 .25rem rgba(var(--bs-danger-rgb), .25) !important;
+	} 
 </style>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg navbar-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#"> <svg
+			<a class="navbar-brand" href="trangchu/index.htm"> <svg
 					xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 					fill="currentColor" class="bi bi-journal-richtext mb-1"
 					viewBox="0 0 16 16">
@@ -42,20 +74,8 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Trang chủ</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
-					<li class="nav-item"><a class="nav-link disabled"
-						aria-disabled="true">Thông tin nhóm</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="trangchu/index.htm">Trang chủ</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="trangchu/thongtin.htm">Thông tin nhóm</a></li>
 				</ul>
 
 				<div class="text-end">

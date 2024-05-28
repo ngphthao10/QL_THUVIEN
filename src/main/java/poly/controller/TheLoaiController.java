@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,8 +57,14 @@ public class TheLoaiController {
 	    }
 
 	    if (errors.hasErrors()) {
-	    	model.addAttribute("message", -1);
-	        return "sach/theloai/insertTheLoai";
+	    	List<FieldError> fieldErrors = errors.getFieldErrors();
+	    	for (FieldError error : fieldErrors) {
+	    		model.addAttribute(error.getField(), error.getDefaultMessage());
+	    	}
+	    	List<TheLoai> theLoaiList = theLoaiService.getAllTheLoai();
+	    	PagedListHolder pagedListHolder = theLoaiService.paging(theLoaiList, request);
+	    	model.addAttribute("pagedListHolder", pagedListHolder);
+	        return "admin/sach/theloai/theloai";
 	    } else {
 	    	int result = theLoaiService.themTheLoai(tl);
 	    	model.addAttribute("message", result);

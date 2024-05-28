@@ -49,6 +49,9 @@ public class UserController {
 	@RequestMapping(value = "tra-cuu", method = RequestMethod.GET)
 	public String traCuu(HttpServletRequest request, ModelMap model, @ModelAttribute("sach") Sach sach) {
 		fillData(model);
+		int id = 9;
+		DocGia docGia = docGiaService.getDocGiaTheoIdNguoiDung(id);
+		model.addAttribute("docgia", docGia);
 		List<Sach> sachList = sachService.getAllSachChoUser();
 		PagedListHolder pagedListHolder = sachService.paging(sachList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);

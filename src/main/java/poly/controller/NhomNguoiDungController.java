@@ -31,6 +31,6 @@ public class NhomNguoiDungController {
 		List<NhomNguoiDung> nguoiDungList = nhomNguoiDungService.getNhomNguoiDung();
 		model.addAttribute("nguoiDungList", nguoiDungList);
 		
-		return "admin/nhomnguoidung/nhomnguoidung";
+		return "admin/quanlynguoidung/nhomnguoidung/nhomnguoidung";
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import poly.dto.TuaSachDTO;
 import poly.entity.NguoiDung;
 import poly.entity.NhomNguoiDung;
+import poly.entity.TacGia;
 import poly.entity.TheLoai;
 import poly.entity.TuaSach;
 import poly.service.NguoiDungService;
@@ -36,21 +38,28 @@ public class NguoiDungController {
 	@Autowired 
 	NhomNguoiDungService nhomNguoiDungService;
 
-	
+	public void fillData(ModelMap model) {
+		List<NhomNguoiDung> nndList = nhomNguoiDungService.getNhomNguoiDung();
+		model.addAttribute("dsNhomNguoiDung", nndList);
+	}
 	
 	@RequestMapping(value = "index", method = RequestMethod.GET)
 	public String index(HttpServletRequest request, ModelMap model,
 			@ModelAttribute("nguoidung") NguoiDung nguoidung) {
+		fillData(model);
+		List<NhomNguoiDung> nndList = nhomNguoiDungService.getNhomNguoiDung();
+		model.addAttribute("dsNhomNguoiDung", nndList);
 		List<NguoiDung> nguoiDungList = nguoiDungService.getAllNguoiDung();
 		PagedListHolder pagedListHolder = nguoiDungService.paging(nguoiDungList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		
-		return "admin/nguoidung/nguoidung";
+		return "admin/quanlynguoidung/nguoidung/nguoidung";
 	}
 	
 	@RequestMapping(value = "search", method = RequestMethod.POST)
 	public String search(HttpServletRequest request, ModelMap model, @RequestParam("keyword") String keyword,
 			@ModelAttribute("nguoidung") NguoiDung nguoidung) {
+		fillData(model);
 		if (!keyword.trim().isEmpty()) {
 			List<NguoiDung> nguoiDungList = nguoiDungService.getSearch(keyword);
 			System.out.println(nguoiDungList);
@@ -64,31 +73,49 @@ public class NguoiDungController {
 			model.addAttribute("pagedListHolder", pagedListHolder);
 		}
 
-		return "admin/nguoidung/nguoidung";
+		return "admin/quanlynguoidung/nguoidung/nguoidung";
+	}
+	
+	@RequestMapping(value = "filter", method = RequestMethod.POST)
+	public String filter(HttpServletRequest request, ModelMap model, @ModelAttribute("nguoidung") NguoiDung nguoidung) {
+		fillData(model);
+		model.addAttribute("nguoidung", nguoidung);
+		int id = Integer.parseInt(request.getParameter("id"));
+		List<NguoiDung> nguoiDungList = nguoiDungService.getNDTheoNND(id);
+		PagedListHolder pagedListHolder = nguoiDungService.paging(nguoiDungList, request);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+
+		return "admin/quanlynguoidung/nguoidung/nguoidung";
 	}
 	
 	// themnguoidung
 	@RequestMapping(value = "insert", method = RequestMethod.GET)
 	public String insert(@ModelAttribute("nguoidung") NguoiDung nguoidung) {
-		return "admin/nguoidung/nguoidung";
+		return "admin/quanlynguoidung/nguoidung/nguoidung";
 	}
 
 	@RequestMapping(value = "insert", method = RequestMethod.POST)
 	public String insertTuaSach(ModelMap model,@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung, BindingResult errors,
 	        HttpServletRequest request) {
-		System.out.println(nguoidung.getTenNguoiDung());
-		
+		fillData(model);
 		if (nguoiDungService.getNDTheoTenDN(nguoidung.getTenDangNhap()) != null) {
 			errors.rejectValue("tenDangNhap", "nguoidung", "Tên đăng nhập này đã tồn tại!"); 
 		}
 		
-	    if (nguoidung.getMatKhau().length() > 10  || nguoidung.getMatKhau().length() < 4) {
-	        errors.rejectValue("TenTheLoai", "theloai", "Mật khẩu phải từ 4-10 ký tự!");
+	    if (nguoidung.getMatKhau().length() > 10  || nguoidung.getMatKhau().length() < 3) {
+	        errors.rejectValue("matKhau", "nguoidung", "Mật khẩu phải từ 3-10 ký tự!");
 	    }
 
 	    if (errors.hasErrors()) {
+	    	List<FieldError> fieldErrors = errors.getFieldErrors();
+	    	for (FieldError error : fieldErrors) {
+	    		model.addAttribute(error.getField(), error.getDefaultMessage());
+	    	}
+	    	List<NguoiDung> nguoiDungList = nguoiDungService.getAllNguoiDung();
+			PagedListHolder pagedListHolder = nguoiDungService.paging(nguoiDungList, request);
+			model.addAttribute("pagedListHolder", pagedListHolder);
 	    	model.addAttribute("message", -1);
-	        return "admin/nguoidung/errors/insertNguoidungError";
+	        return "admin/quanlynguoidung/nguoidung/nguoidung";
 	    } else {
 	    	int result = nguoiDungService.themNguoiDung(nguoidung);
 	    	model.addAttribute("message", result);
@@ -97,55 +124,73 @@ public class NguoiDungController {
 			PagedListHolder pagedListHolder = nguoiDungService.paging(nguoiDungList, request);
 			model.addAttribute("pagedListHolder", pagedListHolder);
 	    }
-	    return "admin/nguoidung/nguoidung";
+	    return "admin/quanlynguoidung/nguoidung/nguoidung";
 	}
 	
 	//sửa nguoi dung
 	@RequestMapping(value = "index/{id}.htm", params="linkEdit", method = RequestMethod.GET)
 	public String edit(ModelMap model,@ModelAttribute("nguoidung") NguoiDung nguoidung, @PathVariable("id") Integer id,
 			HttpServletRequest request) {
+		fillData(model);
 		model.addAttribute("nguoidung", nguoiDungService.getNDTheoId(id));
 		List<NguoiDung> nguoiDungList = nguoiDungService.getAllNguoiDung();
 		PagedListHolder pagedListHolder = nguoiDungService.paging(nguoiDungList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
-		return "admin/nguoidung/nguoidung";
+		return "admin/quanlynguoidung/nguoidung/nguoidung";
 	}
 	
 	@RequestMapping(value = "index", params="editbtn", method = RequestMethod.POST)
 	public String saveEdit(ModelMap model, @ModelAttribute("nguoidung") NguoiDung nguoidung, BindingResult errors,
 			HttpServletRequest request) {
-	    
-	    if(errors.hasErrors())
-	        return "admin/nguoidung/nguoidung";
+		fillData(model);
+		if (nguoiDungService.getNDTheoTenDN(nguoidung.getTenDangNhap()) != null) {
+			errors.rejectValue("tenDangNhap", "nguoidung", "Tên đăng nhập này đã tồn tại!"); 
+		}
+		
+		if (nguoidung.getMatKhau().length() > 10  || nguoidung.getMatKhau().length() < 3) {
+	        errors.rejectValue("matKhau", "nguoidung", "Mật khẩu phải từ 3-10 ký tự!");
+	    }
+
+	    if (errors.hasErrors()) {
+	    	List<FieldError> fieldErrors = errors.getFieldErrors();
+	    	for (FieldError error : fieldErrors) {
+	    		model.addAttribute(error.getField(), error.getDefaultMessage());
+	    	}
+	    	List<NguoiDung> nguoiDungList = nguoiDungService.getAllNguoiDung();
+			PagedListHolder pagedListHolder = nguoiDungService.paging(nguoiDungList, request);
+			model.addAttribute("pagedListHolder", pagedListHolder);
+	    	model.addAttribute("message1", -1);
+	        return "admin/quanlynguoidung/nguoidung/nguoidung";
+	    }
 	    else
 	    {
 	        int message = nguoiDungService.editNguoiDung(nguoidung);
 	        List<NguoiDung> nguoiDungList = nguoiDungService.getAllNguoiDung();
 			PagedListHolder pagedListHolder = nguoiDungService.paging(nguoiDungList, request);
 			model.addAttribute("pagedListHolder", pagedListHolder);
-			
 			model.addAttribute("message1", message); 
 	    }
-	    return "admin/nguoidung/nguoidung";
+	    return "admin/quanlynguoidung/nguoidung/nguoidung";
 	}
 
 	//xóa nguoi dung
 	@RequestMapping(value = "index/{id}.htm", params="linkDelete", method = RequestMethod.GET)
 	public String deleteTheLoai(ModelMap model,@ModelAttribute("nguoidung") NguoiDung nguoidung, @PathVariable("id") Integer id,
 			HttpServletRequest request) {
+		fillData(model);
 		model.addAttribute("nguoidung", nguoiDungService.getNDTheoId(id));
 		List<NguoiDung> nguoiDungList = nguoiDungService.getAllNguoiDung();
 		PagedListHolder pagedListHolder = nguoiDungService.paging(nguoiDungList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
-		return "admin/nguoidung/nguoidung";
+		return "admin/quanlynguoidung/nguoidung/nguoidung";
 	}
 	
 	@RequestMapping(value = "index", params="delbtn", method = RequestMethod.POST)
 	public String delEdit(ModelMap model, @ModelAttribute("nguoidung") NguoiDung nguoidung, BindingResult errors,
 			HttpServletRequest request) {
-	    
+		fillData(model);
 	    if(errors.hasErrors())
-	        return "admin/nguoidung/nguoidung";
+	        return "admin/quanlynguoidung/nguoidung/nguoidung";
 	    else
 	    {
 	        int message = nguoiDungService.delNguoiDung(nguoidung);
@@ -156,6 +201,6 @@ public class NguoiDungController {
 			model.addAttribute("message2", message); 
 	    }
 	    
-	    return "admin/nguoidung/nguoidung";
+	    return "admin/quanlynguoidung/nguoidung/nguoidung";
 	}
 }

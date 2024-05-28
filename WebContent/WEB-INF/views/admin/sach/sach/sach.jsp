@@ -16,28 +16,6 @@
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
-<style>
-.button-container {
-	text-align: right;
-}
-
-.button-container .modal-body {
-	text-align: left;
-}
-
-.modal-content {
-	background-color: #ece0d1;
-}
-
-.modal-header {
-	background-color: #634832;
-	color: #fff;
-}
-
-.centered-column {
-	text-align: center;
-}
-</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/include/navbar.jsp"%>
@@ -48,7 +26,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-6 mt-4 ps-4 mt-4">
-							<h3>QUẢN LÝ SÁCH</h3>
+	                  		<a style="text-decoration:none; color:black;" href="sach/sach/index.htm"><h3>QUẢN LÝ SÁCH</h3></a>
 						</div>
 						<div class="col-6 d-grid gap-2 d-md-block button-container mt-4">
 							<button class="btn btn-secondary" type="button"
@@ -56,11 +34,11 @@
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 									fill="currentColor" class="bi bi-plus-circle mb-1"
 									viewBox="0 0 16 16">
-	                        <path
+	                        		<path
 										d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-	                        <path
+	                        		<path
 										d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-	                      </svg>
+	                      		</svg>
 								Nhập sách mới
 							</button>
 
@@ -69,24 +47,19 @@
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 									fill="currentColor" class="bi bi-plus-circle mb-1"
 									viewBox="0 0 16 16">
-	                        <path
+	                        		<path
 										d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-	                        <path
+	                        		<path
 										d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-	                      </svg>
+	                      		</svg>
 								Nhập sách đã có
 							</button>
 						</div>
 					</div>
+					<input type="hidden" value="${message}" id="message"/>
+					
 					<c:if test="${not empty message}">
 						<c:choose>
-							<c:when test="${message == -1}">
-								<div class="alert alert-info mt-2" role="alert">
-									Sách đã tồn tại! Không thể thêm mới!
-									<button type="button" class="btn-close" style="float: right;"
-										data-bs-dismiss="alert" aria-label="Close"></button>
-								</div>
-							</c:when>
 							<c:when test="${message == 0}">
 								<div class="alert alert-warning mt-2" role="alert">
 									Thêm sách thất bại!
@@ -105,6 +78,13 @@
 					</c:if>
 					<c:if test="${not empty message2}">
 						<c:choose>
+							<c:when test="${message2 == 0}">
+								<div class="alert alert-warning mt-2" role="alert">
+									Các trường dữ liệu không hợp lệ! Vui lòng kiểm tra lại!
+									<button type="button" class="btn-close" style="float: right;"
+										data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+							</c:when>
 							<c:when test="${message2 == 0}">
 								<div class="alert alert-warning mt-2" role="alert">
 									Sửa sách thất bại!
@@ -240,6 +220,15 @@
 								.getElementById('ModalToggle'));
 						myModal.show();
 					}
+					var messageValue = document.getElementById('message').value;
+			        if (messageValue === "-1") {
+			            var myModalMessage = new bootstrap.Modal(document.getElementById('modal1'));
+			            myModalMessage.show();
+			        }
+			        if (messageValue === "-2") {
+			            var myModalMessage = new bootstrap.Modal(document.getElementById('modal2'));
+			            myModalMessage.show();
+			        }
 				}
 			</script>
 			<%@include file="/WEB-INF/views/admin/sach/sach/insertSachDaCo.jsp"%>
@@ -254,14 +243,45 @@
 						dateFormat : 'dd/mm/yy',
 						maxDate : "+0D"
 					});
-				});
-			</script>
-			<script>
-				$(function() {
-					$(".ngayNhap").datepicker({
+					$("#ngayNhap").datepicker({
 						dateFormat : 'dd/mm/yy',
 						maxDate : "+0D"
 					});
+				});
+				
+				function handleInputValidity(errorId, inputId) {
+				    var errorsElement = document.getElementById(errorId);
+				    var inputElement = document.getElementById(inputId);
+				    
+				    if (errorsElement && errorsElement.textContent.trim() !== "") {
+				        inputElement.classList.add('is-invalid');
+				    } else {
+				        inputElement.classList.remove('is-invalid');
+				    }
+				}
+
+				document.addEventListener("DOMContentLoaded", function() {
+				    handleInputValidity("nxbErrors", "nxbInput");
+				    handleInputValidity("nhaxbErrors", "nhaxbInput");
+				    handleInputValidity("donGiaErrors", "donGia");
+				    handleInputValidity("soluongErrors", "soLuong");
+				    handleInputValidity("soluongNhapErrors", "soLuongNhap");
+				    
+				    document.getElementById("nxbInput").addEventListener("input", function() {
+				        handleInputValidity("nxbErrors", "nxbInput");
+				    });
+				    document.getElementById("nhaxbInput").addEventListener("input", function() {
+				        handleInputValidity("nhaxbErrors", "nhaxbInput");
+				    });
+				    document.getElementById("donGia").addEventListener("input", function() {
+				        handleInputValidity("donGiaErrors", "donGia");
+				    });
+				    document.getElementById("soLuong").addEventListener("input", function() {
+				        handleInputValidity("soluongErrors", "soLuong");
+				    });
+				    document.getElementById("soLuongNhap").addEventListener("input", function() {
+				        handleInputValidity("soluongNhapErrors", "soLuongNhap");
+				    });
 				});
 			</script>
 </body>

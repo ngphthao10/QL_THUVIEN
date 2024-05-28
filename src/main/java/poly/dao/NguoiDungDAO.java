@@ -60,8 +60,12 @@ public class NguoiDungDAO {
 		String hql = "from NguoiDung where tenDangNhap = :ten";
 		Query query = session.createQuery(hql);
 		query.setParameter("ten", ten);
-		NguoiDung list = (NguoiDung) query.list().get(0);
-		return list;
+		List<NguoiDung> resultList = query.list();
+	    if (resultList != null && !resultList.isEmpty()) {
+	        return resultList.get(0);
+	    } else {
+	        return null;
+	    }
 	}
 
 	public NguoiDung getNDTheoId(int id) {
@@ -111,5 +115,14 @@ public class NguoiDungDAO {
 			session.close();
 		}
 		return 1;
+	}
+
+	public List<NguoiDung> getNDTheoNND(int id) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM NguoiDung where nhomNguoiDung.id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+		List<NguoiDung> list = query.list();
+		return list;
 	}
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.ServletRequestUtils;
 
 import poly.dao.NguoiDungDAO;
 import poly.entity.NguoiDung;
+import poly.entity.NhomNguoiDung;
 
 @Service
 @Transactional
@@ -56,5 +57,9 @@ public class NguoiDungService {
 
 	public int editNguoiDung(NguoiDung nguoidung) {
 		return nguoiDungDAO.editNguoiDung(nguoidung);
+	}
+
+	public List<NguoiDung> getNDTheoNND(int id) {
+		return nguoiDungDAO.getNDTheoNND(id);
 	}
 }

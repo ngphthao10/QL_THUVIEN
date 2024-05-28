@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import poly.dao.*;
+import poly.dto.SachDTO;
 import poly.dto.TuaSachDTO;
 import poly.entity.*;
 import poly.service.CTTacGiaService;
@@ -112,14 +115,9 @@ public class TuaSachController {
 	    String idTG = request.getParameter("selectedAuthors");
 	    String[] dsIdTG = idTG.split(",");
         List<String> authorsList = Arrays.asList(dsIdTG);
-        System.out.println(authorsList);
         
-	    if (tsDTO.getTuasach().getTenTuaSach().length() > 200) {
-	        errors.rejectValue("tuasach.TenTuaSach", "tuasachdto", "Tên tựa sách không được dài quá 200 ký tự!");
-	    }
-
 	    if (errors.hasErrors()) {
-	        return "admin/sach/errors/tuasach/insertTuaSachError";
+	        return "admin/sach/tuasach/tuasach";
 	    } else {
 	    	int result1 = tuaSachService.themTuaSach(tsDTO);
 	    	System.out.println(result1);
@@ -161,7 +159,7 @@ public class TuaSachController {
 	    }
 
 	    if (errors.hasErrors()) {
-	        return "admin/sach/errors/tuasach/insertTacGiaError";
+	        return "admin/sach/tuasach/tuasach";
 	    } else {
 	        int result = tacGiaService.themTacGia(tsDTO.getTacgia().get(0));
 	        model.addAttribute("message2", result);
@@ -197,12 +195,9 @@ public class TuaSachController {
 	@RequestMapping(value = "index", params="editTGbtn", method = RequestMethod.POST)
 	public String saveEdit(ModelMap model, @ModelAttribute("tuasachdto") TuaSachDTO tsDTO, BindingResult errors,
 			HttpServletRequest request) {
-		if (tsDTO.getTacgia().get(0).getTenTacGia().length() > 100) {
-			errors.rejectValue("tacgia[0].TenTacGia", "tuasachdto", "Tên tác giả không được dài quá 100 ký tự!");
-		}
 
 	    if(errors.hasErrors())
-	        return "admin/sach/errors/tuasach/editTacGiaError";
+	        return "admin/sach/tuasach/tuasach";
 	    else
 	    {
 	        int message = tacGiaService.editTacGia(tsDTO.getTacgia().get(0));
@@ -278,12 +273,12 @@ public class TuaSachController {
 			HttpServletRequest request) {
 	    fillData(model);
 	    
-	    int message;
+	    int message = -1;
 	    String tenTS = theLoaiDAO.getTLTheoId(tsDTO.getTuasach().getIdTheLoai()).getTenTheLoai();
 	    tsDTO.getTuasach().setTenTheloai(tenTS);
 
 	    if(errors.hasErrors()) {
-	        return "admin/sach/errors/tuasach/editTuaSachError";
+	        return "admin/sach/tuasach/tuasach";
 	    }
 	    else
 	    {
@@ -313,14 +308,30 @@ public class TuaSachController {
 		    	return "admin/sach/tuasach/tuasach";
 		    }
 	    	
-    		List<TuaSach> tuaSachList = tuaSachService.getAllTuaSach();
+		    if (message == 1) {
+		    	List<TuaSach> tuaSachList = tuaSachService.getAllTuaSach();
+				PagedListHolder pagedListHolder = tuaSachService.paging(tuaSachList, request);
+				model.addAttribute("pagedListHolder", pagedListHolder);
+	        	return "redirect:/sach/tuasach/insertTuaSach.htm";
+	        }
+		    List<TuaSach> tuaSachList = tuaSachService.getAllTuaSach();
 			PagedListHolder pagedListHolder = tuaSachService.paging(tuaSachList, request);
 			model.addAttribute("pagedListHolder", pagedListHolder);
 	    }
 	    
 	    return "admin/sach/tuasach/tuasach";
 	}
-
+	
+	@RequestMapping(value = "insertTuaSach", method = RequestMethod.GET)
+	public String insertReloadSachDaCo(ModelMap model, @Valid  @ModelAttribute("tuasachdto") TuaSachDTO tsDTO, BindingResult errors,
+	        HttpServletRequest request) {
+		fillData(model);
+        model.addAttribute("message3", 1);
+        List<TuaSach> tuaSachList = tuaSachService.getAllTuaSach();
+		PagedListHolder pagedListHolder = tuaSachService.paging(tuaSachList, request);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+	    return "admin/sach/tuasach/tuasach";
+	}
 	
 
 

@@ -20,25 +20,35 @@
 							<label for="validationTextarea" class="form-label mt-2">Mã cuốn sách:</label>
 						</div>
 						<div class="col-sm-8">
-							<form:input path="MaCuonSach" type="text"
-								class="form-control me-2" readonly="true" />
+							<form:input path="MaCuonSach" type="text" class="form-control me-2" readonly="true" />
+						</div>
+					</div>
+					<div class="mb-1">
+						<div class="row">
+							<label class="col-sm-4">Tình trạng:</label>
+							<div class="form-check col-sm-4">
+						    	<form:radiobutton class="form-check-input" value="1" id="validationFormCheck2" path="TinhTrang" required="true"/>
+						    	<label class="form-check-label" for="validationFormCheck2">Đã được mượn</label>
+						  	</div>
+						  	<div class="form-check mb-3 col-sm-4">
+						    	<form:radiobutton class="form-check-input" value="0" id="validationFormCheck3" path="TinhTrang" required="true"/>
+						    	<label class="form-check-label" for="validationFormCheck3">Hiện có</label>
+						  	</div>
 						</div>
 					</div>
 					<div class="mb-3">
-						<label class="form-label">Tình trạng:</label>
-						<form:select path="TinhTrang" class="form-select me-2">
-							<form:option value="0">Hiện có</form:option>
-							<form:option value="1">Đã được mượn</form:option>
-						</form:select>
+						<div class="row">
+							<label class="col-sm-4">Sách ẩn:</label>
+							<div class="form-check col-sm-4">
+						    	<form:radiobutton class="form-check-input" value="1" id="validationFormCheck2" path="DaAn" required="true"/>
+						    	<label class="form-check-label" for="validationFormCheck2">Ẩn sách</label>
+						  	</div>
+						  	<div class="form-check mb-3 col-sm-4">
+						    	<form:radiobutton class="form-check-input" value="0" id="validationFormCheck3" path="DaAn" required="true"/>
+						    	<label class="form-check-label" for="validationFormCheck3">Hiện sách</label>
+						  	</div>
+						</div>
 					</div>
-					<div class="mb-3">
-						<label class="form-label">Sách ẩn:</label>
-						<form:select path="DaAn" class="form-select me-2">
-							<form:option value="0">Hiện sách</form:option>
-							<form:option value="1">Ẩn sách</form:option>
-						</form:select>
-					</div>
-					
 					<hr>
 					<div class="mb-3">
 						<div style="text-align: left;">

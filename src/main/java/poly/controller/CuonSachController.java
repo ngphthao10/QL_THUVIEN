@@ -85,11 +85,9 @@ public class CuonSachController {
 	    else
 	    {
 	        int message = cuonSachService.editCuonSach(cs);
-	        
 	        List<CuonSach> cuonSachList = cuonSachService.getAllCuonSach();
 			PagedListHolder pagedListHolder = cuonSachService.paging(cuonSachList, request);
 			model.addAttribute("pagedListHolder", pagedListHolder);
-			
 			model.addAttribute("message", message); 
 	    }
 	    

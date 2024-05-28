@@ -20,7 +20,7 @@
 					<form:hidden path="id"/>
 					<div class="mb-3">
 						<div class="row">
-							<div class="col-sm-6">
+							<div class="col-sm-5">
 								<label class="form-label">Nhóm người dùng*</label>
 									<form:select path="nhomNguoiDung.id" class="form-select me-2">
 									<form:option value="1">Quản lý</form:option>
@@ -28,28 +28,27 @@
 								</form:select>
 								<div class="invalid-feedback">Vui lòng chọn nhóm người dùng.</div>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-sm-7">
 								<label for="validationTextarea" class="form-label ">Ngày sinh:</label> 
-								<form:input path="ngaySinh" class="form-control datepicker" placeholder="Ngày sinh"
-									required="true" />
-								<div class="invalid-feedback">Vui lòng chọn ngày sinh.</div>
+								<form:input path="ngaySinh" class="form-control datepicker" placeholder="Ngày sinh (Có thể trống)" />
 							</div>
 						</div>
 					</div>
 					<div class="mb-3">
 						<label class="form-label">Chức vụ*</label> 
 						<form:input path="chucVu" class="form-control"  type="text" placeholder="Chức vụ (có thể bỏ trống)" />
-						<div class="valid-feedback">Vui lòng nhập chức vụ.</div>
 					</div>
 
 					<div class="mb-3">
-						<label class="form-label">Tên đăng nhập*</label> 
-						<form:input path="tenDangNhap" class="form-control" type="text" placeholder="Tên đăng nhập" required="true"/>
+						<label class="form-label">Tên đăng nhập*</label>
+						<form:input path="tenDangNhap" class="form-control" type="text" placeholder="Tên đăng nhập" required="true" id="tenDangNhapInput"/>
+						<div class="invalid-feedback"><form:errors path="tenDangNhap" id="tenDangNhapErrors" /></div>
 						<div class="invalid-feedback">Vui lòng nhập tên đăng nhập.</div>
 					</div>
 					<div class="mb-3">
 						<label class="form-label">Mật khẩu*</label> 
-						<form:input path="matKhau" class="form-control" type="password" placeholder="Mật khẩu" required="true"/>
+						<form:input path="matKhau" class="form-control" type="password" placeholder="Mật khẩu" required="true" id="matKhauInput"/>
+						<div class="invalid-feedback"><form:errors path="matKhau" id="matKhauErrors"/></div>
 						<div class="invalid-feedback">Vui lòng nhập mật khẩu.</div>
 					</div>
 					<div class="mb-3">

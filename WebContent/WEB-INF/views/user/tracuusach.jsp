@@ -82,8 +82,6 @@
                     </div>
                 </div>
                 
-                
-                
             <div class="container">
            		<!-- Khai báo pagedListHolder với param p -->
 				<jsp:useBean id="pagedListHolder" scope="request"

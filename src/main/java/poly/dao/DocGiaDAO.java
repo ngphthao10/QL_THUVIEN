@@ -26,4 +26,21 @@ public class DocGiaDAO {
 		DocGia list = (DocGia) query.list().get(0);
 		return list;
 	}
+
+	public List<DocGia> getTop5DocGia() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM DocGia";
+		Query query = session.createQuery(hql);
+		query.setMaxResults(6); 
+		List<DocGia> list = query.list();
+		return list;
+	}
+
+	public Long getSoLuongDG() {
+		Session session = sessionFactory.getCurrentSession();
+	    String hql = "SELECT count(*) FROM DocGia";
+	    Query query = session.createQuery(hql);
+        Long result = (Long) query.uniqueResult();
+	    return result;
+	}
 }

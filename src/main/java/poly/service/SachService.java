@@ -76,4 +76,8 @@ public class SachService {
 		return sachDAO.getSearchChoUser(keyword);
 	}
 
+	public Long getSoLuongSach() {
+		return sachDAO.getSoLuongSach();
+	}
+
 }

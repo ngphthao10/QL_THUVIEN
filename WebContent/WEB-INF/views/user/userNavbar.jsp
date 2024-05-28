@@ -109,41 +109,42 @@
 					</li>
 					<li class="nav-item"><a class="nav-link disabled" aria-disabled="true">Thông tin nhóm</a></li>
 				</ul>
-				
+				<!-- 
 				<button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
 				  	<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 					  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
 					  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
 					</svg>
 				</button>
-				
-				<!-- Model hiện thông tin -->
-				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin tài khoản</h1>
-				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				      </div>
-				      <div class="modal-body">
-				      	<div class="mb-3">
-					      	<label>Tên tài khoản:</label>
-					        <form:input path="nguoiDung.tenDangNhap" class="form-control mt-2" readonly="true" />
-				      	</div>
-				      	<div class="mb-3">
-					      	<label>Mật khẩu:</label>
-					        <form:password path="nguoiDung.tenDangNhap" class="form-control mt-2" readonly="true" />
-				      	</div>
-							<a class="btn btn-primary mt-2" href="#" role="button">Đổi mật khẩu</a>
-				      </div>
-				    </div>
-				  </div>
-				</div>
-				
+				 -->
+				<button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+					<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
+					  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+					  <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+					</svg>
+				</button>
+			
 			</div>
 		</div>
 	</nav>
 	
+	<form:form class="d-flex" role="search" method="POST" action="user/trang-chu.htm" modelAttribute="docgia">
+		<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+		  <div class="offcanvas-header">
+		    <h5 class="offcanvas-title" id="offcanvasRightLabel">Thông tin tài khoản</h5>
+		    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		  </div>
+		  <div class="offcanvas-body">
+		    <div class="mb-3">
+		      	<label>Tên tài khoản:</label>
+		        <form:input path="nguoiDung.tenDangNhap" class="form-control mt-2" readonly="true" />
+	      	</div>
+	      	<div class="mb-3" style="text-align:right;">
+				<a class="btn btn-primary mt-2"  href="#" role="button">Đổi mật khẩu</a>
+	      	</div>
+	      </div>
+		</div>
+	</form:form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>

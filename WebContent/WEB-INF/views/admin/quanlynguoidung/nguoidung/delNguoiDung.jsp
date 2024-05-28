@@ -15,7 +15,6 @@
 					<div class="mb-3">
 						<label class="form-label">Họ tên*</label> 
 						<form:input path="tenNguoiDung" class="form-control" type="text" placeholder="Họ tên người dùng" readonly="true"/>
-						<div class="invalid-feedback">Vui lòng nhập họ tên người dùng.</div>
 					</div>
 					<form:hidden path="id"/>
 					<form:hidden path="nhomNguoiDung.id"/>
@@ -24,8 +23,7 @@
 					<form:hidden path="matKhau"/>
 					<div class="mb-3">
 						<label class="form-label">Tên đăng nhập*</label> 
-						<form:input path="tenDangNhap" class="form-control" type="text" placeholder="Tên đăng nhập" required="true"/>
-						<div class="invalid-feedback">Vui lòng nhập tên đăng nhập.</div>
+						<form:input path="tenDangNhap" class="form-control" type="text" placeholder="Tên đăng nhập" readonly="true"/>
 					</div>
 					<hr>
 					<div class="mb-3">

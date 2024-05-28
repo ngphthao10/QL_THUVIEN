@@ -83,7 +83,6 @@ public class CuonSachDAO {
 			t.commit();
 		} 
 		catch (Exception e) {
-			System.out.println(e.getMessage());
 			t.rollback();
 			return 0;
 		}

@@ -109,5 +109,15 @@ public class TuaSachDAO {
         Long result = (Long) query.uniqueResult();
         return result.intValue();
 	}
+
+
+	public List<TuaSach> getTop5TuaSach() {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM TuaSach";
+		Query query = session.createQuery(hql);
+		query.setMaxResults(6);
+		List<TuaSach> list = query.list();
+        return list;
+	}
 	
 }

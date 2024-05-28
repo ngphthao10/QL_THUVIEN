@@ -15,32 +15,6 @@
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
-<style>
-.button-container {
-	text-align: right;
-}
-
-.button-container .modal-body {
-	text-align: left;
-}
-
-.modal-content {
-	background-color: #ece0d1;
-}
-
-.modal-header {
-	background-color: #634832;
-	color: #fff;
-}
-
-.center-table {
-	vertical-align: middle;
-}
-
-.centered-column {
-	text-align: center;
-}
-</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/include/navbar.jsp"%>
@@ -63,7 +37,8 @@
 							</button>
 						</div>
 					</div>
-
+					<input type="hidden" value="${message}" id="message"/>
+					<input type="hidden" value="${message1}" id="message1"/>
 					
 					<c:if test="${not empty message}">
 						<c:choose>
@@ -123,7 +98,7 @@
 					
 				<div class="d-flex justify-content-end mt-3">
 					<form:form class="d-flex col-6" role="search" method="POST"
-						action="nguoidung/search.htm" modelAttribute="tuasachdto">
+						action="nguoidung/search.htm" modelAttribute="nguoidung">
 						<input class="form-control me-2" type="text" name="keyword"
 							placeholder="Mã, tên người dùng, tên đăng nhập" aria-label="Search" value="${keyword}">
 						<button class="btn btn-outline-success" style="min-width: 120px;"
@@ -134,6 +109,18 @@
 									d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
 			        		</svg>
 							Tìm kiếm
+						</button>
+					</form:form>
+					<form:form class="d-flex col-6 ps-4" role="search" method="POST"
+						action="nguoidung/filter.htm" modelAttribute="nguoidung">
+						<form:select path="id" items="${dsNhomNguoiDung}"
+							itemLabel="tenNhomNguoiDung" itemValue="id" class="form-select me-2"></form:select>
+						<button class="btn btn-outline-success" style="min-width: 150px;" type="submit">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+								fill="currentColor" class="bi bi-funnel mb-1" viewBox="0 0 16 16">
+                     				<path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z" />
+                   			</svg>
+							Lọc nhóm người dùng
 						</button>
 					</form:form>
 				</div>
@@ -191,42 +178,66 @@
 
 				</div>
 			</div>
- 			<%@include file="/WEB-INF/views/admin/nguoidung/insertNguoiDung.jsp"%>
- 			<%@include file="/WEB-INF/views/admin/nguoidung/delNguoiDung.jsp"%>
- 			<%@include file="/WEB-INF/views/admin/nguoidung/editNguoiDung.jsp"%>
-<%-- 
-			<%@include file="/WEB-INF/views/admin/sach/tuasach/quanlyTacGia.jsp"%>
-			<%@include file="/WEB-INF/views/admin/sach/tuasach/editTacGia.jsp"%>
-		 	<%@include file="/WEB-INF/views/admin/sach/tuasach/delTacGia.jsp"%>
- --%>
-
+ 			<%@include file="/WEB-INF/views/admin/quanlynguoidung/nguoidung/insertNguoiDung.jsp"%>
+ 			<%@include file="/WEB-INF/views/admin/quanlynguoidung/nguoidung/delNguoiDung.jsp"%>
+ 			<%@include file="/WEB-INF/views/admin/quanlynguoidung/nguoidung/editNguoiDung.jsp"%>
 			<script>
 			    window.onload = function() {
 			        if (window.location.href.includes("linkEdit")) {
-			            var myModal = new bootstrap.Modal(document.getElementById('editNguoiDung'));
-			            myModal.show();
+			            var myModalEdit = new bootstrap.Modal(document.getElementById('editNguoiDung'));
+			            myModalEdit.show();
 			        }
 			
-			        if (window.location.href.includes("linkEditTG")) {
-			            var myModalEditTG = new bootstrap.Modal(document.getElementById('ModalEditTG'));
-			            myModalEditTG.show();
-			        }
 			        if (window.location.href.includes("linkDelete")) {
-			            var myModalDelTG = new bootstrap.Modal(document.getElementById('ModalDelete'));
-			            myModalDelTG.show();
+			            var myModalDelete = new bootstrap.Modal(document.getElementById('ModalDelete'));
+			            myModalDelete.show();
+			        }
+			
+			        var messageValue = document.getElementById('message').value;
+			        if (messageValue === "-1") {
+			            var myModalMessage = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
+			            myModalMessage.show();
+			        }
+			        var messageValue1 = document.getElementById('message1').value;
+			        if (messageValue1 === "-1") {
+			            var myModalMessage1 = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
+			            myModalMessage1.show();
 			        }
 			    }
 			</script>
+
 			<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 			<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
 			<script>
 				  $( function() {
 				    $( ".datepicker" ).datepicker({
-				   	  maxDate: "-18Y",
-				      changeMonth: true,
-				      changeYear: true
+				   	  maxDate: "-18Y", changeMonth: true, changeYear: true
 				    });
 				  } );
+				  
+				  function handleInputValidity(errorId, inputId) {
+					    var errorsElement = document.getElementById(errorId);
+					    var inputElement = document.getElementById(inputId);
+					    
+					    if (errorsElement && errorsElement.textContent.trim() !== "") {
+					        inputElement.classList.add('is-invalid');
+					    } else {
+					        inputElement.classList.remove('is-invalid');
+					    }
+					}
+
+					document.addEventListener("DOMContentLoaded", function() {
+					    handleInputValidity("tenDangNhapErrors", "tenDangNhapInput");
+					    handleInputValidity("matKhauErrors", "matKhauInput");
+					    
+					    document.getElementById("tenDangNhapInput").addEventListener("input", function() {
+					        handleInputValidity("tenDangNhapErrors", "tenDangNhapInput");
+					    });
+					    document.getElementById("matKhauInput").addEventListener("input", function() {
+					        handleInputValidity("matKhauErrors", "matKhauInput");
+					    });
+					});
+
 		    </script>
 </body>
 </html>

@@ -110,18 +110,6 @@ public class TuaSach {
 	}
 	
 	public List<String> getCTTacGia() {
-//	    List<String> ct = new ArrayList<>();
-//	    if (CTTacGia != null) {
-//	        for (CT_TacGiaId cttg : CTTacGia) {
-//	            TacGia tacGia = cttg.getTacGia();
-//	            if (tacGia != null && cttg.getIdTuaSach() == this.id) {
-//	                ct.add(tacGia.getTenTacGia().toString());
-//	            }
-//	        }
-//	    }
-//	    System.out.println(ct.size());
-//	    return ct;
-	    
 	    List<String> ct = new ArrayList<>();
 	    List<Integer> id = new ArrayList<>();
 	    if (CTTacGia != null) {
@@ -134,6 +122,24 @@ public class TuaSach {
 	        }
 	    }
 	    return ct;
+	}
+
+	public String getTacGia() {
+	    StringBuilder ct = new StringBuilder();
+	    List<Integer> id = new ArrayList<>();
+	    if (CTTacGia != null) {
+	        for (CT_TacGiaId cttg : CTTacGia) {
+	            int idtacGia = cttg.getIdTacGia();
+	            if (idtacGia > 0 && !id.contains(idtacGia)) {
+	                id.add(idtacGia);
+	                if (ct.length() > 0) {
+	                    ct.append(", "); // Add a comma and a space as a delimiter
+	                }
+	                ct.append(cttg.getTenTacGia().toString());
+	            }
+	        }
+	    }
+	    return ct.toString();
 	}
 
 	public List<Integer> getIdTacGia() {

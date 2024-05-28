@@ -13,32 +13,6 @@
 <title>Quản lý tựa sách</title>
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-<style>
-.button-container {
-	text-align: right;
-}
-
-.button-container .modal-body {
-	text-align: left;
-}
-
-.modal-content {
-	background-color: #ece0d1;
-}
-
-.modal-header {
-	background-color: #634832;
-	color: #fff;
-}
-
-.center-table {
-	vertical-align: middle;
-}
-
-.centered-column {
-	text-align: center;
-}
-</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/include/navbar.jsp"%>
@@ -48,7 +22,9 @@
 			<div class="main-content col-md-10">
 				<div class="container">
 					<div class="row">
-						<div class="col-6 mt-4 ps-4 mt-4"> <h3>QUẢN LÝ TỰA SÁCH</h3></div>
+						<div class="col-6 mt-4 ps-4 mt-4"> 
+		                  	<a style="text-decoration:none; color:black;" href="sach/tuasach/index.htm"><h3>QUẢN LÝ TỰA SÁCH</h3></a>
+						</div>
 						<div class="col-6 d-grid gap-2 button-container d-md-block mt-4">
 							<button class="btn btn-secondary"
 								data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
@@ -219,7 +195,7 @@
 									<td>${p.maTuaSach}</td>
 									<td>${p.tenTuaSach}</td>
 									<td>${p.getTenTheloai()}</td>
-									<td>${p.getCTTacGia()}</td>
+									<td>${p.getTacGia()}</td>
 									<td class="centered-column">${p.daAn}</td>
 									<td class="centered-column"><a
 										href="sach/tuasach/index/${p.id}.htm?linkEditTS">

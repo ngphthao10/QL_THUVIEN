@@ -33,11 +33,17 @@
 						<div class="invalid-feedback">Vui lòng nhập nhà xuất bản.</div>
 					</div>
 					<div class="mb-3">
-						<label class="form-label">Tình trạng*</label>
-						<form:select path="sach.DaAn" class="form-select me-2">
-							<form:option value="0">Hiện sách</form:option>
-							<form:option value="1">Ẩn sách</form:option>
-						</form:select>
+						<div class="row">
+							<label class="col-sm-4">Tình trạng:</label>
+							<div class="form-check col-sm-4">
+						    	<form:radiobutton class="form-check-input" value="1" id="validationFormCheck2" path="sach.DaAn" required="true"/>
+						    	<label class="form-check-label" for="validationFormCheck2">Ẩn sách</label>
+						  	</div>
+						  	<div class="form-check mb-3 col-sm-4">
+						    	<form:radiobutton class="form-check-input" value="0" id="validationFormCheck3" path="sach.DaAn" required="true"/>
+						    	<label class="form-check-label" for="validationFormCheck3">Hiện sách</label>
+						  	</div>
+						</div>
 					</div>
 					<hr>
 					<div class="mb-3">

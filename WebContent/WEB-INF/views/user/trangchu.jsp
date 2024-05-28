@@ -22,7 +22,7 @@
 				<h3>Thông tin độc giả</h3>
 			</div>
 			<hr>
-			<form:form class="d-flex" role="search" method="POST" action="user/trang-chu/index.htm" modelAttribute="docgia">
+			<form:form class="d-flex" role="search" method="POST" action="user/trang-chu.htm" modelAttribute="docgia">
 				<table class="table ALIGN table-hover table-bordered mt-4">
 					<tbody>
 						<tr>
@@ -81,27 +81,7 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				  <div class="modal-dialog">
-				    <div class="modal-content">
-				      <div class="modal-header">
-				        <h1 class="modal-title fs-5" id="exampleModalLabel">Thông tin tài khoản</h1>
-				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				      </div>
-				      <div class="modal-body">
-				      	<div class="mb-3">
-					      	<label>Tên tài khoản:</label>
-					        <form:input path="nguoiDung.tenDangNhap" class="form-control mt-2" readonly="true" />
-				      	</div>
-				      	<div class="mb-3">
-					      	<label>Mật khẩu:</label>
-					        <form:password path="nguoiDung.tenDangNhap" class="form-control mt-2" readonly="true" />
-				      	</div>
-							<a class="btn btn-primary mt-2" href="#" role="button">Đổi mật khẩu</a>
-				      </div>
-				    </div>
-				  </div>
-				</div>
+				
 				
 			</form:form>
 		</div>
