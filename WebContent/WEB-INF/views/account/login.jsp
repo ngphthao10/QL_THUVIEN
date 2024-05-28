@@ -1,234 +1,121 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
-    
-    <title>Login</title>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+<%@ include file="/WEB-INF/views/include/Header.jsp" %>
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Đăng nhập</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
     <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Poppins",  sans-serif;
+      body{
+            font-family: 'Poppins', sans-serif;
+            background: #ececec;
         }
-        body{
-            background: url("${photo}");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            overflow: hidden;
+        /*------------ Login container ------------*/
+        .box-area{
+            width: 930px;
         }
-        .form-box{
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 512px;
-            height: 420px;
-            overflow: hidden;
-            z-index: 2;
+        /*------------ Right box ------------*/
+        .right-box{
+            padding: 40px 30px 40px 40px;
         }
-        .login-container{
-            position: absolute;
-            left: 4px;
-            width: 500px;
-            display: flex;
-            flex-direction: column;
-            transition: .5s ease-in-out;
+        /*------------ Custom Placeholder ------------*/
+        ::placeholder{
+            font-size: 16px;
         }
-        .register-container{
-            position: absolute;
-            right: -520px;
-            width: 500px;
-            display: flex;
-            flex-direction: column;
-            transition: .5s ease-in-out;
+        .rounded-4{
+            border-radius: 20px;
         }
-        .top span{
-            color: #fff;
-            font-size: small;
-            padding: 10px 0;
-            display: flex;
-            justify-content: center;
-        }
-        .top span a{
-            font-weight: 500;
-            color: #fff;
-            margin-left: 5px;
-        }
-        header{
-            color: #fff;
-            font-size: 45px;
-            text-align: center;
-            padding: 10px 0 30px 0;
-        }
-        .two-forms{
-            display: flex;
-            gap: 10px;
-        }
-        .input-field{
-            font-size: 15px;
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            height: 50px;
-            width: 100%;
-            padding: 0 10px 0 45px;
-            border: none;
+        .rounded-5{
             border-radius: 30px;
-            outline: none;
-            transition: .2s ease;
         }
-        .input-field:hover, .input-field:focus{
-            background: rgba(255, 255, 255, 0.25);
-        }
-        ::-webkit-input-placeholder{
-            color: #fff;
-        }
-        .input-box i{
-            position: relative;
-            top: -35px;
-            left: 17px;
-            color: #fff;
-        }
-        .submit{
-            font-size: 15px;
-            font-weight: 500;
-            color: black;
-            height: 45px;
-            width: 100%;
-            border: none;
-            border-radius: 30px;
-            outline: none;
-            background: rgba(255, 255, 255, 0.7);
-            cursor: pointer;
-            transition: .3s ease-in-out;
-        }
-        .submit:hover{
-            background: rgba(255, 255, 255, 0.5);
-            box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
-        }
-        .two-col{
-            display: flex;
-            justify-content: space-between;
-            color: #fff;
-            font-size: small;
-            margin-top: 10px;
-        }
-        .two-col .one{
-            display: flex;
-            gap: 5px;
-        }
-        .two label a{
-            text-decoration: none;
-            color: #fff;
-        }
-        .two label a:hover{
-            text-decoration: underline;
-        }   
-        .wrapper{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: rgba(39, 39, 39, 0.4);
-        }
-        @media only screen and (max-width: 540px) {
-            .wrapper{
-                min-height: 100vh;
+        /*------------ For small screens------------*/
+        @media only screen and (max-width: 768px){
+            .box-area{
+                margin: 0 10px;
             }
-            .form-box{
-                width: 100%;
-                height: 500px;
+            .left-box{
+                height: 100px;
+                overflow: hidden;
             }
-            .register-container, .login-container{
-                width: 100%;
-                padding: 0 20px;
-            }
-            .register-container .two-forms{
-                flex-direction: column;
-                gap: 0;
+            .right-box{
+                padding: 20px;
             }
         }
     </style>
-</head>
-<body>
-    <div class="wrapper">
-        <div class="form-box">
-            
-            <!-- ----------------- login form ------------------------ -->
-            <div class="login-container" id="login">
-                <header>Đăng nhập</header>
-                <div class="input-box">
-                    <input type="text" class="input-field" placeholder="Tên đăng nhập hoặc Email">
-                    <i class="bx bx-user"></i>
-                </div>
-                <div class="input-box">
-                    <input type="password" class="input-field" placeholder="Password">
-                    <i class="bx bx-lock-alt"></i>
-                </div>
-                <div class="input-box">
-                    <input type="submit" class="submit" value="Đăng nhập">
-                </div>
-                <div class="two-col">
-                    <div class="one">
-                        <input type="checkbox" id="login-check">
-                        <label for="login-check"> Ghi nhớ mật khẩu</label>
+  </head>
+  <body>
+	
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+         <div class="row border rounded-5 p-3 bg-white shadow box-area">
+         <div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" style="background: #dbc1ac;">
+             <div class="featured-image mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-journal-bookmark" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6 8V1h1v6.117L8.743 6.07a.5.5 0 0 1 .514 0L11 7.117V1h1v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8"/>
+                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
+              </svg>
+             </div>
+             <p class="text-black fs-2" style="font-family: 'Courier New', Courier, monospace; font-weight: 600;">PTIT Library</p>
+             <small class="text-black text-wrap text-center" style="width: 17rem;font-family: 'Courier New', Courier, monospace;">Quản lý thư viện</small>
+         </div> 
+          
+         <div class="col-md-6 right-box">
+            <div class="row align-items-center">
+                  <div class="header-text mb-3">
+                       <h2>Đăng nhập</h2>
+                       <p>Chào mừng bạn quay lại với Thư viện PTITHCM.</p>
+                  </div>
+                  <form action="home/login.htm" method="post" id="form-login">
+                    <div class="input-group mb-3">
+                        <input name = "tendangnhap" type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Tên đăng nhập">
                     </div>
-                    <div class="two">
-                        <label><a href="#">Quên mật khẩu?</a></label>
+                    <div class="input-group mb-3">
+                        <input name = "matkhau" type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Mật khẩu">
                     </div>
-                </div>
-                <div class="top">
-                    <span>Bạn chưa có tài khoản? <a href="#" onclick="register()">Đăng ký</a></span>
                     
-                </div>
+                    <div class="mb-3" style="color:red;">
+                        ${message }
+                    </div>
+                    
+                   	<div class="g-recaptcha mb-3" data-callback="recaptchaCallback"
+                   	data-sitekey="6LfYDOQpAAAAAFFMDTMGdXzPQedIqR2c5y_ieTUw">
+                   		
+                   	</div>
+                    <!-- <div class="input-group mb-5 d-flex justify-content-between">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="formCheck">
+                            <label for="formCheck" class="form-check-label text-secondary"><small>Ghi nhớ tôi</small></label>
+                        </div>
+                        <div class="forgot">
+                            <small><a href="#">Quên mật khẩu?</a></small>
+                        </div>
+                    </div> -->
+                    <div class="input-group mb-3 mt-3">
+                        <button class="btn btn-lg btn btn-secondary w-100 fs-6" style="background-color: #634832;" id="submitBtn">Đăng nhập</button>
+                    </div>
+                  </form>
             </div>
-
-            <!------------------- registration form -------------------------->
-            <div class="register-container" id="register">
-                <div class="top">
-                    <span>Have an account? <a href="#" onclick="login()">Login</a></span>
-                    <header>Sign Up</header>
-                </div>
-                <div class="two-forms">
-                    <div class="input-box">
-                        <input type="text" class="input-field" placeholder="Firstname">
-                        <i class="bx bx-user"></i>
-                    </div>
-                    <div class="input-box">
-                        <input type="text" class="input-field" placeholder="Lastname">
-                        <i class="bx bx-user"></i>
-                    </div>
-                </div>
-                <div class="input-box">
-                    <input type="text" class="input-field" placeholder="Email">
-                    <i class="bx bx-envelope"></i>
-                </div>
-                <div class="input-box">
-                    <input type="password" class="input-field" placeholder="Password">
-                    <i class="bx bx-lock-alt"></i>
-                </div>
-                <div class="input-box">
-                    <input type="submit" class="submit" value="Register">
-                </div>
-                <div class="two-col">
-                    <div class="one">
-                        <input type="checkbox" id="register-check">
-                        <label for="register-check"> Remember Me</label>
-                    </div>
-                    <div class="two">
-                        <label><a href="#">Terms & conditions</a></label>
-                    </div>
-                </div>
-            </div>
+         </div> 
         </div>
-    </div>
-</body>
+      </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  	
+  	<script>
+        function recaptchaCallback() {
+            document.getElementById('submitBtn').disabled = false;
+        }
+
+        document.getElementById('form-login').addEventListener('submit', function(e) {
+            if (grecaptcha.getResponse() === "") {
+                e.preventDefault();
+                alert("Vui lòng xác nhận reCaptcha!");
+            }
+        });
+    </script>
+	  
+  </body>
 </html>
