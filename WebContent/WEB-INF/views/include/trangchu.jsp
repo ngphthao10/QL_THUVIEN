@@ -23,12 +23,13 @@
 			<div class="main-content col-md-10">
 				<div class="container">
 	                <div class="row">
+	                  <form:form action="trangchu/index.htm" method="POST" class ="d-flex">
 	                    <div class="col-7">
 	                        <h3 class="mt-4" style="color: #634832;">Chào mừng đến với thư viện PTIT! </h3>
 	                        <h5 class="mt-2" style="color: #634832;">${thoigian}</h5>
 	                    </div>
 	                    <div class="col-2 mt-4">
-						    <select class="form-select" aria-label="Chọn tháng" id="monthSelect">
+						    <select name = "month" class="form-select" aria-label="Chọn tháng" id="monthSelect">
 						        <option value="1">Tháng 1</option>
 						        <option value="2">Tháng 2</option>
 						        <option value="3">Tháng 3</option>
@@ -42,9 +43,11 @@
 						        <option value="11">Tháng 11</option>
 						        <option value="12">Tháng 12</option>
 						    </select>
+						    <!-- <input type="hidden" name = "month" value=""> -->
 						</div>
-						<div class="col-2 mt-4">
-						    <select class="form-select" aria-label="Chọn năm" id="yearSelect">
+						<div class="col-2 mt-4 ps-4">
+						    <select name = "year" class="form-select" name = aria-label="Chọn năm" id="yearSelect">
+						    	
 						    </select>
 						</div>
 						
@@ -62,12 +65,13 @@
 						</script>
 
 	                    <div class="col-1 mt-4" style="text-align:right;">
-	                    	<button type="button" class="btn btn-outline-secondary">
+	                    	<button type="button" class="btn btn-outline-success">
 	                    	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter mb-1" viewBox="0 0 16 16">
 							  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
 							</svg>
 	                    	Lọc</button>
 	                    </div>
+	                    </form:form>
 	                </div>
 	                <div class="row mt-4">
 	                    <div class="col-sm-3 mb-3 mb-sm-0">

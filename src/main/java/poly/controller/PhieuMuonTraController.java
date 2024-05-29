@@ -1,19 +1,16 @@
 package poly.controller;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -24,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.validation.Valid;
 import poly.dao.ThamSoDAO;
 import poly.entity.CuonSach;
 import poly.entity.DocGia;
@@ -40,9 +38,6 @@ import poly.service.SachService;
 public class PhieuMuonTraController {
 	
 	@Autowired
-	SessionFactory factory;
-	
-	@Autowired
 	PhieuMuonTraService phieuMuonTraService;
 	
 	@Autowired
@@ -56,8 +51,7 @@ public class PhieuMuonTraController {
 	
 	@Autowired
 	ThamSoDAO thamSoDAO;
-	
-	
+
 	@RequestMapping("listPhieuMuonTra")
 	public String showListPhieuMuonTra(HttpServletRequest request, ModelMap model) {
 		try {
@@ -72,6 +66,7 @@ public class PhieuMuonTraController {
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		model.addAttribute("songaymuontoida", thamSoDAO.getAll().getSoNgayMuonToiDa());
 		
+		System.out.println("hihi");
 		return "admin/PhieuMuonTra/listPhieuMuonTra";
 	}
 	
@@ -93,6 +88,7 @@ public class PhieuMuonTraController {
 	public String insertPhieuMuonTra(ModelMap model, @ModelAttribute("phieumuontra") PhieuMuonTra phieumuontra,
 			BindingResult errors ,HttpServletRequest request) {
 		
+		System.out.println("alo");
 		LocalDate localDate = LocalDate.now();
 	    java.util.Date now = new java.util.Date(java.sql.Date.valueOf(localDate).getTime());
 		
@@ -101,11 +97,13 @@ public class PhieuMuonTraController {
 			errors.rejectValue("docGia.maDocGia", "phieumuontra", "Mã độc giả không tồn tại!");
 		}
 		else {
-//			if (docgia.getNgayHetHan().compareTo(now) < 0) {
-//				errors.rejectValue("docGia.maDocGia", "phieumuontra", "Thẻ độc giả đã hết hạn!");
-//			}
+			if (docgia.getNgayHetHan().compareTo(now) < 0) {
+				errors.rejectValue("docGia.maDocGia", "phieumuontra", "Thẻ độc giả đã hết hạn!");
+			}
+			else if (docGiaService.getSoSachDGMuon(docgia.getMaDocGia()) == thamSoDAO.getAll().getSoSachMuonToiDa()) {
+				errors.rejectValue("docGia.maDocGia", "phieumuontra", "Số lượng sách đã mượn của độc giả đã đạt tối đa!");
+			}
 		}
-		
 		
 		CuonSach cuonsach = cuonSachService.getCuonSachFromMaCS(phieumuontra.getCuonSach().getMaCuonSach());
 		if (cuonsach == null ) {
@@ -159,8 +157,7 @@ public class PhieuMuonTraController {
 	public String editPhieuMuonTra(HttpServletRequest request, ModelMap model,
 			@RequestParam("id") int soPhieuMuonTra) {
 		
-		PhieuMuonTra phieumuontra = phieuMuonTraService.getPhieuMuonTraByID(soPhieuMuonTra);
-		
+		PhieuMuonTra phieumuontra = phieuMuonTraService.getPhieuMuonTraID(soPhieuMuonTra);
 		long date;
         long songaytratre = 0;
         long dongiaphat = thamSoDAO.getAll().getDonGiaPhat();
@@ -203,27 +200,34 @@ public class PhieuMuonTraController {
 	@RequestMapping(value="listPhieuMuonTra", params = "edit", method = RequestMethod.POST) 
 	public String editPhieuMuonTra(HttpServletRequest request, ModelMap model,
 			@Valid @ModelAttribute("phieumuontra") PhieuMuonTra phieumuontra, BindingResult errors) {
+		
 
+		
 		LocalDate localDate = LocalDate.now();
 	    java.util.Date now = new java.util.Date(java.sql.Date.valueOf(localDate).getTime());
 	    
 	    Date ngaytra = phieumuontra.getNgayTra();
 		Date hantra = phieumuontra.getHanTra();
 		
-		int sophieumuontra = phieumuontra.getSoPhieuMuonTra();
+		
+		int sophieumuontra = phieumuontra.getSoPhieuMuonTra(); 
 		System.out.println(sophieumuontra);
-		PhieuMuonTra phieumuontra_new = phieuMuonTraService.getPhieuMuonTraByID(sophieumuontra);
+		PhieuMuonTra phieumuontra_new = phieuMuonTraService.getPhieuMuonTraID(sophieumuontra);
 		DocGia docgia = docGiaService.getDocGiaFromMaDG(phieumuontra.getDocGia().getMaDocGia());
+
 		
 		if (docgia == null) {
 			errors.rejectValue("docGia.maDocGia", "phieumuontra", "Mã độc giả không tồn tại!");
 		}
 		else {
-//			if (docgia.getNgayHetHan().compareTo(now) < 0) {
-//				errors.rejectValue("docGia.maDocGia", "phieumuontra", "Thẻ độc giả đã hết hạn!");
-//			}
+			long sosachdocgiamuon = docGiaService.getSoSachDGMuon(docgia.getMaDocGia());
+			if (docgia.getNgayHetHan().compareTo(now) < 0) {
+				errors.rejectValue("docGia.maDocGia", "phieumuontra", "Thẻ độc giả đã hết hạn!");
+			}
+			else if (sosachdocgiamuon == thamSoDAO.getAll().getSoSachMuonToiDa() && docgia.getMaDocGia().equals(phieumuontra_new.getDocGia().getMaDocGia()) == false) {
+				errors.rejectValue("docGia.maDocGia", "phieumuontra", "Số lượng sách đã mượn của độc giả đã đạt tối đa!");
+			}
 		}
-
 		CuonSach cuonsach = cuonSachService.getCuonSachFromMaCS(phieumuontra.getCuonSach().getMaCuonSach());
 		CuonSach cuonsach_old = cuonSachService.getCuonSachFromMaCS(phieumuontra_new.getCuonSach().getMaCuonSach());
 		System.out.println(phieumuontra.getCuonSach().getMaCuonSach());
@@ -245,14 +249,13 @@ public class PhieuMuonTraController {
 				}
 			}
 		}
-		
+
 		if (ngaytra != null && ngaytra.compareTo(phieumuontra.getNgayMuon()) < 0) {
 			errors.rejectValue("ngayTra", "phieumuontra", "Ngày trả không thể nhỏ hơn ngày mượn!");
 			phieumuontra.setNgayTra(phieumuontra_new.getNgayTra());
 		}
 		
 		if (errors.hasErrors()) {
-			
 			List<FieldError> fieldErrors = errors.getFieldErrors();
 	        for (FieldError error : fieldErrors) {
 	            // In ra tên trường và thông báo lỗi
@@ -262,7 +265,6 @@ public class PhieuMuonTraController {
 	            System.out.println("Field: " + fieldName + ", Error: " + errorMessage);
 	        }
 
-//	        phieumuontra.setSoPhieuMuonTra(sophieumuontra);
 	        List<PhieuMuonTra> list = phieuMuonTraService.getAllPhieuMuonTra();
 			PagedListHolder pagedListHolder = phieuMuonTraService.paging(list, request);
 			model.addAttribute("pagedListHolder", pagedListHolder);
@@ -270,10 +272,10 @@ public class PhieuMuonTraController {
 			model.addAttribute("message1", -1);
 			return "admin/PhieuMuonTra/listPhieuMuonTra";
 		}
-
 		int sotienphatmoi = phieumuontra.getSoTienPhat();
+		System.out.println(sotienphatmoi);
 		
-		if(ngaytra!= null) {
+		if(ngaytra !=  null) {
 			System.out.println(ngaytra);
 			if (ngaytra.compareTo(hantra) < 0) {
 				sotienphatmoi = 0;
@@ -298,9 +300,7 @@ public class PhieuMuonTraController {
 		sach.setSoLuongConLai(sach.getSoLuongConLai() - 1);
 		int result3 = sachService.editSach(sach);
 		
-		if (result1 == 0 || result2 == 0 || result3 == 0 || result4 == 0) {
-			System.out.println("Sửa thất bại!");
-		}
+		System.out.println("hahaa :");
 		
 		phieumuontra_new.setDocGia(docgia);
 		phieumuontra_new.setCuonSach(cuonsach);
@@ -308,12 +308,14 @@ public class PhieuMuonTraController {
 		phieumuontra_new.setNgayTra(ngaytra);
 		phieumuontra_new.setSoTienPhat(sotienphatmoi);
 		
-		int result = phieuMuonTraService.editPhieuMuonTra(phieumuontra_new);
-		List<PhieuMuonTra> list = phieuMuonTraService.getAllPhieuMuonTra();
-		PagedListHolder pagedListHolder = phieuMuonTraService.paging(list, request);
-		model.addAttribute("pagedListHolder", pagedListHolder);
-		model.addAttribute("songaymuontoida", thamSoDAO.getAll().getSoNgayMuonToiDa());
-		model.addAttribute("message1", result);
+		if (result1 == 1 && result2 == 1 && result3 == 1 && result4 == 1) {
+			int result = phieuMuonTraService.editPhieuMuonTra(phieumuontra_new);
+			List<PhieuMuonTra> list = phieuMuonTraService.getAllPhieuMuonTra();
+			PagedListHolder pagedListHolder = phieuMuonTraService.paging(list, request);
+			model.addAttribute("pagedListHolder", pagedListHolder);
+			model.addAttribute("songaymuontoida", thamSoDAO.getAll().getSoNgayMuonToiDa());
+			model.addAttribute("message1", result);
+		}
 		return "admin/PhieuMuonTra/listPhieuMuonTra";
 	}
 	
@@ -321,7 +323,7 @@ public class PhieuMuonTraController {
 	@RequestMapping(value="listPhieuMuonTra", params="delete")
 	public String deletePhieuMuonTra(HttpServletRequest request, ModelMap model) {
 		int id = Integer.parseInt(request.getParameter("soPhieuMuon"));
-		PhieuMuonTra p = phieuMuonTraService.getPhieuMuonTraByID(id);
+		PhieuMuonTra p = phieuMuonTraService.getPhieuMuonTraID(id);
 		int result = phieuMuonTraService.deletePhieuMuonTra(p);
 		model.addAttribute("message2", result);
 		List<PhieuMuonTra> list = phieuMuonTraService.getAllPhieuMuonTra();
@@ -333,7 +335,18 @@ public class PhieuMuonTraController {
 	@RequestMapping(value = "listPhieuMuonTra", params = "search")
 	public String filterListPhieuThu(HttpServletRequest request, ModelMap model,
 			@RequestParam("keyword") String keyword) {
-		List<PhieuMuonTra> list = phieuMuonTraService.getPhieuMuonTra_Filter(keyword);
+		List<PhieuMuonTra> list = phieuMuonTraService.getPhieuMuonTra_Search(keyword);
+		PagedListHolder pagedListHolder = phieuMuonTraService.paging(list, request);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		model.addAttribute("songaymuontoida", thamSoDAO.getAll().getSoNgayMuonToiDa());
+		return "admin/PhieuMuonTra/listPhieuMuonTra";
+	}
+	
+	@RequestMapping(value = "listPhieuMuonTra", params = "filter")
+	public String filterListPhieuThu(HttpServletRequest request, ModelMap model,
+			@RequestParam("filter_date") @DateTimeFormat(pattern="dd/MM/yyyy") Date date) {
+		System.out.println(date);
+		List<PhieuMuonTra> list = phieuMuonTraService.getPhieuMuonTra_Filter(date);
 		PagedListHolder pagedListHolder = phieuMuonTraService.paging(list, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		model.addAttribute("songaymuontoida", thamSoDAO.getAll().getSoNgayMuonToiDa());

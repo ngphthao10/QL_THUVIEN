@@ -80,11 +80,19 @@ public class PhieuMuonTraDAO {
 	public List<PhieuMuonTra> getPhieuMuonTraByID(int soPhieuMuonTra ) {
 		Session session = factory.openSession();
 		String hql = "FROM PhieuMuonTra p WHERE p.soPhieuMuonTra = :soPhieuMuonTra";
-		System.out.println(soPhieuMuonTra);
 		Query query = session.createQuery(hql);
 		query.setParameter("soPhieuMuonTra", soPhieuMuonTra);
 		List<PhieuMuonTra> list = query.list();
 		session.close();
+		return list;
+	}
+	public PhieuMuonTra getPhieuMuonTraID(int soPhieuMuonTra ) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM PhieuMuonTra p WHERE p.soPhieuMuonTra = :soPhieuMuonTra";
+		Query query = session.createQuery(hql);
+		query.setParameter("soPhieuMuonTra", soPhieuMuonTra);
+		PhieuMuonTra list = (PhieuMuonTra)query.uniqueResult();
+//		session.close();
 		return list;
 	}
 	
@@ -134,26 +142,36 @@ public class PhieuMuonTraDAO {
 		return list;
 	}
 
-	public int getSoLuongPhieuMuon(int month, int year) {
+	public Long getSoLuongPhieuMuon(int month, int year) {
 		Session session = factory.openSession();
-		String hql = "COUNT(SoPhieuMuonTra) FROM PhieuMuonTra WHERE MONTH(ngayMuon) = :month AND YEAR(ngayMuon) = :year";
+		String hql = "SELECT COUNT(SoPhieuMuonTra) FROM PhieuMuonTra WHERE MONTH(ngayMuon) = :month AND YEAR(ngayMuon) = :year";
 		Query query = session.createQuery(hql);
 		query.setParameter("month", month);
 		query.setParameter("year", year);
-		int result = (int)query.uniqueResult();
+		Long result = (long)query.uniqueResult();
 		session.close();
 		return result;
 	}
 	
-	public int getSoLuotMuonQuaHan(int month, int year) {
+	public Long getSoLuotMuonQuaHan(int month, int year) {
 		Session session = factory.openSession();
-		String hql = "COUNT(SoPhieuMuonTra) FROM PhieuMuonTra WHERE MONTH(ngayMuon) = :month AND YEAR(ngayMuon) = :year AND ngayTra > hanTra";
+		String hql = "SELECT COUNT(SoPhieuMuonTra) FROM PhieuMuonTra WHERE MONTH(ngayMuon) = :month AND YEAR(ngayMuon) = :year AND ngayTra > hanTra";
 		Query query = session.createQuery(hql);
 		query.setParameter("month", month);
 		query.setParameter("year", year);
-		int result = (int)query.uniqueResult();
+		Long result = (long)query.uniqueResult();
 		session.close();
 		return result;
 	}
 
+	public List<PhieuMuonTra> getPhieuMuonTra_Filter(Date date) {
+		Session session = factory.openSession();
+		String hql = "FROM PhieuMuonTra WHERE ngayMuon = :ngaymuon";
+		Query query = session.createQuery(hql);
+		query.setParameter("ngaymuon", date);
+		List<PhieuMuonTra> list = query.list();
+		session.close();
+		return list;
+	}
+	
 }

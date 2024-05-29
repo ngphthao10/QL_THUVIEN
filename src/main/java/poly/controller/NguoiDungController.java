@@ -52,8 +52,6 @@ public class NguoiDungController {
 		List<NguoiDung> nguoiDungList = nguoiDungService.getAllNguoiDung();
 		PagedListHolder pagedListHolder = nguoiDungService.paging(nguoiDungList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
-		
-		System.out.println("thảo");
 		return "admin/quanlynguoidung/nguoidung/nguoidung";
 	}
 	

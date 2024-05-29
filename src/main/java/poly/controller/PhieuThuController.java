@@ -1,5 +1,6 @@
 package poly.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.validation.Valid;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -42,7 +44,7 @@ public class PhieuThuController {
 	@RequestMapping("listPhieuThu")
 	public String showListPhieuThu(HttpServletRequest request, ModelMap model) {
 		System.out.println("minh thu ne");
-		try {
+		try { 	
 			int message1 = Integer.parseInt(request.getParameter("message1"));
 			model.addAttribute("message1", message1);
 		} catch(Exception e) {
@@ -147,7 +149,7 @@ public class PhieuThuController {
 	@RequestMapping("searchPhieuThu")
 	public String filterListPhieuThu(HttpServletRequest request, ModelMap model,
 			@RequestParam("keyword") String keyword) {
-		List<PhieuThu> list = phieuThuService.getPhieuThu_Filter(keyword);
+		List<PhieuThu> list = phieuThuService.getPhieuThu_Search(keyword);
 		PagedListHolder pagedListHolder = phieuThuService.paging(list, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		return "admin/PhieuThu/listPhieuThu";
@@ -232,6 +234,16 @@ public class PhieuThuController {
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		model.addAttribute("message1", result);
 		return "redirect:/phieuthu/listPhieuThu.htm";
+	}
+	
+	@RequestMapping(value = "listPhieuThu", params = "filter")
+	public String filterListPhieuThu(HttpServletRequest request, ModelMap model,
+			@RequestParam("filter_date") @DateTimeFormat(pattern="dd/MM/yyyy") Date date) {
+		System.out.println(date);
+		List<PhieuThu> list = phieuThuService.getPhieuThu_Filter(date);
+		PagedListHolder pagedListHolder = phieuThuService.paging(list, request);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		return "admin/PhieuThu/listPhieuThu";
 	}
 	
 }

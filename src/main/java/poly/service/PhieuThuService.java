@@ -39,7 +39,7 @@ public class PhieuThuService {
 		return phieuThuDAO.getAllPhieuThu();
 	}
 	
-	public List<PhieuThu> getPhieuThu_Filter(String keyword) {
+	public List<PhieuThu> getPhieuThu_Search(String keyword) {
 		try {
 //			System.out.println(keyword);
 			int new_keyword = Integer.parseInt(keyword);
@@ -75,6 +75,10 @@ public class PhieuThuService {
 	
 	public int deletePhieuThu(PhieuThu phieuthu) {
 		return phieuThuDAO.deletePhieuThu(phieuthu);
+	}
+	
+	public List<PhieuThu> getPhieuThu_Filter(java.util.Date date) {
+		return phieuThuDAO.getPhieuThu_Filter(date);
 	}
 
 }

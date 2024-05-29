@@ -1,5 +1,6 @@
 package poly.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -114,5 +115,15 @@ public class PhieuThuDAO {
 		Integer result = Integer.valueOf(query.uniqueResult().toString());
 		session.close();
 		return result;
+	}
+	
+	public List<PhieuThu> getPhieuThu_Filter(Date date) {
+		Session session = factory.openSession();
+		String hql = "FROM PhieuThu WHERE ngayLap = :ngaylap";
+		Query query = session.createQuery(hql);
+		query.setParameter("ngaylap", date);
+		List<PhieuThu> list = query.list();
+		session.close();
+		return list;
 	}
 }

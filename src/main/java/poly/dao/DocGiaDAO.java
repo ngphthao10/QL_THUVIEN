@@ -78,4 +78,14 @@ public class DocGiaDAO {
 		}
 		return 1;
 	}
+	
+	public long getSoSachDGMuon(String maDG) {
+		Session session = sessionFactory.openSession();
+		String hql = "SELECT COUNT(soPhieuMuonTra) FROM PhieuMuonTra WHERE docGia.maDocGia = :maDocGia AND ngayTra IS NULL";
+		Query query = session.createQuery(hql);
+		query.setParameter("maDocGia", maDG);
+		long result = (long)query.uniqueResult();
+		session.close();
+		return result;
+	}
 }

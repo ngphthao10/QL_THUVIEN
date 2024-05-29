@@ -36,4 +36,7 @@ public class DocGiaService {
 	public int editDocGia(DocGia docgia) {
 		return docGiaDAO.editDocGia(docgia);
 	}
+	public long getSoSachDGMuon(String maDG) {
+		return docGiaDAO.getSoSachDGMuon(maDG);
+	}
 }

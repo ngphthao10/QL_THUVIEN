@@ -21,7 +21,7 @@
 			end="${pagedListHolder.lastLinkedPage}" var="i">
 			<c:choose>
 				<c:when test="${pagedListHolder.page == i}">
-					<li class="page-item active"><a class="page-link" href="#">${i+1}</a></li>
+					<li class="page-item active"><a class="page-link">${i+1}</a></li>
 				</c:when>
 				<c:otherwise>
 					<li><a class="page-link"

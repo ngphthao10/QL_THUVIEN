@@ -47,6 +47,18 @@
 	overflow-anchor: none;
 	transition: var(--bs-accordion-transition);
 }
+.row .row-label {
+  	text-align: center;
+}
+.row .form-label {
+  	margin: 2px;
+  	padding-top: 3px;
+}
+th {
+	text-align: center;
+	vertical-align: middle;
+}
+
 </style>
 </head>
 <body>
@@ -141,7 +153,7 @@
 			</div>
 			<div class="accordion-item">
 				<h2 class="accordion-header">
-					<button class="accordion-button1 collapsed" type="button"
+					<button class="accordion-button1 collapsed" type="button" 
 						data-bs-target="#flush-collapseThree" aria-expanded="false"
 						aria-controls="flush-collapseThree">
 						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
@@ -151,7 +163,10 @@
                       		<path
 								d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5m8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5" />
                    		</svg>
-						<b class="ps-2">PHIẾU MƯỢN TRẢ</b>
+						<a href="phieumuontra/listPhieuMuonTra.htm" 
+						class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+							<b class="ps-2">PHIẾU MƯỢN TRẢ</b>
+						</a>
 					</button>
 				</h2>
 			</div>
@@ -162,7 +177,11 @@
 						aria-controls="flush-collapseFour">
 						<img width="25" height="25"
 							src="https://img.icons8.com/ios/50/bank-cards--v1.png"
-							alt="bank-cards--v1" /> <b class="ps-2">PHIẾU THU</b>
+							alt="bank-cards--v1" /> 
+						<a href="phieuthu/listPhieuThu.htm" 
+						class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+							<b class="ps-2">PHIẾU THU</b>
+						</a>
 					</button>
 				</h2>
 			</div>

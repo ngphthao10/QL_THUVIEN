@@ -53,11 +53,11 @@ public class PhieuMuonTraService {
 		return phieuMuonTraDAO.deletePhieuMuonTra(p);
 	}
 	
-	public PhieuMuonTra getPhieuMuonTraByID(int id) {
-		return phieuMuonTraDAO.getPhieuMuonTraByID(id).get(0);
+	public PhieuMuonTra getPhieuMuonTraID(int id) {
+		return phieuMuonTraDAO.getPhieuMuonTraID(id);
 	}
 
-	public List<PhieuMuonTra> getPhieuMuonTra_Filter(String keyword) {
+	public List<PhieuMuonTra> getPhieuMuonTra_Search(String keyword) {
 		try {
 			int new_keyword = Integer.parseInt(keyword);
 			return phieuMuonTraDAO.getPhieuMuonTraByID(new_keyword);
@@ -75,6 +75,18 @@ public class PhieuMuonTraService {
 			}
 			return list;
 		}
+	}
+	
+	public List<PhieuMuonTra> getPhieuMuonTra_Filter(Date date) {
+		return phieuMuonTraDAO.getPhieuMuonTra_Filter(date);
+	}
+
+	public Long getSoLuongPhieu(int month, int year) {
+		return phieuMuonTraDAO.getSoLuongPhieuMuon(month, year);
+	}
+	
+	public Long getSoLuotMuonQuaHan(int month, int year) {
+		return phieuMuonTraDAO.getSoLuotMuonQuaHan(month, year);
 	}
 	
 }

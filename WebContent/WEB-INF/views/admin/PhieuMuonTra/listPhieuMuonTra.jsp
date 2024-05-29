@@ -1,10 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<%@ include file="/WEB-INF/views/include/Header.jsp" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<jsp:include page="/WEB-INF/views/include/Header.jsp"></jsp:include>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Phiếu mượn trả</title>
+    <base href="${pageContext.servletContext.contextPath}/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.18.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 	<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 	<style>
 	.invalid-feedback {
@@ -15,13 +24,11 @@
 	</style>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/include/navbar.jsp" ></jsp:include>
+	<%@include file="/WEB-INF/views/include/navbar.jsp"%>
 	<div class="container-fluid">
-		
-	    
 	    <div class="row">
 	
-			<jsp:include page="/WEB-INF/views/include/sidebar.jsp"></jsp:include> 
+			<%@include file="/WEB-INF/views/include/sidebar.jsp"%>
 	
 	        <div class="main-content col-md-10">
 	          <div class="container">
@@ -34,8 +41,6 @@
 	                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
 	                  </svg>
 	                  Thêm phiếu</button>
-					
-	                 
 	                  
 	              </div>
 	             </div>
@@ -108,6 +113,17 @@
 	                  Tìm kiếm
 	                </button>
 	            </form:form>
+	            <form:form class="d-flex col-6 ps-4" role="search" method="POST"
+					action="phieumuontra/listPhieuMuonTra.htm?filter">
+					<input class="form-control me-2 datepicker" name="filter_date" type="search" placeholder="Chọn ngày, tháng, năm" required>
+					<button class="btn btn-outline-success" style="min-width: 150px;" type="submit">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							fill="currentColor" class="bi bi-funnel mb-1" viewBox="0 0 16 16">
+                    				<path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5zm1 .5v1.308l4.372 4.858A.5.5 0 0 1 7 8.5v5.306l2-.666V8.5a.5.5 0 0 1 .128-.334L13.5 3.308V2z" />
+                  			</svg>
+						Lọc ngày
+					</button>
+				</form:form>
 	          </div> 
 	         	<div class="container">
 	         	<jsp:useBean id="pagedListHolder" scope="request" type="org.springframework.beans.support.PagedListHolder" />
@@ -119,6 +135,12 @@
 						<c:url value="phieumuontra/listPhieuMuonTra.htm?search" var="pagedLink">
 							<c:param name="p" value="~" />
 							<c:param name="keyword" value="${param.keyword }" />
+						</c:url>
+					</c:when>
+					<c:when test="${not empty param.filter_date }">
+						<c:url value="phieumuontra/listPhieuMuonTra.htm?filter" var="pagedLink">
+							<c:param name="p" value="~" />
+							<c:param name="filter_date" value="${param.filter_date }" />
 						</c:url>
 					</c:when>
 					<c:otherwise>
