@@ -294,6 +294,20 @@ public class SachDAO {
 		}
 		return 1;
 	}
+	public int editSach(Sach sach) {
+		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.update(sach);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			return 0;
+		} finally {
+			session.close();
+		}
+		return 1;
+	}
 
 	public List<Sach> getAllSachChoUser() {
 		Session session = sessionFactory.getCurrentSession();
@@ -345,8 +359,15 @@ public class SachDAO {
 	    return result;
 	}
 
-	
+	public Sach getSachFromMaSach(String maSach) {
+		Session session = sessionFactory.openSession();
+		String hql = "FROM Sach WHERE MaSach = :maSach";
+		Query query = session.createQuery(hql);
+		query.setParameter("maSach", maSach);
+		Sach sach = (Sach)query.uniqueResult();
+		session.close();
+		return sach;
+	}
 
 
  }
-

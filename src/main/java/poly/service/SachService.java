@@ -80,4 +80,12 @@ public class SachService {
 		return sachDAO.getSoLuongSach();
 	}
 
+	public Sach getSachFromMaSach(String maSach) {
+		return sachDAO.getSachFromMaSach(maSach);
+	}
+
+	public int editSach(Sach sach) {
+		return sachDAO.editSach(sach);
+	}
+
 }

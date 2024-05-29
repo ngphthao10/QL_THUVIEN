@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import poly.entity.CuonSach;
-import poly.entity.Sach;
-import poly.entity.TuaSach;
 @Repository
 public class CuonSachDAO {
 
@@ -91,5 +89,15 @@ public class CuonSachDAO {
 		}
 		return 1;
 	}
+	public CuonSach getCuonSachFromMaCS(String maCuonSach) {
+		Session session = sessionFactory.openSession();
+		String hql = "FROM CuonSach WHERE maCuonSach = :maCuonSach";
+		Query query = session.createQuery(hql);
+		query.setParameter("maCuonSach", maCuonSach);
+		CuonSach cuonsach = (CuonSach)query.uniqueResult();
+		session.close();
+		return cuonsach;
+	}
+	
 
 }

@@ -42,4 +42,40 @@ public class DocGiaDAO {
         Long result = (Long) query.uniqueResult();
 	    return result;
 	}
+
+	public DocGia getDocGiaFromMaDG(String maDocGia) {
+		Session session = sessionFactory.openSession();
+		String hql = "FROM DocGia WHERE maDocGia = :maDocGia";
+		Query query = session.createQuery(hql);
+		query.setParameter("maDocGia", maDocGia);
+		DocGia docgia = (DocGia)query.uniqueResult();
+		session.close();
+		return docgia;
+	}
+	
+	public int getTongNoHienTai(String maDocGia) {
+		Session session = sessionFactory.openSession();
+		String hql = "SUM(p.docGia.soTienPhat) FROM PhieuMuonTra p WHERE p.docGia.maDocGia = :maDocGia";
+		Query query = session.createQuery(hql);
+		query.setParameter("maDocGia", maDocGia);
+		int sotienphat = (int)query.uniqueResult();
+		session.close();
+		return sotienphat;
+	}
+	
+	public Integer editDocGia (DocGia dg) {
+		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.update(dg);
+			t.commit();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			t.rollback();
+			return 0;
+		} finally {
+			session.close();
+		}
+		return 1;
+	}
 }

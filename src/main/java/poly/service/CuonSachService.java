@@ -56,6 +56,10 @@ public class CuonSachService {
 		return cuonSachDAO.editCuonSach(cs);
 	}
 
+	public CuonSach getCuonSachFromMaCS(String maCuonSach) {
+		return cuonSachDAO.getCuonSachFromMaCS(maCuonSach);
+	}
+
 	
 	
 }

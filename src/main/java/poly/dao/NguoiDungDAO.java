@@ -136,4 +136,5 @@ public class NguoiDungDAO {
 		NguoiDung nguoidung = (NguoiDung) query.uniqueResult();
 		return nguoidung;
 	}
+
 }

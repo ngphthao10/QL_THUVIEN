@@ -30,4 +30,10 @@ public class DocGiaService {
 	public Long getSoLuongDG() {
 		return docGiaDAO.getSoLuongDG();
 	}
+	public DocGia getDocGiaFromMaDG(String maDocGia) {
+		return docGiaDAO.getDocGiaFromMaDG(maDocGia);
+	}
+	public int editDocGia(DocGia docgia) {
+		return docGiaDAO.editDocGia(docgia);
+	}
 }
