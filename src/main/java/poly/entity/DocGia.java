@@ -1,5 +1,6 @@
 package poly.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
@@ -198,5 +199,20 @@ public class DocGia {
 	public void setLoaiDocGia(LoaiDocGia loaiDocGia) {
 		this.loaiDocGia = loaiDocGia;
 	}
-	
+	public String getFormattedNgaySinh() {
+		return formatDate(getNgaySinh());
+	}
+
+	public String getFormattedNgayLapThe() {
+		return formatDate(getNgayLapThe());
+	}
+
+	public String getFormattedNgayHetHan() {
+		return formatDate(getNgayHetHan());
+	}
+
+	private String formatDate(Date date) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		return simpleDateFormat.format(date);
+	}
 }

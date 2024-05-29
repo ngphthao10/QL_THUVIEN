@@ -66,4 +66,17 @@ public class NguoiDungService {
 	public NguoiDung getNguoiDung_LOGIN(String tendangnhap, String matkhau) {
 		return nguoiDungDAO.getNguoiDung_LOGIN(tendangnhap, matkhau);
 	}
+
+	public NguoiDung getNguoiDungByID(int id) {
+		return nguoiDungDAO.getNguoiDungByID(id);
+	}
+
+	public int updateNguoiDung (NguoiDung nguoiDung) {
+		return nguoiDungDAO.updateNguoiDung(nguoiDung);
+	}
+
+	public int insertNguoiDung (NguoiDung nguoiDung) {
+		return nguoiDungDAO.insertNguoiDung(nguoiDung);
+	}
+
 }

@@ -58,22 +58,18 @@ public class PhieuMuonTraController {
 			int message1 = Integer.parseInt(request.getParameter("message1"));
 			model.addAttribute("message1", message1);
 		} catch(Exception e) {
-			System.out.println(e.getMessage());
 		}
 		
 		List<PhieuMuonTra> list = phieuMuonTraService.getAllPhieuMuonTra();
 		PagedListHolder pagedListHolder = phieuMuonTraService.paging(list, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		model.addAttribute("songaymuontoida", thamSoDAO.getAll().getSoNgayMuonToiDa());
-		
-		System.out.println("hihi");
 		return "admin/PhieuMuonTra/listPhieuMuonTra";
 	}
 	
 	
 	@RequestMapping(value = "listPhieuMuonTra", params = "insert", method = RequestMethod.GET)
 	public String insertPhieuMuonTra(ModelMap model, HttpServletRequest request) {
-		System.out.println("hahahaha");
 		model.addAttribute("phieumuontra", new PhieuMuonTra());
 		
 
@@ -87,8 +83,6 @@ public class PhieuMuonTraController {
 	@RequestMapping(value = "listPhieuMuonTra", params = "insert", method = RequestMethod.POST)
 	public String insertPhieuMuonTra(ModelMap model, @ModelAttribute("phieumuontra") PhieuMuonTra phieumuontra,
 			BindingResult errors ,HttpServletRequest request) {
-		
-		System.out.println("alo");
 		LocalDate localDate = LocalDate.now();
 	    java.util.Date now = new java.util.Date(java.sql.Date.valueOf(localDate).getTime());
 		
@@ -126,7 +120,6 @@ public class PhieuMuonTraController {
 	        	String fieldName = error.getField();
 	            String errorMessage = error.getDefaultMessage();
 	        	model.addAttribute(fieldName + "Error", errorMessage);
-	            System.out.println("Field: " + fieldName + ", Error: " + errorMessage);
 	        }
 	        
 	        List<PhieuMuonTra> list = phieuMuonTraService.getAllPhieuMuonTra();
@@ -139,6 +132,11 @@ public class PhieuMuonTraController {
 		
 		cuonsach.setTinhTrang(1);
 		int result1 = cuonSachService.editCuonSach(cuonsach);
+		
+		Sach sach = sachService.getSachFromMaSach(cuonsach.getSach1().getMaSach());
+		sach.setSoLuongConLai(sach.getSoLuongConLai() - 1);
+		int result3 = sachService.editSach(sach);
+		
 		
 		phieumuontra.setDocGia(docgia);
 		phieumuontra.setCuonSach(cuonsach);
@@ -180,7 +178,7 @@ public class PhieuMuonTraController {
             } else tienphat = 0;
         }
         
-        long tongnomoi = phieumuontra.getDocGia().getTongNoHienTai() + tienphat;
+        long tongnomoi = phieumuontra.getDocGia().getTongNoHienTai();
 		
         model.addAttribute("songaytratre", songaytratre);
         model.addAttribute("dongiaphat", dongiaphat);
@@ -211,7 +209,6 @@ public class PhieuMuonTraController {
 		
 		
 		int sophieumuontra = phieumuontra.getSoPhieuMuonTra(); 
-		System.out.println(sophieumuontra);
 		PhieuMuonTra phieumuontra_new = phieuMuonTraService.getPhieuMuonTraID(sophieumuontra);
 		DocGia docgia = docGiaService.getDocGiaFromMaDG(phieumuontra.getDocGia().getMaDocGia());
 
@@ -230,8 +227,6 @@ public class PhieuMuonTraController {
 		}
 		CuonSach cuonsach = cuonSachService.getCuonSachFromMaCS(phieumuontra.getCuonSach().getMaCuonSach());
 		CuonSach cuonsach_old = cuonSachService.getCuonSachFromMaCS(phieumuontra_new.getCuonSach().getMaCuonSach());
-		System.out.println(phieumuontra.getCuonSach().getMaCuonSach());
-		System.out.println(phieumuontra_new.getCuonSach().getMaCuonSach());
 		if (cuonsach == null ) {
 			errors.rejectValue("cuonSach.MaCuonSach", "phieumuontra", "Mã cuốn sách không tồn tại!");
 		}
@@ -262,7 +257,6 @@ public class PhieuMuonTraController {
 	        	String fieldName = error.getField();
 	            String errorMessage = error.getDefaultMessage();
 	        	model.addAttribute(fieldName + "Error", errorMessage);
-	            System.out.println("Field: " + fieldName + ", Error: " + errorMessage);
 	        }
 
 	        List<PhieuMuonTra> list = phieuMuonTraService.getAllPhieuMuonTra();
@@ -273,10 +267,9 @@ public class PhieuMuonTraController {
 			return "admin/PhieuMuonTra/listPhieuMuonTra";
 		}
 		int sotienphatmoi = phieumuontra.getSoTienPhat();
-		System.out.println(sotienphatmoi);
+		
 		
 		if(ngaytra !=  null) {
-			System.out.println(ngaytra);
 			if (ngaytra.compareTo(hantra) < 0) {
 				sotienphatmoi = 0;
 			}
@@ -291,16 +284,18 @@ public class PhieuMuonTraController {
 		int tongnohientai = phieumuontra.getDocGia().getTongNoHienTai() - phieumuontra.getSoTienPhat() + sotienphatmoi;
 		
 		docgia.setTongNoHienTai(tongnohientai);
-		int result1 = docGiaService.editDocGia(docgia);
+		
+		if (cuonsach_old.getId() != cuonsach.getId()) {
+			int result4 = cuonSachService.editCuonSach(cuonsach_old);
+		}
 		
 		int result2 = cuonSachService.editCuonSach(cuonsach);
-		int result4 = cuonSachService.editCuonSach(cuonsach_old);
+		int result1 = docGiaService.editDocGia(docgia);
 		
 		Sach sach = sachService.getSachFromMaSach(cuonsach.getSach1().getMaSach());
 		sach.setSoLuongConLai(sach.getSoLuongConLai() - 1);
 		int result3 = sachService.editSach(sach);
 		
-		System.out.println("hahaa :");
 		
 		phieumuontra_new.setDocGia(docgia);
 		phieumuontra_new.setCuonSach(cuonsach);
@@ -308,14 +303,13 @@ public class PhieuMuonTraController {
 		phieumuontra_new.setNgayTra(ngaytra);
 		phieumuontra_new.setSoTienPhat(sotienphatmoi);
 		
-		if (result1 == 1 && result2 == 1 && result3 == 1 && result4 == 1) {
-			int result = phieuMuonTraService.editPhieuMuonTra(phieumuontra_new);
-			List<PhieuMuonTra> list = phieuMuonTraService.getAllPhieuMuonTra();
-			PagedListHolder pagedListHolder = phieuMuonTraService.paging(list, request);
-			model.addAttribute("pagedListHolder", pagedListHolder);
-			model.addAttribute("songaymuontoida", thamSoDAO.getAll().getSoNgayMuonToiDa());
-			model.addAttribute("message1", result);
-		}
+		int result = phieuMuonTraService.editPhieuMuonTra(phieumuontra_new);
+		List<PhieuMuonTra> list = phieuMuonTraService.getAllPhieuMuonTra();
+		PagedListHolder pagedListHolder = phieuMuonTraService.paging(list, request);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+		model.addAttribute("songaymuontoida", thamSoDAO.getAll().getSoNgayMuonToiDa());
+		model.addAttribute("message1", result);
+
 		return "admin/PhieuMuonTra/listPhieuMuonTra";
 	}
 	
@@ -345,7 +339,6 @@ public class PhieuMuonTraController {
 	@RequestMapping(value = "listPhieuMuonTra", params = "filter")
 	public String filterListPhieuThu(HttpServletRequest request, ModelMap model,
 			@RequestParam("filter_date") @DateTimeFormat(pattern="dd/MM/yyyy") Date date) {
-		System.out.println(date);
 		List<PhieuMuonTra> list = phieuMuonTraService.getPhieuMuonTra_Filter(date);
 		PagedListHolder pagedListHolder = phieuMuonTraService.paging(list, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);

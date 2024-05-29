@@ -32,5 +32,10 @@ public class NhomNguoiDungService {
 	public List<NhomNguoiDung> getNhomNguoiDung() {
 		return NhomNguoiDungDAO.getNhomNguoiDung();
 	}
+
+	public NhomNguoiDung getNhomNguoiDungByID(int i) {
+		return NhomNguoiDungDAO.getNhomNguoiDungByID(i);
+	}
+
 }
 	

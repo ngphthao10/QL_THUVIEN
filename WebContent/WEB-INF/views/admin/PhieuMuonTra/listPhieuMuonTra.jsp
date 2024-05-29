@@ -178,7 +178,7 @@
 	                		<td> <fmt:setLocale value="vi_VN"/> <fmt:formatNumber value="${phieumuontra.soTienPhat}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></td>
 	                		<td>
 								<a href="${pageContext.request.contextPath}/phieumuontra/listPhieuMuonTra.htm?edit&id=${phieumuontra.soPhieuMuonTra }" class="btn btn-outline-success">Chỉnh sửa</a>
-	                			<button type="button" class="btn btn-outline-danger delete" data-bs-toggle="modal" data-bs-target="#xoaPhieuMuonTraModal">Xóa</button>
+	                			<!-- <button type="button" class="btn btn-outline-danger delete" data-bs-toggle="modal" data-bs-target="#xoaPhieuMuonTraModal">Xóa</button> -->
 	                			<input type="hidden" name="soPhieuMuon" id="soPhieuMuon" value="${phieumuontra.soPhieuMuonTra }">
                 			</td>
 	                 	</tr>

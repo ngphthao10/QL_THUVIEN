@@ -10,14 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import poly.entity.NguoiDung;
-import poly.entity.TheLoai;
-import poly.entity.TuaSach;
 
 @Repository
 public class NguoiDungDAO {
 	@Autowired
 	SessionFactory sessionFactory;
-
 	public List<NguoiDung> getAllNguoiDung() {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM NguoiDung";
@@ -99,24 +96,6 @@ public class NguoiDungDAO {
 		return 1;
 	}
 
-	public int editNguoiDung(NguoiDung nguoidung) {
-		Session session = sessionFactory.openSession();
-		Transaction t = session.beginTransaction();
-
-		try {
-			session.update(nguoidung);
-			t.commit();
-		} 
-		catch (Exception e) {
-			t.rollback();
-			return 0;
-		}
-		finally {
-			session.close();
-		}
-		return 1;
-	}
-
 	public List<NguoiDung> getNDTheoNND(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM NguoiDung where nhomNguoiDung.id = :id";
@@ -135,6 +114,63 @@ public class NguoiDungDAO {
 		query.setParameter("matKhau", matkhau);
 		NguoiDung nguoidung = (NguoiDung) query.uniqueResult();
 		return nguoidung;
+	}
+
+	public Integer editNguoiDung (NguoiDung nd) {
+		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.update(nd);
+			t.commit();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			t.rollback();
+			return 0;
+		} finally {
+			session.close();
+		}
+		return 1;
+	}
+	public NguoiDung getNguoiDungByID (int id) {
+		Session session = sessionFactory.openSession();
+		String hql = "FROM NguoiDung where id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+
+		NguoiDung list = (NguoiDung) query.list().get(0);
+		session.close();
+		return list;
+	}
+	
+	public int updateNguoiDung (NguoiDung nguoiDung) {
+		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.update(nguoiDung);
+			t.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			t.rollback();
+			return 0;
+		}finally {
+			session.close();
+		}
+		return 1;
+	}
+	
+	public int insertNguoiDung (NguoiDung nguoiDung) {
+		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.save(nguoiDung);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			return 0;
+		}finally {
+			session.close();
+		}
+		return 1;
 	}
 
 }

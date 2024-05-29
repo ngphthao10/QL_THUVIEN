@@ -1,5 +1,6 @@
 package poly.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -122,6 +123,21 @@ public class PhieuMuonTra {
 		this.cuonSach = cuonSach;
 	}
 	
-	
+	public String getFormattedNgayMuon() {
+		return formatDate(getNgayMuon());
+	}
+
+	public String getFormattedNgayTra() {
+		return formatDate(getNgayTra());
+	}
+
+	public String getFormattedHanTra() {
+		return formatDate(getHanTra());
+	}
+
+	private String formatDate(Date date) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		return simpleDateFormat.format(date);
+	}
 	
 }

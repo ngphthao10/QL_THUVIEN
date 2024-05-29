@@ -143,12 +143,12 @@ public class SachController {
 		} catch (NumberFormatException e) {
 		    errors.rejectValue("sach.DonGia", "sachDTO", "Đơn giá không hợp lệ! Vui lòng nhập một số.");
 		}
-		
 	    if (errors.hasErrors()) {
 	    	List<FieldError> fieldErrors = errors.getFieldErrors();
 	    	for (FieldError error : fieldErrors) {
 	    		model.addAttribute(error.getField(), error.getDefaultMessage());
 	    	}
+	    	System.out.println(errors.getAllErrors());
 	    	List<Sach> sachList = sachService.getAllSach();
 			PagedListHolder pagedListHolder = sachService.paging(sachList, request);
 			model.addAttribute("pagedListHolder", pagedListHolder);

@@ -1,6 +1,7 @@
 package poly.service;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -88,5 +89,37 @@ public class PhieuMuonTraService {
 	public Long getSoLuotMuonQuaHan(int month, int year) {
 		return phieuMuonTraDAO.getSoLuotMuonQuaHan(month, year);
 	}
+
+	public List<PhieuMuonTra> getPhieuMuonTra_IDDocGia(Integer id) {
+		return phieuMuonTraDAO.getPhieuMuonTra_IDDocGia(id);
+	}
+
+	public List<PhieuMuonTra> getPhieuMuonTraByIDDG_DangMuon (List<PhieuMuonTra> listSach){
+		List<PhieuMuonTra> listSach_DangMuon = new ArrayList<>();
+		for (PhieuMuonTra phieuMuonTra : listSach) {
+			if(phieuMuonTra.getNgayTra() == null) {
+				listSach_DangMuon.add(phieuMuonTra);
+			}
+		}
+		return listSach_DangMuon;
+	}
 	
+	public List<PhieuMuonTra> getPhieuMuonTraByIDDG_DaMuon (List<PhieuMuonTra> listSach){
+		List<PhieuMuonTra> listSach_DaMuon = new ArrayList<>();
+		for (PhieuMuonTra phieuMuonTra : listSach) {
+			if(phieuMuonTra.getNgayTra() != null) {
+				listSach_DaMuon.add(phieuMuonTra);
+			}
+		}
+		return listSach_DaMuon;
+	}
+
+	public int soSachDaMuon (List<PhieuMuonTra> listSach_DaMuon) {
+		int i = 0;
+		for (PhieuMuonTra phieuMuonTra : listSach_DaMuon) {
+			i++;
+		}
+		return i;
+	}
+
 }

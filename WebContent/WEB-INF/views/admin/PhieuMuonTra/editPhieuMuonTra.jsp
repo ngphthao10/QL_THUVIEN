@@ -95,7 +95,7 @@
 		                    <label class="form-label" for="docGia.tongNoHienTai"><h6>Tổng nợ hiện tại</h6></label>
 		                    <input class="form-control" name="docGia.tongNoHienTai" value="${phieumuontra.docGia.tongNoHienTai }" readonly/>
 		                    <div class="invalid-feedback">
-	
+		
 		                    </div>
 		                 </div>
 	                    

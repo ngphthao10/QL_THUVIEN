@@ -88,4 +88,76 @@ public class DocGiaDAO {
 		session.close();
 		return result;
 	}
+
+		
+	public List<DocGia> searchDocGiaByName (String tenDocGia){
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM DocGia where LOWER(tenDocGia) like LOWER(:tenDocGia)";
+		Query query = session.createQuery(hql);
+		query.setParameter("tenDocGia", "%" + tenDocGia + "%");
+		List<DocGia> list = query.list();
+		return list;
+	}
+	
+	public List<DocGia> searchDocGiaByMaDG (String maDocGia){
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM DocGia where maDocGia like :maDocGia";
+		Query query = session.createQuery(hql);
+		query.setParameter("maDocGia", "%" + maDocGia + "%");
+		List<DocGia> list = query.list();
+		return list;
+	}
+	
+	public DocGia getDocGiaByID(int id) {
+		Session session = sessionFactory.openSession();
+		String hql = "FROM DocGia where id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+
+		DocGia list = (DocGia) query.list().get(0);
+		session.close();
+		return list;
+	}
+	
+	public DocGia getDocGiaByMaDG(String maDocGia) {
+		Session session = sessionFactory.openSession();
+		String hql = "FROM DocGia where maDocGia = :maDocGia";
+		Query query = session.createQuery(hql);
+		query.setParameter("maDocGia", maDocGia);
+
+		DocGia list = (DocGia) query.list().get(0);
+		session.close();
+		return list;
+	}
+	
+	public int updateDocGia (DocGia docgia) {
+		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.update(docgia);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			return 0;
+		}finally {
+			session.close();
+		}
+		return 1;
+	}
+	
+	public int insertDocGia (DocGia docgia) {
+		Session session = sessionFactory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.save(docgia);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			return 0;
+		}finally {
+			session.close();
+		}
+		return 1;
+	}
+	
 }

@@ -8,7 +8,7 @@
 <style>
 .sidebar {
 	background-color: #dbc1ac;
-	height: 100vh;
+/* 	height: 100vh; */
 	border-right: 1px solid snow;
 }
 
@@ -106,10 +106,10 @@ th {
 				<div id="flush-collapseTwo" class="accordion-collapse collapse"
 					data-bs-parent="#accordionFlushExample">
 					<ul class="btn-toggle-nav list-unstyled fw-normal ps-5 medium mt-3">
-						<li><a href="#"
+						<li><a href="docgia/listDocGia.htm"
 							class="link-body-emphasis d-inline-flex text-decoration-none rounded"><h6>Thông
 									tin độc giả</h6></a></li>
-						<li><a href="#"
+						<li><a href="loaidocgia/listLoaiDocGia.htm"
 							class="link-body-emphasis d-inline-flex text-decoration-none rounded mt-1"><h6>Loại
 									độc giả</h6></a></li>
 					</ul>

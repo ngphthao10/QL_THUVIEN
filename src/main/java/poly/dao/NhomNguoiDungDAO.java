@@ -13,10 +13,22 @@ import poly.entity.NhomNguoiDung;
 @Repository
 public class NhomNguoiDungDAO {
 	@Autowired
-	SessionFactory sessionFactory;
+	SessionFactory factory;
+	
+	
+	public NhomNguoiDung getNhomNguoiDungByID (int id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhomNguoiDung where id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+
+		NhomNguoiDung list = (NhomNguoiDung) query.list().get(0);
+		return list;
+	}
+
 
 	public List<NhomNguoiDung> getNhomNguoiDung() {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = factory.getCurrentSession();
 		String hql = "FROM NhomNguoiDung";
 		Query query = session.createQuery(hql);
 

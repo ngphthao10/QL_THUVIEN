@@ -18,14 +18,13 @@ public class ThamSo {
 	private Integer SoSachMuonToiDa;
 	private Integer SoNgayMuonToiDa;
 	private Integer DonGiaPhat;
-	private Integer AD_QDKTTienThu;
 	
 	public ThamSo() {
 		super();
 	}
 
 	public ThamSo(int id, Integer tuoiToiThieu, Integer tuoiToiDa, Integer thoiHanThe, Integer khoangCachXuatBan,
-			Integer soSachMuonToiDa, Integer soNgayMuonToiDa, Integer donGiaPhat, Integer aD_QDKTTienThu) {
+			Integer soSachMuonToiDa, Integer soNgayMuonToiDa, Integer donGiaPhat) {
 		super();
 		this.id = id;
 		TuoiToiThieu = tuoiToiThieu;
@@ -35,7 +34,6 @@ public class ThamSo {
 		SoSachMuonToiDa = soSachMuonToiDa;
 		SoNgayMuonToiDa = soNgayMuonToiDa;
 		DonGiaPhat = donGiaPhat;
-		AD_QDKTTienThu = aD_QDKTTienThu;
 	}
 
 	public int getId() {
@@ -102,11 +100,4 @@ public class ThamSo {
 		DonGiaPhat = donGiaPhat;
 	}
 
-	public Integer getAD_QDKTTienThu() {
-		return AD_QDKTTienThu;
-	}
-
-	public void setAD_QDKTTienThu(Integer aD_QDKTTienThu) {
-		AD_QDKTTienThu = aD_QDKTTienThu;
-	}
 }

@@ -191,7 +191,7 @@
 	                		<td><fmt:formatDate value="${phieuthu.ngayLap}" pattern="dd/MM/yyyy"/></td>
 	                		<td>
 								<a href="${pageContext.request.contextPath}/phieuthu/listPhieuThu.htm?edit&id=${phieuthu.soPhieuThu }" class="btn btn-outline-success">Chỉnh sửa</a>
-	                			<button type="button" class="btn btn-outline-danger delete" data-bs-toggle="modal" data-bs-target="#xoaPhieuThuModal">Xóa</button>
+	                		<!-- 	<button type="button" class="btn btn-outline-danger delete" data-bs-toggle="modal" data-bs-target="#xoaPhieuThuModal">Xóa</button> -->
 	                			<input type="hidden" name="soPhieuThu" id="soPhieuThu" value="${phieuthu.soPhieuThu }">
                 			</td>
 	                 	</tr>
