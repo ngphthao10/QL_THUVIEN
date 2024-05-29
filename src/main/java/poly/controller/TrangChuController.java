@@ -45,10 +45,10 @@ public class TrangChuController {
         
         model.addAttribute("thoigian", result);
 		
-		List<TuaSach> tuasachList = tuaSachService.getTop5TuaSach();
+		List<TuaSach> tuasachList = tuaSachService.getAllTuaSach();
 		model.addAttribute("tuasachList", tuasachList);
 		
-		List<DocGia> docgiaList = docGiaService.getTop5DocGia();
+		List<DocGia> docgiaList = docGiaService.getAllDocGia();
 		model.addAttribute("docgiaList", docgiaList);
 		
 		Long soLuongSach = sachService.getSoLuongSach();
@@ -56,6 +56,14 @@ public class TrangChuController {
 		
 		Long soDocGia = docGiaService.getSoLuongDG();
 		model.addAttribute("soDocGia", soDocGia);
+		
+		//phần minh thư :) (này là hiện lên số lượt mượn và mượn quá hạn tháng và năm hiện tại
+//		Long soLuotMuon = phieuMuonTraService.getSoLuongPhieu(htai.getMonth(), htai.getYear());
+//		model.addAttribute("soLuotMuon", soLuotMuon);
+//		
+//		Long muonQuaHan = phieuMuonTraService.getSoLuongPhieu(htai.getMonth(), htai.getYear());
+//		model.addAttribute("muonQuaHan", muonQuaHan);
+		
 		return "include/trangchu";
 	}
 	
@@ -63,4 +71,6 @@ public class TrangChuController {
 	public String info(HttpServletRequest request, ModelMap model) {
 		return "include/thongtinnhom";
 	}
+	
+	//thêm hàm sau khi bấm nút lọc nữa
 }	

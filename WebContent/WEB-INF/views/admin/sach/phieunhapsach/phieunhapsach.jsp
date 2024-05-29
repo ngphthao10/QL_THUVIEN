@@ -15,23 +15,6 @@
 <title>Quản lý phiếu nhập sách</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
-<style>
-.button-container {
-	text-align: right;
-}
-
-.modal-content {
-	background-color: #ece0d1;
-}
-
-.modal-header {
-	background-color: #634832;
-	color: #fff;
-}
-.centered-column {
-	text-align: center;
-}
-</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/include/navbar.jsp"%>
@@ -56,13 +39,13 @@
 									fill="currentColor" class="bi bi-search mb-1"
 									viewBox="0 0 16 16">
 				            		<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-				        </svg>
+				        		</svg>
 								Tìm kiếm
 							</button>
 						</form:form>
 						<form:form class="d-flex col-6 ps-2" role="search" method="POST"
 							action="sach/phieunhapsach/filter.htm" modelAttribute="phieunhapsach">
-							<input name="NgayNhap" class="form-control datepicker me-2" placeholder="Ngày nhập sách" />
+							<form:input path="pns.NgayNhap" class="form-control datepicker me-2" placeholder="Ngày nhập sách"/>
 							<button class="btn btn-outline-success" style="min-width: 150px;"
 								type="submit">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -79,9 +62,20 @@
 					<!-- Khai báo pagedListHolder với param p -->
 					<jsp:useBean id="pagedListHolder" scope="request"
 						type="org.springframework.beans.support.PagedListHolder" />
-					<c:url value="sach/phieunhapsach/index.htm" var="pagedLink">
-						<c:param name="p" value="~" />
-					</c:url>
+					<c:choose>
+						<c:when test="${not empty param.keyword }">
+							<c:url value="sach/phieunhapsach/search.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+								<c:param name="keyword" value="${param.keyword}" />
+								
+							</c:url>
+						</c:when>
+						<c:otherwise>
+							<c:url value="sach/phieunhapsach/index.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+							</c:url>
+						</c:otherwise>
+					</c:choose>
 					<!-- Bảng dữ liệu -->
 					<table class="table table-hover table-bordered mt-2" style="vertical-align: middle;">
 						<!-- Tiêu đề -->
@@ -97,7 +91,7 @@
 						<tbody class="table-group-divider">
 							<c:forEach var="p" items="${pagedListHolder.pageList}">
 								<tr>
-									<td style="text-align: right;">${p.soPhieuNhap}</td>
+									<td class="centered-column"">${p.soPhieuNhap}</td>
 									<td style="text-align: right;"><fmt:setLocale value="vi_VN"/> 
 									<fmt:formatNumber value="${p.tongTien}" type="currency" currencySymbol="đ" maxFractionDigits="0"/></td>
 									<td style="text-align: right;"><fmt:formatDate value="${p.ngayNhap}" pattern="dd/MM/yyyy" /></td>

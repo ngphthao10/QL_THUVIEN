@@ -40,28 +40,27 @@ public class UserController {
 	
 	@RequestMapping(value = "trang-chu", method = RequestMethod.GET)
 	public String index(HttpServletRequest request, ModelMap model, @ModelAttribute("docgia") DocGia dg) {
-		int id = 9;
-		DocGia docGia = docGiaService.getDocGiaTheoIdNguoiDung(id);
+		NguoiDung nguoidung = (NguoiDung) request.getSession().getAttribute("nguoidunglogin");
+		DocGia docGia = docGiaService.getDocGiaTheoIdNguoiDung(nguoidung.getId());
 		model.addAttribute("docgia", docGia);
+		model.addAttribute("nguoidunglogin", nguoidung);
 		return "user/trangchu";
 	}
 	
 	@RequestMapping(value = "tra-cuu", method = RequestMethod.GET)
 	public String traCuu(HttpServletRequest request, ModelMap model, @ModelAttribute("sach") Sach sach) {
 		fillData(model);
-		int id = 9;
-		DocGia docGia = docGiaService.getDocGiaTheoIdNguoiDung(id);
-		model.addAttribute("docgia", docGia);
 		List<Sach> sachList = sachService.getAllSachChoUser();
 		PagedListHolder pagedListHolder = sachService.paging(sachList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		return "user/tracuusach";
 	}
 	
-	@RequestMapping(value = "tra-cuu/filterTL", method = RequestMethod.POST)
+	@RequestMapping(value = "tra-cuu/filterTL")
 	public String filterTL(HttpServletRequest request, ModelMap model, @ModelAttribute("sach") Sach sach,
-			@RequestParam("tuaSach1.theloai.id") int idTL) {
+			@RequestParam("filter") int idTL) {
 		fillData(model);
+		System.out.println(idTL);
 		List<Sach> sachList = sachService.getAllSachTheoTheLoai(idTL);
 		PagedListHolder pagedListHolder = sachService.paging(sachList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
@@ -69,10 +68,11 @@ public class UserController {
 		return "user/tracuusach";
 	}
 	
-	@RequestMapping(value = "tra-cuu/filterTT", method = RequestMethod.POST)
+	@RequestMapping(value = "tra-cuu/filterTT")
 	public String filterTT(HttpServletRequest request, ModelMap model, @ModelAttribute("sach") Sach sach,
-			@RequestParam("SoLuongConLai") int slConLai) {
+			@RequestParam("filterSL") int slConLai) {
 		fillData(model);
+		System.out.println(slConLai);
 		List<Sach> sachList = sachService.getAllSachTheoSLCL(slConLai);
 		PagedListHolder pagedListHolder = sachService.paging(sachList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
@@ -80,7 +80,7 @@ public class UserController {
 		return "user/tracuusach";
 	}
 	
-	@RequestMapping(value = "tra-cuu/search", method = RequestMethod.POST)
+	@RequestMapping(value = "tra-cuu/search")
 	public String search(HttpServletRequest request, ModelMap model, @RequestParam("keyword") String keyword,
 			@ModelAttribute("sach") Sach sach) {
 		fillData(model);

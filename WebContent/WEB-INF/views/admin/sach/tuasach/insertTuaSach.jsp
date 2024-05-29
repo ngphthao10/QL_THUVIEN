@@ -20,7 +20,6 @@
 					<div class="mb-3">
 						<label for="theLoaiSelect" class="form-label">Thể loại*</label>
 						<form:select path="tuasach.theloai.id" items="${dsTheLoai}" itemLabel="TenTheLoai" itemValue="id" class="form-select me-2"></form:select>
-						<div class="invalid-feedback">Vui lòng chọn thể loại.</div>
 					</div>
 
 					<div class="mb-3">

@@ -70,7 +70,7 @@
 					</div>
 					<div class="row">
 						<div class="col-sm-2">
-							<label for="validationTextarea" class="form-label">Thành tiền:</label>
+							<label for="validationTextarea" >Thành tiền:</label>
 						</div>
 						<div class="col-sm-10">
 							<p name="ctpn.ThanhTien" id="thanhTien">0đ</p>

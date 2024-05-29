@@ -41,14 +41,7 @@
 	.centered-column {
 		text-align: center;
 	}
-	.form-control.is-valid, .was-validated .form-control.is-invalid:valid {
-		background-image: none !important;
-		border-color: var(--bs-form-invalid-border-color) !important;
-	}
-	.form-control.is-invalid:focus, .was-validated .form-control.is-invalid:valid:focus {
-	    border-color: var(--bs-form-invalid-border-color) !important;
-	    box-shadow: 0 0 0 .25rem rgba(var(--bs-danger-rgb), .25) !important;
-	} 
+
 </style>
 </head>
 <body>
@@ -112,7 +105,7 @@
 			</div>
 		</div>
 	</nav>
-	<jsp:include page="../account/info.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/account/info.jsp"></jsp:include>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

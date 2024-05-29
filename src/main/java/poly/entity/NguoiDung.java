@@ -56,7 +56,7 @@ public class NguoiDung {
 	}
 
 	public NguoiDung(int id, String maNguoiDung, String tenNguoiDung, Date ngaySinh, String chucVu, String tenDangNhap,
-			String matKhau, NhomNguoiDung nhomNguoiDung) {
+			String matKhau, NhomNguoiDung nhomNguoiDung, DocGia docGia) {
 		super();
 		this.id = id;
 		this.maNguoiDung = maNguoiDung;
@@ -66,6 +66,7 @@ public class NguoiDung {
 		this.tenDangNhap = tenDangNhap;
 		this.matKhau = matKhau;
 		this.nhomNguoiDung = nhomNguoiDung;
+		this.docGia = docGia;
 	}
 
 	public int getId() {
@@ -132,6 +133,11 @@ public class NguoiDung {
 		this.nhomNguoiDung = nhomNguoiDung;
 	}
 
-	
-	
+	public DocGia getDocGia() {
+		return docGia;
+	}
+
+	public void setDocGia(DocGia docGia) {
+		this.docGia = docGia;
+	}
 }

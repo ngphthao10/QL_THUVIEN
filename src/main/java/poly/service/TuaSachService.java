@@ -30,16 +30,6 @@ public class TuaSachService {
 		return pagedListHolder;
 	}
 	
-	public PagedListHolder<TuaSach> paging2(List<TuaSach> list, HttpServletRequest request) {
-		// bỏ dữ liệu vào pagedListHolder rồi sau đó trả về cho model
-		PagedListHolder pagedListHolder = new PagedListHolder(list);
-		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
-		pagedListHolder.setPage(page);
-		pagedListHolder.setMaxLinkedPages(5);
-		pagedListHolder.setPageSize(5);
-		return pagedListHolder;
-	}
-	
 	public List<TuaSach> getAllTuaSach() {
 		return tuaSachDAO.getAllTuaSach();
 	}
@@ -76,7 +66,4 @@ public class TuaSachService {
 		return tuaSachDAO.updateTuaSach(ts);
 	}
 
-	public List<TuaSach> getTop5TuaSach() {
-		return tuaSachDAO.getTop5TuaSach();
-	}
 }

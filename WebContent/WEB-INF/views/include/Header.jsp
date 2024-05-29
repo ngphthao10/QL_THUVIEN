@@ -74,11 +74,7 @@
         	text-align: center;
         	vertical-align: middle;
         }
-		.invalid-feedback {
-			display: block;
-			margin-top: 5px;
-			margin-bottom: 5px
-		}
+
 
     </style>
 </head>

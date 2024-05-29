@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<style>
+	.form-control.is-valid, .was-validated .form-control.is-invalid:valid {
+		background-image: none !important;
+		border-color: var(--bs-form-invalid-border-color) !important;
+	}
+	.form-control.is-invalid:focus, .was-validated .form-control.is-invalid:valid:focus {
+	    border-color: var(--bs-form-invalid-border-color) !important;
+	    box-shadow: 0 0 0 .25rem rgba(var(--bs-danger-rgb), .25) !important;
+	} 
+</style>
 <!-- Modal sửa sách -->
 <div class="modal fade" style="text-align: left;" id="ModalToggle"
 	tabindex="-1" aria-labelledby="exampleModalToggleLabel" aria-hidden="true">

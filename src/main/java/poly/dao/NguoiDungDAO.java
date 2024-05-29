@@ -125,4 +125,15 @@ public class NguoiDungDAO {
 		List<NguoiDung> list = query.list();
 		return list;
 	}
+
+
+	public NguoiDung getNguoiDung_LOGIN(String tendangnhap, String matkhau) {
+		Session session = sessionFactory.getCurrentSession();
+		String hql = "FROM NguoiDung WHERE tenDangNhap = :tenDangNhap AND matKhau = :matKhau";
+		Query query = session.createQuery(hql);
+		query.setParameter("tenDangNhap", tendangnhap);
+		query.setParameter("matKhau", matkhau);
+		NguoiDung nguoidung = (NguoiDung) query.uniqueResult();
+		return nguoidung;
+	}
 }

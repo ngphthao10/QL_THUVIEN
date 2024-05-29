@@ -23,7 +23,7 @@
 			</div>
 			<hr>
 			<form:form class="d-flex" role="search" method="POST" action="user/trang-chu.htm" modelAttribute="docgia">
-				<table class="table ALIGN table-hover table-bordered mt-4">
+				<table class="table ALIGN table-hover table-bordered mt-4" style="vertical-align: middle;">
 					<tbody>
 						<tr>
 							<th scope="row">Mã độc giả</th>

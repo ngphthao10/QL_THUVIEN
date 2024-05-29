@@ -154,8 +154,25 @@
 						
 						<form:form class="d-flex col-6 ps-4" role="search" method="POST"
 							action="sach/tuasach/filter.htm" modelAttribute="tuasachdto">
-							<form:select path="tuasach.theloai.id" items="${dsTheLoai}"
+							<%-- <select name="filter"  class="form-select me-2">
+								<c:forEach var="p" items="${dsTheLoai}">
+									<option value="${p.id}">${p.tenTheLoai}</option>
+								</c:forEach>
+							</select> --%>
+							<form:select  id="selected" path="tuasach.theloai.id" items="${dsTheLoai}"
 								itemLabel="tenTheLoai" itemValue="id" class="form-select me-2"></form:select>
+							<input type="hidden" id="hidden" name="filter" value="${tuasach.theloai.id}" />
+							
+							<script>
+							    const defaultOptionValue = document.getElementById('selected').options[0].value;
+							    document.getElementById('hidden').value = defaultOptionValue;
+							    const selectElement = document.getElementById('selected');
+							    const hiddenInput = document.getElementById('hidden');
+							    selectElement.addEventListener('change', function() {
+							        const selectedValue = selectElement.value;
+							        hiddenInput.value = selectedValue;
+							    });
+							</script>
 							<button class="btn btn-outline-success" style="min-width: 150px;" type="submit">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 									fill="currentColor" class="bi bi-funnel mb-1" viewBox="0 0 16 16">
@@ -171,9 +188,31 @@
 					<!-- Khai báo pagedListHolder với param p -->
 					<jsp:useBean id="pagedListHolder" scope="request"
 						type="org.springframework.beans.support.PagedListHolder" />
-					<c:url value="sach/tuasach/index.htm" var="pagedLink">
+					<%-- <c:url value="sach/tuasach/index.htm" var="pagedLink">
 						<c:param name="p" value="~" />
 					</c:url>
+					 --%>
+					<c:choose>
+						<c:when test="${not empty param.keyword }">
+							<c:url value="sach/tuasach/search.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+								<c:param name="keyword" value="${param.keyword}" />
+								
+							</c:url>
+						</c:when>
+						<c:when test="${not empty param.filter}">
+							<c:url value="sach/tuasach/filter.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+								<c:param name="filter" value="${param.filter}" />
+								
+							</c:url>
+						</c:when>
+						<c:otherwise>
+							<c:url value="sach/tuasach/index.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+							</c:url>
+						</c:otherwise>
+					</c:choose>
 					<!-- Bảng dữ liệu -->
 					<table class="table table-hover table-bordered mt-2" style="vertical-align: middle;">
 						<!-- Tiêu đề -->
@@ -183,7 +222,6 @@
 								<th scope="col">Tên tựa sách</th>
 								<th scope="col">Thể loại</th>
 								<th scope="col">Tác giả</th>
-								<th scope="col">Đã ẩn</th>
 								<th scope="col">Chức năng</th>
 								<th scope="col">Ẩn tựa sách</th>
 							</tr>
@@ -192,11 +230,10 @@
 						<tbody class="table-group-divider">
 							<c:forEach var="p" items="${pagedListHolder.pageList}">
 								<tr>
-									<td>${p.maTuaSach}</td>
+									<td class="centered-column">${p.maTuaSach}</td>
 									<td>${p.tenTuaSach}</td>
-									<td>${p.getTenTheloai()}</td>
+									<td class="centered-column">${p.getTenTheloai()}</td>
 									<td>${p.getTacGia()}</td>
-									<td class="centered-column">${p.daAn}</td>
 									<td class="centered-column"><a
 										href="sach/tuasach/index/${p.id}.htm?linkEditTS">
 											<button type="button" class="btn btn-outline-danger "

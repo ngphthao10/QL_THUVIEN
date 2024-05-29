@@ -38,7 +38,7 @@ public class CuonSachController {
 		return "admin/sach/cuonsach/cuonsach";
 	}
 
-	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@RequestMapping(value = "search")
 	public String search(HttpServletRequest request, ModelMap model, @RequestParam("keyword") String keyword,
 			@ModelAttribute("cuonsach") CuonSach cs) {
 		
@@ -57,9 +57,9 @@ public class CuonSachController {
 		return "admin/sach/cuonsach/cuonsach";
 	}
 
-	@RequestMapping(value = "filter", method = RequestMethod.POST)
+	@RequestMapping(value = "filter")	
 	public String filter(HttpServletRequest request, ModelMap model, @ModelAttribute("cuonsach") CuonSach cs,
-			@RequestParam("TinhTrang") int tinhTrang) {
+			@RequestParam("filter") int tinhTrang) {
 		List<CuonSach> cuonSachList = cuonSachService.getAllCuonSachTheoTinhTrang(tinhTrang);
 		PagedListHolder pagedListHolder = cuonSachService.paging(cuonSachList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);

@@ -1,5 +1,8 @@
 package poly.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +52,7 @@ public class PhieuNhapSachController {
 		return "admin/sach/phieunhapsach/phieunhapsach";
 	}
 
-	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@RequestMapping(value = "search")
 	public String search(HttpServletRequest request, ModelMap model, @RequestParam("keyword") Integer keyword,
 			@ModelAttribute("phieunhapsach") SachDTO pns) {
 		if (keyword > 0) {
@@ -67,13 +70,12 @@ public class PhieuNhapSachController {
 		return "admin/sach/phieunhapsach/phieunhapsach";
 	}
 	
-	@RequestMapping(value = "filter", method = RequestMethod.POST)
+	@RequestMapping(value = "filter")
 	public String filter(HttpServletRequest request, ModelMap model, @ModelAttribute("phieunhapsach") SachDTO pns) {
 		model.addAttribute("phieunhapsach", pns);
 		List<PhieuNhapSach> pnsList = phieuNhapSachService.getPnsTheoNgay(pns.getPns().getNgayNhap());
 		PagedListHolder pagedListHolder = phieuNhapSachService.paging(pnsList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
-
 		return "admin/sach/phieunhapsach/phieunhapsach";
 	}
 	

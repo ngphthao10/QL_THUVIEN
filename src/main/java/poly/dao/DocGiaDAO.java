@@ -27,11 +27,10 @@ public class DocGiaDAO {
 		return list;
 	}
 
-	public List<DocGia> getTop5DocGia() {
+	public List<DocGia> getAllDocGia() {
 		Session session = sessionFactory.getCurrentSession();
 		String hql = "FROM DocGia";
 		Query query = session.createQuery(hql);
-		query.setMaxResults(6); 
 		List<DocGia> list = query.list();
 		return list;
 	}

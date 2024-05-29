@@ -78,7 +78,7 @@
                     </div>
                     
                     <div class="mb-3" style="color:red;">
-                        ${message }
+                        ${message}
                     </div>
                     
                    	<div class="g-recaptcha mb-3" data-callback="recaptchaCallback"

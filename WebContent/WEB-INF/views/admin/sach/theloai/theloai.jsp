@@ -13,27 +13,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Quản lý thể loại</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-<style>
-.button-container {
-	text-align: right;
-}
-
-.button-container .modal-body {
-	text-align: left;
-}
-
-.modal-content {
-	background-color: #ece0d1;
-}
-
-.modal-header {
-	background-color: #634832;
-	color: #fff;
-}
-.centered-column {
-	text-align:center;
-}
-</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/include/navbar.jsp"%>
@@ -141,8 +120,8 @@
 	                  <tbody class="table-group-divider">
 	                    <c:forEach var="p" items="${pagedListHolder.pageList}">
 							<tr>
-								<td>${p.maTheLoai}</td>
-								<td>${p.tenTheLoai}</td>
+								<td class="centered-column">${p.maTheLoai}</td>
+								<td class="centered-column">${p.tenTheLoai}</td>
 								<td class="centered-column"> 
 									<div>
 										<a  style="text-decoration: none;" class="col-sm-4" style="text-align: right;"

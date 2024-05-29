@@ -70,7 +70,7 @@ public class TuaSachController {
 		return "admin/sach/tuasach/tuasach";
 	}
 
-	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@RequestMapping(value = "search")
 	public String search(HttpServletRequest request, ModelMap model, @RequestParam("keyword") String keyword,
 			@ModelAttribute("tuasachdto") TuaSachDTO tsDTO) {
 		fillData(model);
@@ -90,11 +90,11 @@ public class TuaSachController {
 		return "admin/sach/tuasach/tuasach";
 	}
 
-	@RequestMapping(value = "filter", method = RequestMethod.POST)
-	public String filter(HttpServletRequest request, ModelMap model, @ModelAttribute("tuasachdto") TuaSachDTO tsDTO) {
+	@RequestMapping(value = "filter")
+	public String filter(HttpServletRequest request, ModelMap model, @RequestParam("filter") int id,
+			@ModelAttribute("tuasachdto") TuaSachDTO tsDTO) {
 		fillData(model);
-		model.addAttribute("tuasachdto", tsDTO);
-		List<TuaSach> tuaSachList = tuaSachService.getTSTheoIdTheLoai(tsDTO.getTuasach().getIdTheLoai());
+		List<TuaSach> tuaSachList = tuaSachService.getTSTheoIdTheLoai(id);
 		PagedListHolder pagedListHolder = tuaSachService.paging(tuaSachList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 
@@ -333,7 +333,4 @@ public class TuaSachController {
 	    return "admin/sach/tuasach/tuasach";
 	}
 	
-
-
-
 }

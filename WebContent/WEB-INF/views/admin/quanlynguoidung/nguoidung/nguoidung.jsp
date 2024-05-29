@@ -113,8 +113,20 @@
 					</form:form>
 					<form:form class="d-flex col-6 ps-4" role="search" method="POST"
 						action="nguoidung/filter.htm" modelAttribute="nguoidung">
-						<form:select path="id" items="${dsNhomNguoiDung}"
+						<form:select id="selected" path="id" items="${dsNhomNguoiDung}"
 							itemLabel="tenNhomNguoiDung" itemValue="id" class="form-select me-2"></form:select>
+						<input type="hidden" id="hidden" name="filter" value="${id}" />
+						
+						<script>
+						    const defaultOptionValue = document.getElementById('selected').options[0].value;
+						    document.getElementById('hidden').value = defaultOptionValue;
+						    const selectElement = document.getElementById('selected');
+						    const hiddenInput = document.getElementById('hidden');
+						    selectElement.addEventListener('change', function() {
+						        const selectedValue = selectElement.value;
+						        hiddenInput.value = selectedValue;
+						    });
+						</script>
 						<button class="btn btn-outline-success" style="min-width: 150px;" type="submit">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 								fill="currentColor" class="bi bi-funnel mb-1" viewBox="0 0 16 16">
@@ -132,6 +144,27 @@
 					<c:url value="nguoidung/index.htm" var="pagedLink">
 						<c:param name="p" value="~" />
 					</c:url>
+					<c:choose>
+						<c:when test="${not empty param.keyword }">
+							<c:url value="nguoidung/search.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+								<c:param name="keyword" value="${param.keyword}" />
+								
+							</c:url>
+						</c:when>
+						<c:when test="${not empty param.filter}">
+							<c:url value="nguoidung/filter.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+								<c:param name="filter" value="${param.filter}" />
+								
+							</c:url>
+						</c:when>
+						<c:otherwise>
+							<c:url value="nguoidung/index.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+							</c:url>
+						</c:otherwise>
+					</c:choose>
 					<!-- Bảng dữ liệu -->
 					<table class="table table-hover table-bordered mt-2" style="vertical-align: middle;">
 						<!-- Tiêu đề -->

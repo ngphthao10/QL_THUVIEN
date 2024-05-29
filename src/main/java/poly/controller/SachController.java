@@ -67,7 +67,7 @@ public class SachController {
 		return "admin/sach/sach/sach";
 	}
 
-	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@RequestMapping(value = "search")
 	public String search(HttpServletRequest request, ModelMap model, @RequestParam("keyword") String keyword,
 			@ModelAttribute("sachDTO") SachDTO sachDTO) {
 		fillData(model);
@@ -86,9 +86,9 @@ public class SachController {
 		return "admin/sach/sach/sach";
 	}
 
-	@RequestMapping(value = "filter", method = RequestMethod.POST)
+	@RequestMapping(value = "filter")
 	public String filter(HttpServletRequest request, ModelMap model, @ModelAttribute("sachDTO") SachDTO sachDTO,
-			@RequestParam("sach.DaAn") int daAn) {
+			@RequestParam("filter") int daAn) {
 		fillData(model);
 		List<Sach> sachList = sachService.getAllSachTheoTinhTrang(daAn);
 		PagedListHolder pagedListHolder = sachService.paging(sachList, request);

@@ -63,10 +63,22 @@
 						</form:form>
 						<form:form class="d-flex col-6 ps-4" role="search" method="POST"
 							action="sach/cuonsach/filter.htm" modelAttribute="cuonsach">
-							<form:select path="TinhTrang" class="form-select me-2">
+							<form:select id="selected" path="TinhTrang" class="form-select me-2">
 								<form:option value="0">Chưa được mượn</form:option>
                     			<form:option value="1">Đã được mượn</form:option>
 							</form:select>
+							<input type="hidden" id="hidden" name="filter" value="${TinhTrang}" />
+							
+							<script>
+							    const defaultOptionValue = document.getElementById('selected').options[0].value;
+							    document.getElementById('hidden').value = defaultOptionValue;
+							    const selectElement = document.getElementById('selected');
+							    const hiddenInput = document.getElementById('hidden');
+							    selectElement.addEventListener('change', function() {
+							        const selectedValue = selectElement.value;
+							        hiddenInput.value = selectedValue;
+							    });
+							</script>
 							<button class="btn btn-outline-success" style="min-width: 150px;"
 								type="submit">
 								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -85,9 +97,27 @@
 				<!-- Khai báo pagedListHolder với param p -->
 				<jsp:useBean id="pagedListHolder" scope="request"
 					type="org.springframework.beans.support.PagedListHolder" />
-				<c:url value="sach/cuonsach/index.htm" var="pagedLink">
-					<c:param name="p" value="~" />
-				</c:url>
+				<c:choose>
+						<c:when test="${not empty param.keyword }">
+							<c:url value="sach/cuonsach/search.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+								<c:param name="keyword" value="${param.keyword}" />
+								
+							</c:url>
+						</c:when>
+						<c:when test="${not empty param.filter}">
+							<c:url value="sach/cuonsach/filter.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+								<c:param name="filter" value="${param.filter}" />
+								
+							</c:url>
+						</c:when>
+						<c:otherwise>
+							<c:url value="sach/cuonsach/index.htm" var="pagedLink">
+								<c:param name="p" value="~" />
+							</c:url>
+						</c:otherwise>
+					</c:choose>
 				<!-- Bảng dữ liệu -->
 				<table class="table align-middle table-hover table-bordered mt-4" >
 					<!-- Tiêu đề -->

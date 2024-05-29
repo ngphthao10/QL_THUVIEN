@@ -62,4 +62,8 @@ public class NguoiDungService {
 	public List<NguoiDung> getNDTheoNND(int id) {
 		return nguoiDungDAO.getNDTheoNND(id);
 	}
+
+	public NguoiDung getNguoiDung_LOGIN(String tendangnhap, String matkhau) {
+		return nguoiDungDAO.getNguoiDung_LOGIN(tendangnhap, matkhau);
+	}
 }

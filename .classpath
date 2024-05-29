@@ -50,5 +50,6 @@
 	<classpathentry kind="lib" path="/website-van-phong-pham-main/website-van-phong-pham-main/WebVanPhongPham/WebContent/WEB-INF/lib/hibernate-validator-5.4.1.Final.jar"/>
 	<classpathentry kind="lib" path="/website-van-phong-pham-main/website-van-phong-pham-main/WebVanPhongPham/WebContent/WEB-INF/lib/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="/website-van-phong-pham-main/website-van-phong-pham-main/WebVanPhongPham/WebContent/WEB-INF/lib/slf4j-api-1.7.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/PHUONG THAO/eclipse-workspace/PTITHCMS1L1/WebContent/WEB-INF/lib/spring-webmvc-4.0.1.RELEASE.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

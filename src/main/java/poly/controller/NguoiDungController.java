@@ -53,10 +53,11 @@ public class NguoiDungController {
 		PagedListHolder pagedListHolder = nguoiDungService.paging(nguoiDungList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		
+		System.out.println("thảo");
 		return "admin/quanlynguoidung/nguoidung/nguoidung";
 	}
 	
-	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@RequestMapping(value = "search")
 	public String search(HttpServletRequest request, ModelMap model, @RequestParam("keyword") String keyword,
 			@ModelAttribute("nguoidung") NguoiDung nguoidung) {
 		fillData(model);
@@ -76,11 +77,11 @@ public class NguoiDungController {
 		return "admin/quanlynguoidung/nguoidung/nguoidung";
 	}
 	
-	@RequestMapping(value = "filter", method = RequestMethod.POST)
-	public String filter(HttpServletRequest request, ModelMap model, @ModelAttribute("nguoidung") NguoiDung nguoidung) {
+	@RequestMapping(value = "filter")
+	public String filter(HttpServletRequest request, ModelMap model, @ModelAttribute("nguoidung") NguoiDung nguoidung,
+			@RequestParam("filter") int id) {
 		fillData(model);
 		model.addAttribute("nguoidung", nguoidung);
-		int id = Integer.parseInt(request.getParameter("id"));
 		List<NguoiDung> nguoiDungList = nguoiDungService.getNDTheoNND(id);
 		PagedListHolder pagedListHolder = nguoiDungService.paging(nguoiDungList, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);

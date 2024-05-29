@@ -19,33 +19,31 @@
 	  		<ul class="list-unstyled w-100 d-flex flex-column align-items-center">
                 <li class="input-group mb-3 w-100 d-flex justify-content-center">
                     <span class="form-control form-control-lg bg-light fs-6 w-75">
-                        Mã người dùng: ${nguoidung.maNguoiDung}
+                        Mã người dùng: ${nguoidunglogin.maNguoiDung}
                     </span>
                 </li>
                 <li class="input-group mb-3 w-100 d-flex justify-content-center">
                     <span class="form-control form-control-lg bg-light fs-6 w-75">
-                        Tên người dùng: ${nguoidung.tenNguoiDung}
+                        Tên người dùng: ${nguoidunglogin.tenNguoiDung}
                     </span>
                 </li>
                 <li class="input-group mb-3 w-100 d-flex justify-content-center">
                     <span class="form-control form-control-lg bg-light fs-6 w-75">
-                        Ngày sinh: <fmt:formatDate value="${nguoidung.ngaySinh}" pattern="dd/MM/yyyy" />
+                        Ngày sinh: <fmt:formatDate value="${nguoidunglogin.ngaySinh}" pattern="dd/MM/yyyy" />
                     </span>
                 </li>
                 <li class="input-group mb-3 w-100 d-flex justify-content-center">
                     <span class="form-control form-control-lg bg-light fs-6 w-75">
-                        Chức vụ: ${nguoidung.chucVu}
+                        Chức vụ: ${nguoidunglogin.chucVu}
                     </span>
                 </li>
                 <li class="input-group mb-3 w-100 d-flex justify-content-center">
                     <span class="form-control form-control-lg bg-light fs-6 w-75">
-                        Nhóm người dùng: ${nguoidung.nhomNguoiDung.tenNhomNguoiDung}
+                        Nhóm người dùng: ${nguoidunglogin.nhomNguoiDung.tenNhomNguoiDung}
                     </span>
                 </li>
+                <a href="home/doimatkhau.htm" class="btn btn-outline-success" style="background-color: #634832; color: white;">Đổi mật khẩu</a>
                 
-                <li class="w-100 d-flex justify-content-center">
-                    <a href="home/doimatkhau.htm" class="btn btn-outline-success" style="background-color: #634832; color: white;">Đổi mật khẩu</a>
-                </li>
             </ul>
 
 	    
