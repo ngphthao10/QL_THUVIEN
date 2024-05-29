@@ -1,4 +1,4 @@
-package poly.dao;
+package ptithcm.dao;
 
 import java.util.List;
 
@@ -9,73 +9,91 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import poly.entity.DocGia;
-
+import ptithcm.entity.DocGia;
 
 @Repository
 public class DocGiaDAO {
-
 	@Autowired
-	SessionFactory sessionFactory;
+	SessionFactory factory;
 	
-	public DocGia getDocGiaTheoIdNguoiDung(int idNguoiDung) {
-		Session session = sessionFactory.getCurrentSession();
-		String hql = "FROM DocGia where nguoiDung.id = :idNguoiDung";
-		Query query = session.createQuery(hql);
-		query.setParameter("idNguoiDung", idNguoiDung);
-		DocGia list = (DocGia) query.list().get(0);
-		return list;
-	}
-
-	public List<DocGia> getAllDocGia() {
-		Session session = sessionFactory.getCurrentSession();
+	public List<DocGia> getAllDocGia(){
+		Session session = factory.getCurrentSession();
 		String hql = "FROM DocGia";
 		Query query = session.createQuery(hql);
 		List<DocGia> list = query.list();
 		return list;
 	}
-
-	public Long getSoLuongDG() {
-		Session session = sessionFactory.getCurrentSession();
-	    String hql = "SELECT count(*) FROM DocGia";
-	    Query query = session.createQuery(hql);
-        Long result = (Long) query.uniqueResult();
-	    return result;
-	}
-
-	public DocGia getDocGiaFromMaDG(String maDocGia) {
-		Session session = sessionFactory.openSession();
-		String hql = "FROM DocGia WHERE maDocGia = :maDocGia";
+	
+	public List<DocGia> searchDocGiaByName (String tenDocGia){
+		Session session = factory.getCurrentSession();
+		String hql = "FROM DocGia where LOWER(tenDocGia) like LOWER(:tenDocGia)";
 		Query query = session.createQuery(hql);
-		query.setParameter("maDocGia", maDocGia);
-		DocGia docgia = (DocGia)query.uniqueResult();
-		session.close();
-		return docgia;
+		query.setParameter("tenDocGia", "%" + tenDocGia + "%");
+		List<DocGia> list = query.list();
+		return list;
 	}
 	
-	public int getTongNoHienTai(String maDocGia) {
-		Session session = sessionFactory.openSession();
-		String hql = "SUM(p.docGia.soTienPhat) FROM PhieuMuonTra p WHERE p.docGia.maDocGia = :maDocGia";
+	public List<DocGia> searchDocGiaByMaDG (String maDocGia){
+		Session session = factory.getCurrentSession();
+		String hql = "FROM DocGia where maDocGia like :maDocGia";
 		Query query = session.createQuery(hql);
-		query.setParameter("maDocGia", maDocGia);
-		int sotienphat = (int)query.uniqueResult();
-		session.close();
-		return sotienphat;
+		query.setParameter("maDocGia", "%" + maDocGia + "%");
+		List<DocGia> list = query.list();
+		return list;
 	}
 	
-	public Integer editDocGia (DocGia dg) {
-		Session session = sessionFactory.openSession();
+	public DocGia getDocGiaByID(int id) {
+		Session session = factory.openSession();
+		String hql = "FROM DocGia where id = :id";
+		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
+
+		DocGia list = (DocGia) query.list().get(0);
+		session.close();
+		return list;
+	}
+	
+	public DocGia getDocGiaByMaDG(String maDocGia) {
+		Session session = factory.openSession();
+		String hql = "FROM DocGia where maDocGia = :maDocGia";
+		Query query = session.createQuery(hql);
+		query.setParameter("maDocGia", maDocGia);
+
+		DocGia list = (DocGia) query.list().get(0);
+		session.close();
+		return list;
+	}
+	
+	public int updateDocGia (DocGia docgia) {
+		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
-			session.update(dg);
+			session.update(docgia);
 			t.commit();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			t.rollback();
 			return 0;
-		} finally {
+		}finally {
 			session.close();
 		}
 		return 1;
 	}
+	
+	public int insertDocGia (DocGia docgia) {
+		Session session = factory.openSession();
+		Transaction t = session.beginTransaction();
+		try {
+			session.save(docgia);
+			t.commit();
+		} catch (Exception e) {
+			t.rollback();
+			return 0;
+		}finally {
+			session.close();
+		}
+		return 1;
+	}
+	
+	
+	
 }

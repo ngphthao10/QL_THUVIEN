@@ -1,6 +1,4 @@
-package poly.dao;
-
-import java.util.List;
+package ptithcm.dao;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -8,19 +6,20 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import poly.entity.NhomNguoiDung;
+import ptithcm.entity.NhomNguoiDung;
 
 @Repository
 public class NhomNguoiDungDAO {
 	@Autowired
-	SessionFactory sessionFactory;
-
-	public List<NhomNguoiDung> getNhomNguoiDung() {
-		Session session = sessionFactory.getCurrentSession();
-		String hql = "FROM NhomNguoiDung";
+	SessionFactory factory;
+	
+	public NhomNguoiDung getNhomNguoiDungByID (int id) {
+		Session session = factory.getCurrentSession();
+		String hql = "FROM NhomNguoiDung where id = :id";
 		Query query = session.createQuery(hql);
+		query.setParameter("id", id);
 
-		List<NhomNguoiDung> list = query.list();
+		NhomNguoiDung list = (NhomNguoiDung) query.list().get(0);
 		return list;
 	}
 }
