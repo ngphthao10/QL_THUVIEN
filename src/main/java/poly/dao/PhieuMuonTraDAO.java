@@ -1,5 +1,6 @@
 package poly.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -131,6 +132,28 @@ public class PhieuMuonTraDAO {
 		List<PhieuMuonTra> list = query.list();
 		session.close();
 		return list;
+	}
+
+	public int getSoLuongPhieuMuon(int month, int year) {
+		Session session = factory.openSession();
+		String hql = "COUNT(SoPhieuMuonTra) FROM PhieuMuonTra WHERE MONTH(ngayMuon) = :month AND YEAR(ngayMuon) = :year";
+		Query query = session.createQuery(hql);
+		query.setParameter("month", month);
+		query.setParameter("year", year);
+		int result = (int)query.uniqueResult();
+		session.close();
+		return result;
+	}
+	
+	public int getSoLuotMuonQuaHan(int month, int year) {
+		Session session = factory.openSession();
+		String hql = "COUNT(SoPhieuMuonTra) FROM PhieuMuonTra WHERE MONTH(ngayMuon) = :month AND YEAR(ngayMuon) = :year AND ngayTra > hanTra";
+		Query query = session.createQuery(hql);
+		query.setParameter("month", month);
+		query.setParameter("year", year);
+		int result = (int)query.uniqueResult();
+		session.close();
+		return result;
 	}
 
 }
