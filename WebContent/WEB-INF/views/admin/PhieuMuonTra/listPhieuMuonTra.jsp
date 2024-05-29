@@ -112,9 +112,21 @@
 	         	<div class="container">
 	         	<jsp:useBean id="pagedListHolder" scope="request" type="org.springframework.beans.support.PagedListHolder" />
 	    
-			    <c:url value="phieumuontra/listPhieuMuonTra.htm" var="pagedLink">
-			    <c:param name="p" value="~"></c:param>
-			    </c:url>
+			    
+			    
+			    <c:choose>
+					<c:when test="${not empty param.keyword }">
+						<c:url value="phieumuontra/listPhieuMuonTra.htm?search" var="pagedLink">
+							<c:param name="p" value="~" />
+							<c:param name="keyword" value="${param.keyword }" />
+						</c:url>
+					</c:when>
+					<c:otherwise>
+						<c:url value="phieumuontra/listPhieuMuonTra.htm" var="pagedLink">
+					   		<c:param name="p" value="~"></c:param>
+					    </c:url>
+					</c:otherwise>
+				</c:choose>
 	            <table class="table table-hover table-bordered mt-4 text-center" style="vertical-align: middle" id="tablePhieuMuonTra">
 	              <thead>
 	                <tr>
