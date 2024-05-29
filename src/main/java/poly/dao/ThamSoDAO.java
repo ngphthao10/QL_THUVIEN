@@ -1,3 +1,4 @@
+
 package poly.dao;
 
 import java.util.List;
@@ -16,10 +17,11 @@ public class ThamSoDAO {
 	SessionFactory sessionFactory;
 
 	public ThamSo getAll() {
-		Session session = sessionFactory.getCurrentSession();
+		Session session = sessionFactory.openSession();
 		String hql = "from ThamSo";
 		Query query = session.createQuery(hql);
 		ThamSo list = (ThamSo) query.list().get(0);
+		session.close();
 		return list;
 	}
 }
