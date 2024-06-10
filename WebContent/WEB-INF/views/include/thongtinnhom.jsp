@@ -33,11 +33,12 @@
 									<div>Họ tên: Nguyễn Thị Phương Thảo</div>
 									<div>MSSV: N21DCCN078</div>
 									<div>Mô tả công việc:</div>
-									<li>Sách (gồm: Tựa sách, Sách, Cuốn sách, Thể loại, Phiếu
+									<li>Sách (Tựa sách, Sách, Cuốn sách, Thể loại, Phiếu
 										nhập sách)</li>
+									<li>Người dùng (Người dùng, Nhóm người dùng)</li>
 									<li>Đổi quy định</li>
 									<li>Giao diện riêng cho Độc giả (Thông tin độc giả, Tra
-										cứu sách, Sách đã mượn)</li>
+										cứu sách)</li>
 									<li>Giao diện trang chủ (dashboard)</li>
 									</p>
 								</div>
@@ -51,10 +52,11 @@
 									<div>Họ tên: Nguyễn Thị Minh Thư</div>
 									<div>MSSV: N21DCCN082</div>
 									<div>Mô tả công việc:</div>
-									<li>Phiếu mượn trả (gồm: thêm, sửa phiếu)</li>
-									<li>Phiếu thu (gồm: thêm, sửa phiếu)</li>
-									<li>Chức năng login, đổi mật khẩu</li>
-									<li>Người dùng (gồm: Người dùng, Nhóm người dùng)</li>
+									<li>Phiếu mượn trả (thêm, sửa phiếu)</li>
+									<li>Phiếu thu (thêm, sửa phiếu)</li>
+									<li>Chức năng login, đổi mật khẩu, quên mật khẩu</li>
+									<li>Giao diện riêng cho Độc giả (Sách đã mượn)</li>
+									<li>Giao diện trang chủ (dashboard)</li>
 									</p>
 								</div>
 							</div>
@@ -67,7 +69,7 @@
 									<div>Họ tên: Đặng Ngọc Yến</div>
 									<div>MSSV: N21DCCN097</div>
 									<div>Mô tả công việc:</div>
-									<li>Độc giả (gồm: Thông tin độc giả, Loại độc giả)</li>
+									<li>Độc giả (Thông tin độc giả, Loại độc giả)</li>
 									</p>
 								</div>
 							</div>

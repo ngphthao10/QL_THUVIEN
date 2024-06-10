@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/views/account/xacNhanOTP.jsp=UTF-8
 encoding//WebContent/WEB-INF/views/admin/sach/theloai/delTheLoai.jsp=UTF-8
 encoding//WebContent/WEB-INF/views/admin/sach/theloai/editTheLoai.jsp=UTF-8
 encoding//WebContent/WEB-INF/views/admin/sach/tuasach/insertTuaSach.jsp=UTF-8

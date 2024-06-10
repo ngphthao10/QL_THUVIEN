@@ -8,7 +8,7 @@
 <style>
 .sidebar {
 	background-color: #dbc1ac;
-/* 	height: 100vh; */
+	height: 100vh;
 	border-right: 1px solid snow;
 }
 
@@ -175,9 +175,10 @@ th {
 					<button class="accordion-button1 collapsed" type="button"
 						data-bs-target="#flush-collapseFour" aria-expanded="false"
 						aria-controls="flush-collapseFour">
-						<img width="25" height="25"
-							src="https://img.icons8.com/ios/50/bank-cards--v1.png"
-							alt="bank-cards--v1" /> 
+						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
+						  <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4"/>
+						  <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2z"/>
+						</svg>
 						<a href="phieuthu/listPhieuThu.htm" 
 						class="link-body-emphasis d-inline-flex text-decoration-none rounded">
 							<b class="ps-2">PHIẾU THU</b>
@@ -185,11 +186,12 @@ th {
 					</button>
 				</h2>
 			</div>
-			<div class="accordion-item">
+			<!-- <div class="accordion-item">
 				<h2 class="accordion-header">
 					<button class="accordion-button1 collapsed" type="button"
 						data-bs-target="#flush-collapseFive" aria-expanded="false"
 						aria-controls="flush-collapseFive">
+						
 						<img width="25" height="25"
 							src="https://img.icons8.com/ios-filled/25/refresh--v2.png"
 							alt="refresh--v2" />
@@ -199,7 +201,33 @@ th {
 						</a>
 					</button>
 				</h2>
+			</div> -->
+			<div id="accordion-item-5" class="accordion-item">
+			    <h2 class="accordion-header">
+			        <button class="accordion-button1 collapsed" type="button"
+			            data-bs-target="#flush-collapseFive" aria-expanded="false"
+			            aria-controls="flush-collapseFive">
+			            <img width="25" height="25"
+			                src="https://img.icons8.com/ios-filled/25/refresh--v2.png"
+			                alt="refresh--v2" />
+			            <a href="quydinh/index.htm" 
+			            class="link-body-emphasis d-inline-flex text-decoration-none rounded">
+			                <b class="ps-2">ĐỔI QUY ĐỊNH</b>
+			            </a>
+			        </button>
+			    </h2>
 			</div>
+			<input type="hidden" value="${userId}" id="userId"/>
+			<script>
+			    // Lấy userId từ model và nhúng vào JavaScript
+		
+				var userId = document.getElementById('userId').value;
+			    // Kiểm tra nếu userId là 2 thì ẩn phần tử
+			    console.log(userId);
+			    if (userId == 2) {
+			        document.getElementById('accordion-item-5').style.display = 'none';
+			    }
+			</script>
 		</div>
 	</div>
 </body>

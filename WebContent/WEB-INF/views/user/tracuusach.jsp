@@ -144,6 +144,7 @@
                   <tr>
                     <th scope="col" style="text-align: center;">Mã sách</th>
                     <th scope="col" style="text-align: center;">Tên sách</th>
+                    <th scope="col" style="text-align: center;">Hình ảnh</th>
                     <th scope="col" style="text-align: center;">Thể loại</th>
                     <th scope="col" style="text-align: center;">Năm XB</th>
                     <th scope="col" style="text-align: center;">NXB</th>
@@ -156,6 +157,7 @@
 						<tr>
 							<td style="text-align: center;">${p.maSach}</td>
 							<td>${p.tuaSach1.tenTuaSach}</td>
+							<td class="centered-column"><img src="public/images/sach/${p.hinhAnh}" style="width: 70px; height: 90px;"></td>
 							<td style="text-align: center;">${p.tuaSach1.theloai.tenTheLoai}</td>
 							<td style="text-align: center;">${p.namXB}</td>
 							<td style="text-align: center;">${p.nhaXB}</td>

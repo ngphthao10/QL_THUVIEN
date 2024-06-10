@@ -57,7 +57,7 @@ public class PhieuThuService {
 		}
 	}
 	
-	public Integer getTongNoHienTai(String maDocGia) {
+	public int getTongNoHienTai(String maDocGia) {
 		return phieuThuDAO.getTongNoHienTai(maDocGia);
 	}
 	

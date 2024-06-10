@@ -43,13 +43,12 @@ public class PhieuThuController {
 	
 	@RequestMapping("listPhieuThu")
 	public String showListPhieuThu(HttpServletRequest request, ModelMap model) {
-		System.out.println("minh thu ne");
-		try { 	
-			int message1 = Integer.parseInt(request.getParameter("message1"));
-			model.addAttribute("message1", message1);
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
+//		try { 	
+//			int message1 = Integer.parseInt(request.getParameter("message1"));
+//			model.addAttribute("message1", message1);
+//		} catch(Exception e) {
+//			System.out.println(e.getMessage());
+//		}
 		
 		List<PhieuThu> list = phieuThuService.getAllPhieuThu();
 		PagedListHolder pagedListHolder = phieuThuService.paging(list, request);
@@ -60,8 +59,6 @@ public class PhieuThuController {
 	
 	@RequestMapping(value = "listPhieuThu", params = "insert", method = RequestMethod.GET)
 	public String insertPhieuThu(ModelMap model, HttpServletRequest request) {
-		
-		System.out.println("minh thu hahaha");
 		model.addAttribute("phieuthu", new PhieuThu());
 		model.addAttribute("showModalInsert", true);
 		
@@ -75,7 +72,6 @@ public class PhieuThuController {
 	@RequestMapping(value = "listPhieuThu", params = "insert", method = RequestMethod.POST)
 	public String insertPhieuThu(ModelMap model, @Valid @ModelAttribute("phieuthu") PhieuThu phieuthu,
 			BindingResult errors, HttpServletRequest request) {
-		System.out.println("hehehehe");
 		
 		PhieuThu phieuthu_new = new PhieuThu();
 		int tongnohientai = -1;

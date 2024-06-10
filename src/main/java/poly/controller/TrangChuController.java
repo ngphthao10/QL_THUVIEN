@@ -1,22 +1,18 @@
 package poly.controller;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import poly.entity.*;
 import poly.service.*;
@@ -37,10 +33,8 @@ public class TrangChuController {
     @Autowired
     PhieuMuonTraService phieuMuonTraService;
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
-    public String index(HttpServletRequest request, ModelMap model) {
-        
-    	LocalDateTime htai = LocalDateTime.now();
+    LocalDateTime htai = LocalDateTime.now();
+    public void fillData(ModelMap model) {
         
         DateTimeFormatter monthYearFormatter = DateTimeFormatter.ofPattern("'Tháng' M, yyyy");
         String monthYearString = htai.format(monthYearFormatter);
@@ -63,14 +57,21 @@ public class TrangChuController {
 
         Long soDocGia = docGiaService.getSoLuongDG();
         model.addAttribute("soDocGia", soDocGia);
+    }
+    
+    @RequestMapping(value = "index", method = RequestMethod.GET)
+    public String index(HttpServletRequest request, ModelMap model) {
+        
+    	fillData(model);
 
-        // phần minh thư :) (này là hiện lên số lượt mượn và mượn quá hạn tháng và năm hiện tại
-        Long soLuotMuon = phieuMuonTraService.getSoLuongPhieu(htai.getMonthValue(), htai.getYear());
+    	Long soLuotMuon = phieuMuonTraService.getSoLuongPhieu(htai.getMonthValue(), htai.getYear());
         model.addAttribute("soLuotMuon", soLuotMuon);
 
         Long muonQuaHan = phieuMuonTraService.getSoLuotMuonQuaHan(htai.getMonthValue(), htai.getYear());
         model.addAttribute("muonQuaHan", muonQuaHan);
-
+        
+        model.addAttribute("selectedMonth", htai.getMonthValue());
+        model.addAttribute("selectedYear", htai.getYear());
         return "include/trangchu";
     }
 
@@ -80,5 +81,18 @@ public class TrangChuController {
 		return "include/thongtinnhom";
 	}
 	
-	//thêm hàm sau khi bấm nút lọc nữa
+	@RequestMapping(value = "index", method = RequestMethod.POST)
+    public String filter(HttpServletRequest request, ModelMap model, @RequestParam("month") int month,
+    		@RequestParam("year") int year) {
+		fillData(model);
+		Long soLuotMuon = phieuMuonTraService.getSoLuongPhieu(month, year);
+        model.addAttribute("soLuotMuon", soLuotMuon);
+
+        Long muonQuaHan = phieuMuonTraService.getSoLuotMuonQuaHan(month, year);
+        model.addAttribute("muonQuaHan", muonQuaHan);
+        
+        model.addAttribute("selectedMonth", month);
+        model.addAttribute("selectedYear", year);
+        return "include/trangchu";
+	}
 }	

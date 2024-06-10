@@ -2,6 +2,7 @@ package poly.service;
 
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,11 @@ import org.springframework.beans.support.PagedListHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import poly.dao.SachDAO;
 import poly.dto.SachDTO;
 import poly.entity.Sach;
-import poly.entity.TacGia;
-import poly.entity.TuaSach;
 
 @Service
 @Transactional
@@ -22,13 +22,19 @@ public class SachService {
 	@Autowired
 	SachDAO sachDAO;
 	
+	@Autowired
+	ImageService imageService;
+	
+	@Autowired
+	ServletContext context;
+	
 	public PagedListHolder<Sach> paging(List<Sach> list, HttpServletRequest request) {
 		// bỏ dữ liệu vào pagedListHolder rồi sau đó trả về cho model
 		PagedListHolder pagedListHolder = new PagedListHolder(list);
 		int page = ServletRequestUtils.getIntParameter(request, "p", 0);
 		pagedListHolder.setPage(page);
 		pagedListHolder.setMaxLinkedPages(5);
-		pagedListHolder.setPageSize(8);
+		pagedListHolder.setPageSize(4);
 		return pagedListHolder;
 	}
 
@@ -44,7 +50,15 @@ public class SachService {
 		return sachDAO.getAllSachTheoTinhTrang(daAn);
 	}
 
-	public int themSachMoi(SachDTO sachDTO) {
+	public int themSachMoi(SachDTO sachDTO, MultipartFile file) {
+		String fileName = imageService.uploadFile(file);
+		if (fileName != "0" && fileName != "") {
+			sachDTO.getSach().setHinhAnh(fileName);
+		} else if (fileName == "0") {
+			return 2; // loi load file
+		} else {
+			sachDTO.getSach().setHinhAnh("default-image.png");
+		}
 		return sachDAO.themSachMoi(sachDTO);
 	}
 
@@ -56,7 +70,13 @@ public class SachService {
 		return sachDAO.getSachTheoId(id);
 	}
 
-	public int editSach(SachDTO sachDTO) {
+	public int editSach(SachDTO sachDTO, MultipartFile file) {
+		String fileName = imageService.uploadFile(file);
+		if (fileName != "0" && fileName != "") {
+			sachDTO.getSach().setHinhAnh(fileName);
+		} else if (fileName == "0") {
+			return 2;
+		}
 		return sachDAO.editSach(sachDTO);
 	}
 

@@ -93,7 +93,7 @@
 		                 
 		                 <div class="col-md-12">
 		                    <label class="form-label" for="docGia.tongNoHienTai"><h6>Tổng nợ hiện tại</h6></label>
-		                    <input class="form-control" name="docGia.tongNoHienTai" value="${phieumuontra.docGia.tongNoHienTai }" readonly/>
+		                    <input class="form-control" name="docGia.tongNoHienTai" value="${phieumuontra.docGia.tongNoHienTai - tienphat }" readonly/>
 		                    <div class="invalid-feedback">
 		
 		                    </div>
@@ -190,23 +190,6 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 	<script>
-	    // Đảm bảo thư viện moment.js đã được tải trước khi sử dụng
-	    /* document.addEventListener("DOMContentLoaded", function() {
-	        // Lấy giá trị của input
-	        var ngayMuonValue = document.getElementById('ngaymuon').value;
-	        var hanTraValue = document.getElementById('hantra').value;
-	        var ngayTraValue = document.getElementById('ngaytra').value;
-	        
-	        // Định dạng lại ngày theo dd/MM/yyyy bằng moment.js
-	        var formattedNgayMuon = moment(ngayMuonValue).format('DD/MM/YYYY');
-	        var formattedHanTra = moment(hanTraValue).format('DD/MM/YYYY');
-	        var formattedNgayTra = moment(ngayTraValue).format('DD/MM/YYYY');
-	        
-	        // Gán lại giá trị đã định dạng vào input
-	        document.getElementById('ngaymuon').value = formattedNgayMuon;
-	        document.getElementById('hantra').value = formattedHanTra;
-	        document.getElementById('ngaytra').value = formattedNgayTra;
-	    }); */
 	    
 	    document.addEventListener("DOMContentLoaded", function() {
 	        var ngayTraInput = document.getElementById('ngaytra');

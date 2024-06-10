@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ include file="/WEB-INF/views/include/Header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!doctype html>
 <html lang="vi">
   <head>
@@ -45,6 +49,12 @@
                 padding: 20px;
             }
         }
+        .forgot {
+         	display: flex;
+         	justify-content: center;
+         	align-items: center;
+         	text-align: center;
+     	}
     </style>
   </head>
   <body>
@@ -69,35 +79,32 @@
                        <h2>Đăng nhập</h2>
                        <p>Chào mừng bạn quay lại với Thư viện PTITHCM.</p>
                   </div>
-                  <form action="home/login.htm" method="post" id="form-login">
-                    <div class="input-group mb-3">
-                        <input name = "tendangnhap" type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Tên đăng nhập">
-                    </div>
-                    <div class="input-group mb-3">
-                        <input name = "matkhau" type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Mật khẩu">
-                    </div>
-                    
-                    <div class="mb-3" style="color:red;">
-                        ${message}
-                    </div>
-                    
-                   	<div class="g-recaptcha mb-3" data-callback="recaptchaCallback"
-                   	data-sitekey="6LfYDOQpAAAAAFFMDTMGdXzPQedIqR2c5y_ieTUw">
-                   		
-                   	</div>
-                    <!-- <div class="input-group mb-5 d-flex justify-content-between">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="formCheck">
-                            <label for="formCheck" class="form-check-label text-secondary"><small>Ghi nhớ tôi</small></label>
-                        </div>
-                        <div class="forgot">
-                            <small><a href="#">Quên mật khẩu?</a></small>
-                        </div>
-                    </div> -->
-                    <div class="input-group mb-3 mt-3">
-                        <button class="btn btn-lg btn btn-secondary w-100 fs-6" style="background-color: #634832;" id="submitBtn">Đăng nhập</button>
-                    </div>
-                  </form>
+                  <form action="login.htm" method="post" id="form-login">
+				    <div class="input-group mb-3">
+				        <input name="tendangnhap" id="tendangnhap" type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Tên đăng nhập">
+				    </div>
+				    <div class="input-group mb-3">
+				        <input name="matkhau" type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Mật khẩu">
+				    </div>
+				    <div class="mb-3" style="color:red;">
+				        ${message}
+				    </div>
+				    <input type="hidden" id="hiddenTendangnhap" name="hiddenTendangnhap">
+				    <div class="input-group mb-3 d-flex justify-content-between">
+				        <div class="form-check">
+				            <input type="hidden" class="form-check-input" id="formCheck">
+				        </div> 
+				        <div class="forgot">
+				            <small><a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="XNUsername.htm">Quên mật khẩu</a></small>
+				        </div>
+				    </div>
+				    <div class="g-recaptcha mb-3" data-callback="recaptchaCallback" data-sitekey="6LfYDOQpAAAAAFFMDTMGdXzPQedIqR2c5y_ieTUw"></div>
+				    <div class="input-group mb-3 mt-3">
+				        <button class="btn btn-lg btn btn-secondary w-100 fs-6" style="background-color: #634832;" id="submitBtn">Đăng nhập</button>
+				    </div>
+				</form>
+				
+
             </div>
          </div> 
         </div>

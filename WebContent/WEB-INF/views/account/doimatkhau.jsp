@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!doctype html>
 <html lang="vi">
   <head>
@@ -87,7 +91,7 @@
             <div class="header-text mb-4 mt-4">
               <h2>Đổi mật khẩu</h2>
             </div>
-            <form class="form" id="form" action="home/doimatkhau.htm" method="post">
+            <form class="form" id="form" action="doimatkhau.htm" method="post">
               <div class="mb-3 form-control">
                 <input name="mkHT" id="mkHT" type="password" class="form-control form-control-lg bg-light mb-2" placeholder="Nhập mật khẩu hiện tại*" required>
                 <i class="fa-solid fa-check"></i>

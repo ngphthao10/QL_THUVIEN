@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import poly.dto.DocGiaDTO;
 import poly.dto.SachDTO;
 import poly.entity.*;
 import poly.service.*;
@@ -31,6 +32,9 @@ public class UserController {
 	
 	@Autowired
 	TheLoaiService theLoaiService;
+	
+	@Autowired
+	PhieuMuonTraService phieuMuonTraService;
 	
 	
 	public void fillData(ModelMap model) {
@@ -98,5 +102,39 @@ public class UserController {
 
 		return "user/tracuusach";
 	}
-}
 	
+//	@RequestMapping(value="sachdamuon")
+//	public String daMuon(HttpServletRequest request, ModelMap model, @ModelAttribute("nguoidung") NguoiDung nguoidung) {
+//		//load table lên
+//		DocGia docGia = docGiaService.getDocGiaTheoIdNguoiDung(nguoidung.getId());
+//		List<PhieuMuonTra> list = get
+//		model.addAttribute("docgia", docGia);
+//		return "user/sachdamuon";
+//	}
+	
+	@RequestMapping(value = "sachdamuon")
+	public String daMuon(HttpServletRequest request, ModelMap model) {
+
+		NguoiDung nguoidung = (NguoiDung) request.getSession().getAttribute("nguoidunglogin");
+		DocGia docGia = docGiaService.getDocGiaTheoIdNguoiDung(nguoidung.getId());
+		
+		List<PhieuMuonTra> listSach = phieuMuonTraService.getPhieuMuonTra_IDDocGia(docGia.getId());
+		
+		List<PhieuMuonTra> listSachDangMuon = phieuMuonTraService.getPhieuMuonTraByIDDG_DangMuon(listSach);
+		model.addAttribute("listSach_DangMuon", listSachDangMuon);
+
+		List<PhieuMuonTra> listSachDaMuon = phieuMuonTraService.getPhieuMuonTraByIDDG_DaMuon(listSach);
+		int soSachDaMuon = phieuMuonTraService.soSachDaMuon(listSachDaMuon);
+		model.addAttribute("soSachDaMuon", soSachDaMuon);
+		
+		PagedListHolder pagedListHolder = phieuMuonTraService.paging(listSachDaMuon, request);
+		model.addAttribute("pagedListHolder", pagedListHolder);
+
+		if (listSachDangMuon.size()==0 && pagedListHolder.getPageList().size()==0) {
+			model.addAttribute("message", -1);
+		}
+//		model.addAttribute("id", id);
+		return "user/sachdamuon";
+	}
+
+}	

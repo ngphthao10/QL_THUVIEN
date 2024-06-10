@@ -27,7 +27,7 @@ public class PhieuThuDAO {
 		return list;
 	}
 	
-	public Integer insertPhieuThu(PhieuThu pt) {
+	public int insertPhieuThu(PhieuThu pt) {
 		
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
@@ -44,7 +44,7 @@ public class PhieuThuDAO {
 		return 1;
 	}
 	
-	public Integer editPhieuThu (PhieuThu pt) {
+	public int editPhieuThu (PhieuThu pt) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
@@ -60,7 +60,7 @@ public class PhieuThuDAO {
 		return 1;
 	}
 	
-	public Integer deletePhieuThu (PhieuThu pt) {
+	public int deletePhieuThu (PhieuThu pt) {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 		try {
@@ -107,7 +107,7 @@ public class PhieuThuDAO {
 		return list;	
 	}
 	
-	public Integer getTongNoHienTai(String maDocGia ) {
+	public int getTongNoHienTai(String maDocGia ) {
 		Session session = factory.openSession();
 		String hql = "SELECT COALESCE(SUM(pt.soTienThu), 0) FROM PhieuThu pt WHERE LOWER(pt.docGia.maDocGia) = LOWER(:maDocGia)";
 		Query query = session.createQuery(hql);

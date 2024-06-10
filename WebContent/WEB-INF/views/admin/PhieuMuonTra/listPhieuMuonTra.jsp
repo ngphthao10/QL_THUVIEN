@@ -149,7 +149,7 @@
 					    </c:url>
 					</c:otherwise>
 				</c:choose>
-	            <table class="table table-hover table-bordered mt-4 text-center" style="vertical-align: middle" id="tablePhieuMuonTra">
+	            <table class="table table-hover table-bordered mt-4 text-center" style="vertical-align: middle;" id="tablePhieuMuonTra">
 	              <thead>
 	                <tr>
 	                  <th scope="col" class="col-1">Số phiếu mượn</th>

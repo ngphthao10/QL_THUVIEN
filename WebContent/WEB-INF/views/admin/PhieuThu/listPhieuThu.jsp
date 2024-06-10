@@ -147,7 +147,8 @@
 					</button>
 				</form:form>
 	          </div> 
-	         	<div class="container">
+	        </div>
+	         <div class="container">
 	         	<jsp:useBean id="pagedListHolder" scope="request" type="org.springframework.beans.support.PagedListHolder" />
 	    
 			    <c:choose>
@@ -169,7 +170,7 @@
 					    </c:url>
 					</c:otherwise>
 				</c:choose>
-	            <table class="table table-hover table-bordered mt-4 text-center" id="tablePhieuThu">
+	            <table class="table table-hover table-bordered mt-4 text-center" style="vertical-align: middle;" id="tablePhieuThu">
 	              <thead>
 	                <tr>
 	                  <th scope="col" class="col-1">Số phiếu thu</th>
@@ -177,7 +178,7 @@
 	                  <th scope="col" class="col-3">Tên độc giả</th>
 	                  <th scope="col" class="col-2">Số tiền thu</th>
 	                  <th scope="col" class="col-2">Ngày lập</th>
-	                  <th scope="col" class="col-2"></th>
+	                  <th scope="col" class="col-2">Chức năng</th>
 	                </tr>
 	              </thead>
 	              <tbody class="table-group-divider">
@@ -201,7 +202,6 @@
 	            <tg:paging pagedLink="${pagedLink }" pagedListHolder="${pagedListHolder}"></tg:paging>
 	            
 	          </div>
-	        </div>
 	    </div>
 	  </div>
 	 </div>

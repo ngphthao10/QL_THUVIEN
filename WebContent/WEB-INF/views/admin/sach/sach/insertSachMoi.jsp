@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<base href="${pageContext.servletContext.contextPath}/">
 <!-- Modal them sach moi  -->
 <div class="modal fade" id="modal1" tabindex="-1"
 	aria-labelledby="exampleModalLabel1" aria-hidden="true">
@@ -9,11 +10,10 @@
 			<div class="modal-header">
 				<h1 class="modal-title fs-5" id="exampleModalLabel1">Phiếu nhập sách</h1>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
+			</div>	
 			<div class="modal-body">
-				<form:form class="was-validated"
-					action="sach/sach/insertSachMoi.htm" method="post"
-					modelAttribute="sachDTO">
+				<form:form class="was-validated" action="sach/sach/insertSachMoi.htm" method="post"
+					modelAttribute="sachDTO" enctype="multipart/form-data">
 					<label for="validationTextarea" class="form-label"><h4>Thông tin sách</h4></label>
 					<div class="row">
 						<div class="col-sm-8">
@@ -76,6 +76,13 @@
 							<p name="ctpn.ThanhTien" id="thanhTien">0đ</p>
 						</div>
 					</div>
+					<div class="mb-3">
+					    <input type="file" name="file" class="form-control mb-3" accept=".jpg,.gif,.png,.pdf" onchange="preview()">
+					    <div class="image-container">
+							<img style="width: 470px; height: 550px;" id="img" src="public/images/sach/default-image.png">
+					    </div>
+					</div>
+					<hr>
 					<div class="mb-3" style="text-align: right;">
 						<button class="btn btn-warning" type="submit">Lưu thông tin</button>
 					</div>

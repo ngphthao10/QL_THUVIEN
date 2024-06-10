@@ -25,9 +25,6 @@
 		text-align: left;
 	}
 	
-	.modal-content {
-		background-color: #ece0d1;
-	}
 	
 	.modal-header {
 		background-color: #634832;
@@ -94,7 +91,7 @@
 					<li class="nav-item"><a class="nav-link active" aria-current="page" href="trangchu/thongtin.htm">Thông tin nhóm</a></li>
 				</ul>
 				<div class="text-end">
-					<a type="button" class="btn btn-outline-light me-2" href="home/login.htm">Đăng xuất</a>
+					<a type="button" class="btn btn-outline-light me-2" href="login.htm">Đăng xuất</a>
 					<button type="button" class="btn btn-outline-light" data-bs-toggle="offcanvas" data-bs-target="#infoBar" aria-controls="infoBar">
 				  	<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
 					  <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>

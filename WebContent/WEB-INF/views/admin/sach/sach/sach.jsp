@@ -16,6 +16,14 @@
 	href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 <link rel="stylesheet"
 	href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
+<style>
+	.image-container {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         text-align: center;
+     }
+</style>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/include/navbar.jsp"%>
@@ -70,6 +78,20 @@
 							<c:when test="${message == 1}">
 								<div class="alert alert-success mt-2" role="alert">
 									Thêm sách thành công!
+									<button type="button" class="btn-close" style="float: right;"
+										data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+							</c:when>
+							<c:when test="${message == -3}">
+								<div class="alert alert-danger mt-2" role="alert">
+									Sách đã có! Không thể thêm mới!
+									<button type="button" class="btn-close" style="float: right;"
+										data-bs-dismiss="alert" aria-label="Close"></button>
+								</div>
+							</c:when>
+							<c:when test="${message == 2}">
+								<div class="alert alert-danger mt-2" role="alert">
+									Lưu hình ảnh thất bại!
 									<button type="button" class="btn-close" style="float: right;"
 										data-bs-dismiss="alert" aria-label="Close"></button>
 								</div>
@@ -199,6 +221,7 @@
 							<tr>
 								<th scope="col">Mã sách</th>
 								<th scope="col">Tựa sách</th>
+								<th scope="col">Hình ảnh</th>
 								<th scope="col">Năm XB</th>
 								<th scope="col">NXB</th>
 								<th scope="col">Số lượng</th>
@@ -214,6 +237,7 @@
 								<tr>
 									<td class="centered-column">${p.maSach}</td>
 									<td>${p.getTenTuaSach()}</td>
+									<td class="centered-column"><img src="public/images/sach/${p.hinhAnh}" style="width: 70px; height: 90px;"></td>
 									<td class="centered-column">${p.namXB}</td>
 									<td>${p.nhaXB}</td>
 									<td class="centered-column">${p.soLuong}</td>
@@ -312,6 +336,10 @@
 				        handleInputValidity("soluongNhapErrors", "soLuongNhap");
 				    });
 				});
+				
+				function preview() {
+				    img.src=URL.createObjectURL(event.target.files[0]);
+				}
 			</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<base href="${pageContext.servletContext.contextPath}/">
 <div class="modal fade" id="modal2" tabindex="-1"
 	aria-labelledby="exampleModalLabel2" aria-hidden="true">
 	<div

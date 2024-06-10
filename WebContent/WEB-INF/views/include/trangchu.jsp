@@ -23,55 +23,61 @@
 			<div class="main-content col-md-10">
 				<div class="container">
 	                <div class="row">
-	                  <form:form action="trangchu/index.htm" method="POST" class ="d-flex">
-	                    <div class="col-7">
-	                        <h3 class="mt-4" style="color: #634832;">Chào mừng đến với thư viện PTIT! </h3>
-	                        <h5 class="mt-2" style="color: #634832;">${thoigian}</h5>
-	                    </div>
-	                    <div class="col-2 mt-4">
-						    <select name = "month" class="form-select" aria-label="Chọn tháng" id="monthSelect">
-						        <option value="1">Tháng 1</option>
-						        <option value="2">Tháng 2</option>
-						        <option value="3">Tháng 3</option>
-						        <option value="4">Tháng 4</option>
-						        <option value="5">Tháng 5</option>
-						        <option value="6">Tháng 6</option>
-						        <option value="7">Tháng 7</option>
-						        <option value="8">Tháng 8</option>
-						        <option value="9">Tháng 9</option>
-						        <option value="10">Tháng 10</option>
-						        <option value="11">Tháng 11</option>
-						        <option value="12">Tháng 12</option>
-						    </select>
-						    <!-- <input type="hidden" name = "month" value=""> -->
-						</div>
-						<div class="col-2 mt-4 ps-4">
-						    <select name = "year" class="form-select" name = aria-label="Chọn năm" id="yearSelect">
-						    	
-						    </select>
-						</div>
-						
-						<script>
-						    const yearSelect = document.getElementById('yearSelect');
-						    const currentYear = new Date().getFullYear();
-						    const startYear = 2020;
-						
-						    for (let year = startYear; year <= currentYear; year++) {
-						        let option = document.createElement('option');
-						        option.value = year;
-						        option.textContent = year;
-						        yearSelect.appendChild(option);
-						    }
-						</script>
-
-	                    <div class="col-1 mt-4" style="text-align:right;">
-	                    	<button type="button" class="btn btn-outline-success">
-	                    	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter mb-1" viewBox="0 0 16 16">
-							  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
-							</svg>
-	                    	Lọc</button>
-	                    </div>
-	                    </form:form>
+	                  <form:form action="trangchu/index.htm" method="POST" class="d-flex">
+					    <div class="col-7">
+					        <h3 class="mt-4" style="color: #634832;">Chào mừng đến với thư viện PTIT!</h3>
+					        <h5 class="mt-2" style="color: #634832;">${thoigian}</h5>
+					    </div>
+					    <div class="col-2 mt-4">
+					        <select name="month" class="form-select" aria-label="Chọn tháng" id="monthSelect">
+					            <option value="1" ${selectedMonth == 1 ? 'selected' : ''}>Tháng 1</option>
+					            <option value="2" ${selectedMonth == 2 ? 'selected' : ''}>Tháng 2</option>
+					            <option value="3" ${selectedMonth == 3 ? 'selected' : ''}>Tháng 3</option>
+					            <option value="4" ${selectedMonth == 4 ? 'selected' : ''}>Tháng 4</option>
+					            <option value="5" ${selectedMonth == 5 ? 'selected' : ''}>Tháng 5</option>
+					            <option value="6" ${selectedMonth == 6 ? 'selected' : ''}>Tháng 6</option>
+					            <option value="7" ${selectedMonth == 7 ? 'selected' : ''}>Tháng 7</option>
+					            <option value="8" ${selectedMonth == 8 ? 'selected' : ''}>Tháng 8</option>
+					            <option value="9" ${selectedMonth == 9 ? 'selected' : ''}>Tháng 9</option>
+					            <option value="10" ${selectedMonth == 10 ? 'selected' : ''}>Tháng 10</option>
+					            <option value="11" ${selectedMonth == 11 ? 'selected' : ''}>Tháng 11</option>
+					            <option value="12" ${selectedMonth == 12 ? 'selected' : ''}>Tháng 12</option>
+					        </select>
+					    </div>
+					    <div class="col-2 mt-4 ps-4">
+					        <select name="year" class="form-select" aria-label="Chọn năm" id="yearSelect">
+					            <!-- Các tùy chọn năm sẽ được thêm bởi JavaScript -->
+					        </select>
+					    </div>
+					    
+					    
+					    <div class="col-1 mt-4" style="text-align:right;">
+					        <button type="submit" class="btn btn-outline-success">
+					            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter mb-1" viewBox="0 0 16 16">
+					                <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+					            </svg>
+					            Lọc
+					        </button>
+					    </div>
+					</form:form>
+					<script>
+					    document.addEventListener('DOMContentLoaded', function() {
+					        const yearSelect = document.getElementById('yearSelect');
+					        const currentYear = new Date().getFullYear();
+					        const startYear = 2020;
+					        const selectedYear = '${selectedYear != null ? selectedYear : ""}';
+					
+					        for (let year = currentYear; year >= startYear; year--) {
+					            let option = document.createElement('option');
+					            option.value = year;
+					            option.textContent = year;
+					            if (year == selectedYear) {
+					                option.selected = true;
+					            }
+					            yearSelect.appendChild(option);
+					        }
+					    });
+					</script>
 	                </div>
 	                <div class="row mt-4">
 	                    <div class="col-sm-3 mb-3 mb-sm-0">
@@ -85,7 +91,7 @@
 	                                </div>
 	                                <h4 class="card-text">Số lượt mượn.</h4>
 	                                <div style="text-align: right;">
-	                                    <a href="#" class="btn btn-outline-secondary" >Chi tiết</a>
+	                                    <a href="phieumuontra/listPhieuMuonTra.htm" class="btn btn-outline-secondary" >Chi tiết</a>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -116,7 +122,7 @@
 	                                    </div>
 	                                <h4 class="card-text">Số độc giả.</h4>
 	                                <div style="text-align: right;">
-	                                    <a href="#" class="btn btn-outline-secondary">Chi tiết</a>
+	                                    <a href="docgia/listDocGia.htm" class="btn btn-outline-secondary">Chi tiết</a>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -127,11 +133,12 @@
 	                                <div class="row">
 	                                    <h2 class="col-sm-6">${muonQuaHan}</h2>
 	                                    <div class="col-sm-6" style="text-align: right;">
-	                                        <img width="50" height="50" src="https://img.icons8.com/dotty/80/important-time.png" alt="important-time"/>                                    </div>
+	                                        <img width="50" height="50" src="https://img.icons8.com/dotty/80/important-time.png" alt="important-time"/>
+	                                    </div>
 	                                </div>
 	                                <h4 class="card-text">Mượn quá hạn.</h4>
 	                                <div style="text-align: right;">
-	                                    <a href="#" class="btn btn-outline-secondary">Chi tiết</a>
+	                                    <a href="phieumuontra/listPhieuMuonTra.htm" class="btn btn-outline-secondary">Chi tiết</a>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -192,7 +199,7 @@
 	                                </tbody>
 	                            </table>
 	                            <div class="text-end">
-	                                <a class="link-danger link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="#">
+	                                <a class="link-danger link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="docgia/listDocGia.htm">
 	                                    Xem tất cả
 	                                </a>
 	                            </div>   

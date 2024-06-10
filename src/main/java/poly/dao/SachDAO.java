@@ -36,7 +36,7 @@ public class SachDAO {
 
     public List<Sach> getAllSach() {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Sach";
+        String hql = "FROM Sach ORDER BY id DESC";
         Query query = session.createQuery(hql);
         List<Sach> list = query.list();
         return list;
@@ -87,7 +87,7 @@ public class SachDAO {
 	    try {
 	        Sach sach = sachDTO.getSach();
 	        Sach sachTam = getSachTheoId(sach.getId());
-	        System.out.println(sachTam.getId());
+	        sach.setHinhAnh(sachTam.getHinhAnh());
 	        sach.setNhaXB(sachTam.getNhaXB());
 	        sach.setNamXB(sachTam.getNamXB());
 	        sach.setDonGia(sachTam.getDonGia());
@@ -186,7 +186,7 @@ public class SachDAO {
 	        Sach sach = sachDTO.getSach();
 	        List<Sach> sachList = this.getSachTheoIdTS(sach.getTuaSach1().getId(), sach.getNamXB());
 	        if(sachList.size()!=0) {
-	        	return -1;
+	        	return -3;
 	        }
 	        session.save(sach);
 	        int dongia = sach.getDonGia();
@@ -270,6 +270,7 @@ public class SachDAO {
 	        }
 	        return 1;
 	    } catch (HibernateException e) {
+	    	System.out.println(e.getMessage());
 	        if (transaction != null) {
 	            transaction.rollback();
 	        }

@@ -96,7 +96,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Trang chủ</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="user/trang-chu.htm">Trang chủ</a></li>
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" href="#" role="button"
 						data-bs-toggle="dropdown" aria-expanded="false"> Chức năng </a>
@@ -104,12 +104,12 @@
 						<li><a class="dropdown-item" href="user/trang-chu.htm">Thông tin tài khoản</a></li>
 						<li><a class="dropdown-item" href="user/tra-cuu.htm">Tra cứu sách</a></li>
 						<li><hr class="dropdown-divider"></li>
-						<li><a class="dropdown-item" href="#">Các sách đã mượn</a></li>
+						<li><a class="dropdown-item" href="user/sachdamuon.htm">Các sách đã mượn</a></li>
 						</ul>
 					</li>
 				</ul>
 				<div class="text-end">
-					<a type="button" class="btn btn-outline-light me-2" href="home/login.htm">Đăng xuất</a>
+					<a type="button" class="btn btn-outline-light me-2" href="login.htm">Đăng xuất</a>
 			
 					<button class="btn btn-outline-light" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
 						<svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
@@ -133,8 +133,8 @@
 	      	<label>Tên tài khoản:</label>
 	        <input value= "${nguoidunglogin.tenDangNhap}" class="form-control mt-2" readonly/>
       	</div>
-      	<div class="mb-3" style="text-align:right; background-color: #634832; color: white;">
-			<a class="btn btn-primary mt-2"  href="home/doimatkhau.htm" role="button">Đổi mật khẩu</a>
+      	<div class="mb-3" >
+			<a class="btn btn-primary mt-2" style="text-align:right; background-color: #634832; color: white;" href="doimatkhau.htm" role="button">Đổi mật khẩu</a>
       	</div>
       </div>
 	</div>

@@ -55,7 +55,6 @@
                     <input class="form-control" name="soTienThu"/>
                     <div class="invalid-feedback">
                     	<form:errors path="soTienThu" cssClass="form-error"></form:errors>
-                    	<%-- <c:out value="${docGia.maDocGiaError }"></c:out> --%>
                     </div>
                   </div>
 

@@ -24,8 +24,8 @@
 
 					<div class="mb-3">
 						<label for="selectedAuthorsTextarea" class="form-label">Danh sách tác giả</label>
-						<textarea style="min-height: 100px; pointer-events: none;" id="selectedAuthorsTextarea" class="form-control" 
-						placeholder="Bấm Thêm tác giả để thêm tác giả vào Danh sách tác giả. Load lại trang để thêm lại!"  required></textarea>
+						<textarea style="min-height: 100px; " id="selectedAuthorsTextarea" class="form-control" 
+						placeholder="Bấm Thêm tác giả để thêm tác giả vào Danh sách tác giả!"  required></textarea>
 						<div class="invalid-feedback">Vui lòng chọn tác giả.</div>
 					</div>
 					<div class="mb-3">

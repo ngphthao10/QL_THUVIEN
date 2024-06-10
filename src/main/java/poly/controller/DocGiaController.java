@@ -37,8 +37,8 @@ import poly.service.NhomNguoiDungService;
 import poly.service.PhieuMuonTraService;
 import poly.service.ThamSoService;
 
-@Controller
 @Transactional
+@Controller
 @RequestMapping("/docgia/")
 public class DocGiaController {
 	@Autowired
@@ -104,7 +104,7 @@ public class DocGiaController {
 		return "admin/docgia/listDocGia";
 	}
 
-	@RequestMapping(value = "thongtinDG", method = RequestMethod.GET)
+	@RequestMapping(value = "thongtinDG",  method = RequestMethod.GET)
 	public String showThongTin(HttpServletRequest request, ModelMap model, @RequestParam("id") Integer id) {
 		DocGiaDTO docgiaDTO = new DocGiaDTO();
 		DocGia docgia = docGiaService.getDocGiaByID(id);
@@ -129,6 +129,7 @@ public class DocGiaController {
 		PagedListHolder pagedListHolder = phieuMuonTraService.paging(listSachDaMuon, request);
 		model.addAttribute("pagedListHolder", pagedListHolder);
 		model.addAttribute("id", id);
+		
 		return "admin/docgia/thongtinDG";
 	}
 
@@ -158,13 +159,6 @@ public class DocGiaController {
 		int tuoiToiDa = thamSoService.getThamSo().getTuoiToiDa();
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-		//Lấy ngày giờ hiện tại -> format sang ngày -> ép kiểu dữ liệu Date
-//		Date currentDate = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
-//		 if (docgiaDTO.getDocgia().getNgaySinh() == null) {
-//			 errors.rejectValue("docgia.ngaySinh", "docgiaDTO", "Ngày sinh không được để trống!");
-//		 } else if(docgiaDTO.getDocgia().getNgaySinh().after(currentDate) || docgiaDTO.getDocgia().getNgaySinh().equals(currentDate)) {
-//			 errors.rejectValue("docgia.ngaySinh", "docgiaDTO", "Ngày sinh không hợp lệ!");
-//		 }
 		
 		LocalDate currentDate = LocalDate.now();
 		LocalDate namtoiThieu = currentDate.minusYears(tuoiToiThieu); // Trừ đi tuổi tối thiểu 
@@ -270,17 +264,6 @@ public class DocGiaController {
 		return "admin/docgia/thongtinDG";
 	}
 
-	// @RequestMapping(value = "listDocGia", params = "insert", method =
-	// RequestMethod.GET)
-	// public String insertDocGia(HttpServletRequest request, ModelMap model) {
-	// System.out.println("insert, get");
-	// model.addAttribute("docgiaDTO", new DocGiaDTO());
-	//
-	// List <DocGia> list = docGiaService.getAllDocGia();
-	// PagedListHolder pagedListHolder = docGiaService.paging(list, request);
-	// model.addAttribute("pagedListHolder", pagedListHolder);
-	// return "admin/docgia/listDocGia";
-	// }
 
 	@RequestMapping(value = "listDocGia", params = "insert", method = RequestMethod.POST)
 	public String insertDocGia(HttpServletRequest request, ModelMap model, @ModelAttribute("docgia") DocGia docgia,
@@ -317,14 +300,6 @@ public class DocGiaController {
 			errors.rejectValue("ngaySinh", "docgia", "Ngày sinh không được để trống!");
 		}
 
-//		//Lấy ngày giờ hiện tại -> format sang ngày -> ép kiểu dữ liệu Date
-//		Date currentDate = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
-//		 if (ngaySinh == null) {
-//			 errors.rejectValue("ngaySinh", "docgia", "Ngày sinh không được để trống!");
-//		 } else if(ngaySinh.after(currentDate) || ngaySinh.equals(currentDate)) {
-//			 errors.rejectValue("ngaySinh", "docgia", "Ngày sinh không hợp lệ!");
-//		 }
-		
 		int tuoiToiThieu = thamSoService.getThamSo().getTuoiToiThieu();
 		int tuoiToiDa = thamSoService.getThamSo().getTuoiToiDa();
 		

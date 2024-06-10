@@ -1,14 +1,15 @@
 package poly.controller;
 
 import java.time.Year;
-import java.util.Arrays;
 import java.util.List;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.support.PagedListHolder;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import poly.dao.*;
 import poly.dto.SachDTO;
@@ -43,8 +45,9 @@ public class SachController {
 	
 	@Autowired
 	ThamSoDAO thamSoDAO;
-
-
+	
+	@Autowired
+	ServletContext context;
 
 	public void fillData(ModelMap model) {
 		List<TuaSach> tuaSachList = tuaSachService.getAllTuaSach();
@@ -98,18 +101,17 @@ public class SachController {
 	}
 	
 	//them sach moi
-	@RequestMapping(value = "insertSachMoi", method = RequestMethod.GET)
+	@RequestMapping(value = "insertSachMoi")
 	public String insertSachMoi(ModelMap model) {
 		fillData(model);
 		model.addAttribute("sachDTO", new SachDTO());
 		return "admin/sach/sach/sach";
 	}
 
-	@RequestMapping(value = "insertSachMoi", method = RequestMethod.POST)
-	public String insertSachMoi(ModelMap model, @Valid @ModelAttribute("sachDTO") SachDTO sachDTO, BindingResult errors,
-	        HttpServletRequest request, PhieuNhapSach pns) {
+	@RequestMapping(value = "insertSachMoi", method = RequestMethod.POST, consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+	public String insertSachMoi(ModelMap model, @Valid @ModelAttribute("sachDTO") SachDTO sachDTO,
+			@RequestParam("file") MultipartFile file, BindingResult errors, HttpServletRequest request) {
 		fillData(model);
-		
 		// Lấy quy định khoang cach xuat ban
 		ThamSo ts = thamSoDAO.getAll();
 		int namHienTai = Year.now().getValue();
@@ -148,20 +150,23 @@ public class SachController {
 	    	for (FieldError error : fieldErrors) {
 	    		model.addAttribute(error.getField(), error.getDefaultMessage());
 	    	}
-	    	System.out.println(errors.getAllErrors());
 	    	List<Sach> sachList = sachService.getAllSach();
 			PagedListHolder pagedListHolder = sachService.paging(sachList, request);
 			model.addAttribute("pagedListHolder", pagedListHolder);
 	    	model.addAttribute("message", -1);
 	        return "admin/sach/sach/sach";
 	    } else {
-
-	    	int result = sachService.themSachMoi(sachDTO);
-	        model.addAttribute("message", result);
-	        fillData(model);
+	    	int result = sachService.themSachMoi(sachDTO, file);
+			model.addAttribute("message", result);
+	        if (result == 1) {
+	        	List<Sach> sachList = sachService.getAllSach();
+	        	PagedListHolder pagedListHolder = sachService.paging(sachList, request);
+	        	model.addAttribute("pagedListHolder", pagedListHolder);
+	        	return "redirect:/sach/sach/insertSach.htm";
+	        }
 	        List<Sach> sachList = sachService.getAllSach();
-			PagedListHolder pagedListHolder = sachService.paging(sachList, request);
-			model.addAttribute("pagedListHolder", pagedListHolder);
+        	PagedListHolder pagedListHolder = sachService.paging(sachList, request);
+        	model.addAttribute("pagedListHolder", pagedListHolder);
 	    }
 	    
 	    return "admin/sach/sach/sach";
@@ -229,7 +234,7 @@ public class SachController {
 	
 	//sửa sách
 	@RequestMapping(value = "index/{id}.htm", params="linkEditSach", method = RequestMethod.GET)
-	public String editTheLoai(ModelMap model, @ModelAttribute("sachDTO") SachDTO sachDTO, @PathVariable("id") Integer id,
+	public String editTheLoai(ModelMap model, @ModelAttribute("sachDTO") SachDTO sachDTO, @PathVariable("id") int id,
 			HttpServletRequest request) {
 		fillData(model);
 		sachDTO.setSach(sachService.getSachTheoId(id));
@@ -241,8 +246,8 @@ public class SachController {
 	}
 		
 	@RequestMapping(value = "index", params="editbtn", method = RequestMethod.POST)
-	public String saveEdit(ModelMap model, @Valid @ModelAttribute("sachDTO") SachDTO sachDTO, BindingResult errors,
-			HttpServletRequest request) {
+	public String saveEdit(ModelMap model, @Valid @ModelAttribute("sachDTO") SachDTO sachDTO,
+			@RequestParam("file") MultipartFile file, BindingResult errors, HttpServletRequest request) {
 		
 	    if(errors.hasErrors()) {
 	    	model.addAttribute("message2", -1); 
@@ -251,7 +256,7 @@ public class SachController {
 	    else
 	    {
 	    	Sach sach = sachDTO.getSach();
-	    	int message = sachService.editSach(sachDTO);
+	    	int message = sachService.editSach(sachDTO, file);
 	    	List<Sach> sachList = sachService.getAllSach();
 	    	PagedListHolder pagedListHolder = sachService.paging(sachList, request);
 	    	model.addAttribute("pagedListHolder", pagedListHolder);

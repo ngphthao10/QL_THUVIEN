@@ -1,8 +1,6 @@
 package poly.entity;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +36,7 @@ public class Sach {
 	private String NhaXB;
 
 	private String TenHienThi;
+	private String HinhAnh;
 	
 	@ColumnDefault("0")
 	private int DaAn;
@@ -67,6 +66,14 @@ public class Sach {
 		this.cuonSach = cuonSach;
 		this.ctPhieuNhap = ctPhieuNhap;
 		this.TenHienThi = maSach + " - " + this.tuaSach1.getTenTuaSach();
+	}
+	
+	public String getHinhAnh() {
+		return HinhAnh;
+	}
+
+	public void setHinhAnh(String hinhAnh) {
+		HinhAnh = hinhAnh;
 	}
 
 	public int getId() {

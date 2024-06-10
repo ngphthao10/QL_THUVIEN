@@ -153,7 +153,8 @@ public class PhieuMuonTraDAO {
 	
 	public Long getSoLuotMuonQuaHan(int month, int year) {
 		Session session = factory.openSession();
-		String hql = "SELECT COUNT(SoPhieuMuonTra) FROM PhieuMuonTra WHERE MONTH(ngayMuon) = :month AND YEAR(ngayMuon) = :year AND ngayTra > hanTra";
+		String hql = "SELECT COUNT(SoPhieuMuonTra) FROM PhieuMuonTra WHERE MONTH(ngayMuon) = :month AND YEAR(ngayMuon) = :year"
+				+ " AND ( ngayTra > hanTra or hanTra < current_date())";
 		Query query = session.createQuery(hql);
 		query.setParameter("month", month);
 		query.setParameter("year", year);

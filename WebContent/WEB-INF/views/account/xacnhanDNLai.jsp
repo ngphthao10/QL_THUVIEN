@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ include file="/WEB-INF/views/include/Header.jsp" %> 
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +29,7 @@
               	<h1 class="modal-title fs-5">Xác nhận</h1>
             </div>
             <div class="modal-body" style="background-color: #eae0d2;">
-              <form class="row g-3 needs-validation" action = "home/login.htm" method="post">
+              <form class="row g-3 needs-validation" action = "login.htm" method="post">
 			        <p>Bạn đã đổi mật khẩu thành công. Vui lòng đăng nhập lại!</p>			        
 			        <div class="col-12" style="text-align: right; margin-top: 0px;">
 				        <button type="submit" class="btn btn-success">OK</button>

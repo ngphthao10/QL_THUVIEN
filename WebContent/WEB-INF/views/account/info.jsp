@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ include file="/WEB-INF/views/include/Header.jsp" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="tg" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,7 +46,7 @@
                         Nhóm người dùng: ${nguoidunglogin.nhomNguoiDung.tenNhomNguoiDung}
                     </span>
                 </li>
-                <a href="home/doimatkhau.htm" class="btn btn-outline-success" style="background-color: #634832; color: white;">Đổi mật khẩu</a>
+                <a href="doimatkhau.htm" class="btn btn-outline-success" style="background-color: #634832; color: white;">Đổi mật khẩu</a>
                 
             </ul>
 

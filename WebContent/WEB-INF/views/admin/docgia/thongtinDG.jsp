@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+<title>Thông tin độc giả</title>
 </head>
 <body>
 	<%@include file="/WEB-INF/views/include/navbar.jsp"%>

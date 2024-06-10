@@ -23,7 +23,7 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" style="background-color: #eae0d2;">
-              <form:form class="row g-3 needs-validation" action = "${pageContext.request.contextPath}/phieuthu/listPhieuThu.htm?edit" modelAttribute="phieuthu" method="post">
+              <form:form class="row g-3 needs-validation" action = "phieuthu/listPhieuThu.htm?edit" modelAttribute="phieuthu" method="post">
 
                 <div class="row p-4" style="margin: auto;">
                 
@@ -84,23 +84,6 @@
           </div>
         </div>
       </div>
-	
-	
-<!-- 	<script>
-	    
-		 $(document).ready(function() {
-	         $('#sotienthu').change(function() {
-	             var sotienthuVal = parseFloat($(this).val());
-	             var tongnohientaiVal = parseFloat($('#tongnohientai').val());
-	
-	             if (!isNaN(sotienthuVal) && !isNaN(tongnohientaiVal)) {
-	                 var tongnomoi = tongnohientaiVal - sotienthuVal;
-	                 $('#tongnomoi').val(tongnomoi);
-	             } else {
-	                 alert("Please enter valid numbers.");
-	             }
-	         });
-	</script> -->
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script> 
 	<script>

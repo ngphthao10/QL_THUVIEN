@@ -179,6 +179,7 @@ public class PhieuMuonTraController {
         }
         
         long tongnomoi = phieumuontra.getDocGia().getTongNoHienTai();
+        System.out.println(tongnomoi);
 		
         model.addAttribute("songaytratre", songaytratre);
         model.addAttribute("dongiaphat", dongiaphat);
@@ -211,17 +212,19 @@ public class PhieuMuonTraController {
 		int sophieumuontra = phieumuontra.getSoPhieuMuonTra(); 
 		PhieuMuonTra phieumuontra_new = phieuMuonTraService.getPhieuMuonTraID(sophieumuontra);
 		DocGia docgia = docGiaService.getDocGiaFromMaDG(phieumuontra.getDocGia().getMaDocGia());
+		DocGia docgia_old = phieumuontra_new.getDocGia();
 
 		
 		if (docgia == null) {
 			errors.rejectValue("docGia.maDocGia", "phieumuontra", "Mã độc giả không tồn tại!");
 		}
 		else {
+		
 			long sosachdocgiamuon = docGiaService.getSoSachDGMuon(docgia.getMaDocGia());
 			if (docgia.getNgayHetHan().compareTo(now) < 0) {
 				errors.rejectValue("docGia.maDocGia", "phieumuontra", "Thẻ độc giả đã hết hạn!");
 			}
-			else if (sosachdocgiamuon == thamSoDAO.getAll().getSoSachMuonToiDa() && docgia.getMaDocGia().equals(phieumuontra_new.getDocGia().getMaDocGia()) == false) {
+			else if (sosachdocgiamuon == thamSoDAO.getAll().getSoSachMuonToiDa() && docgia.getId() != docgia_old.getId()) {
 				errors.rejectValue("docGia.maDocGia", "phieumuontra", "Số lượng sách đã mượn của độc giả đã đạt tối đa!");
 			}
 		}
@@ -266,42 +269,45 @@ public class PhieuMuonTraController {
 			model.addAttribute("message1", -1);
 			return "admin/PhieuMuonTra/listPhieuMuonTra";
 		}
-		int sotienphatmoi = phieumuontra.getSoTienPhat();
+
 		
+		int sotienphat = Integer.parseInt(request.getParameter("tienphat"));
 		
-		if(ngaytra !=  null) {
-			if (ngaytra.compareTo(hantra) < 0) {
-				sotienphatmoi = 0;
-			}
-			else {
-				long date = Math.abs(phieumuontra.getNgayTra().getTime() - phieumuontra.getHanTra().getTime());
-				int songaytratre = (int)(TimeUnit.DAYS.convert(date, TimeUnit.MILLISECONDS));
-				sotienphatmoi = (thamSoDAO.getAll().getDonGiaPhat() * songaytratre);
-			}
+		long date;
+		int songaytratre;
+		if(ngaytra != null) {
 			cuonsach.setTinhTrang(0); // sach da duoc tra
 		}
-		else cuonsach.setTinhTrang(1);
-		int tongnohientai = phieumuontra.getDocGia().getTongNoHienTai() - phieumuontra.getSoTienPhat() + sotienphatmoi;
+		else {
+			cuonsach.setTinhTrang(1);
+		}
 		
-		docgia.setTongNoHienTai(tongnohientai);
+		int tongnohientai = docgia.getTongNoHienTai() + sotienphat;
+		
+		if (docgia_old.getId() != docgia.getId()) {
+			docgia.setTongNoHienTai(tongnohientai);
+			docgia_old.setTongNoHienTai(phieumuontra.getDocGia().getTongNoHienTai());
+			int result5 = docGiaService.editDocGia(docgia_old);
+		}
+		
 		
 		if (cuonsach_old.getId() != cuonsach.getId()) {
 			int result4 = cuonSachService.editCuonSach(cuonsach_old);
+			Sach sach = sachService.getSachFromMaSach(cuonsach.getSach1().getMaSach());
+			Sach sach1 = sachService.getSachFromMaSach(cuonsach_old.getSach1().getMaSach());
+			sach.setSoLuongConLai(sach.getSoLuongConLai() - 1);
+			sach1.setSoLuongConLai(sach1.getSoLuongConLai() + 1);
+			int result3 = sachService.editSach(sach);
+			int result6 = sachService.editSach(sach1);
 		}
 		
 		int result2 = cuonSachService.editCuonSach(cuonsach);
 		int result1 = docGiaService.editDocGia(docgia);
-		
-		Sach sach = sachService.getSachFromMaSach(cuonsach.getSach1().getMaSach());
-		sach.setSoLuongConLai(sach.getSoLuongConLai() - 1);
-		int result3 = sachService.editSach(sach);
-		
-		
+
 		phieumuontra_new.setDocGia(docgia);
 		phieumuontra_new.setCuonSach(cuonsach);
-		phieumuontra_new.setHanTra(hantra);
 		phieumuontra_new.setNgayTra(ngaytra);
-		phieumuontra_new.setSoTienPhat(sotienphatmoi);
+		phieumuontra_new.setSoTienPhat(sotienphat);
 		
 		int result = phieuMuonTraService.editPhieuMuonTra(phieumuontra_new);
 		List<PhieuMuonTra> list = phieuMuonTraService.getAllPhieuMuonTra();
